@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703b4acc61ba881499da972856687efd, type: 3}
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
+  bulletName: ExplosionBullet
   bulletPrefub: {fileID: 2472166879957309202, guid: 31e1628b8c015de4cb9612f419444069, type: 3}
   speed: 10
   damage: 1
