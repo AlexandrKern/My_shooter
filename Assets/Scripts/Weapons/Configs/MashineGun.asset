@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8c54f188199e247bb0a9604dbdad18, type: 3}
+  m_Name: MashineGun
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 0}
+  currrentCountBullet: 30
+  weaponPrefub: {fileID: 5026979148904666650, guid: 09fbb86e99a5b244797c961f397976f8, type: 3}
+  rechargeTime: 3
+  fireRate: 0.2
+  magazine: 30
+  tyoeOfShooting: 0
+  TypeOfSuitableBullets: 02000000

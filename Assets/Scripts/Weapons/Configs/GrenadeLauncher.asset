@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8c54f188199e247bb0a9604dbdad18, type: 3}
+  m_Name: GrenadeLauncher
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 0}
+  currrentCountBullet: 1
+  weaponPrefub: {fileID: 5622310873228093851, guid: 19cf8711f2b2ee742b2c28e54be76c86, type: 3}
+  rechargeTime: 2
+  fireRate: 0
+  magazine: 1
+  tyoeOfShooting: 1
+  TypeOfSuitableBullets: 0100000002000000
