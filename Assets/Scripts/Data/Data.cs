@@ -14,14 +14,10 @@ public static class Data
 
         string json = JsonUtility.ToJson(data,true);
 
-        if(!Directory.Exists(filePuth))
-        {
-            Directory.CreateDirectory(filePuth);
-        }
         File.WriteAllText(filePuth, json);
     }
 
-    public static T Load<T>(string fileName) where T : ScriptableObject
+    public static T Load<T>(T newData,string fileName) where T : ScriptableObject
     {
         string filePuth = Path.Combine(_path, fileName + ".json");
 
@@ -29,15 +25,14 @@ public static class Data
         {
             string json = File.ReadAllText(filePuth);
 
-            T data = ScriptableObject.CreateInstance<T>();
+            JsonUtility.FromJsonOverwrite(json, newData);
 
-            JsonUtility.FromJsonOverwrite(json, data);
-
-            return data;
+            return newData;
         }
         else
         {
-            return null;
+            Save(newData,fileName);
+            return newData;
         }
     }
 }

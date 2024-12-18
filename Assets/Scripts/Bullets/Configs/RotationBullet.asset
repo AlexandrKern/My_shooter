@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984f9b0da1ea91a42a2b99c490bc11ed, type: 3}
   m_Name: RotationBullet
   m_EditorClassIdentifier: 
+  bulletName: RotationBullet
   bulletPrefub: {fileID: 810867663007689805, guid: c80665cc434f7484faf255a58ed0d08e, type: 3}
   speed: 2
   damage: 1

@@ -37,6 +37,10 @@ public class WeponManager : MonoBehaviour
         _weaponOjects[_currentWeaponIndex].SetActive(true);
         return _currentWeapon;
     }
+    public void SetWeapon(Weapon weapon)
+    {
+        _currentWeapon = weapon;
+    }
     public void NextWepon()
     {
         _weaponOjects[_currentWeaponIndex].SetActive(false);
@@ -44,7 +48,25 @@ public class WeponManager : MonoBehaviour
         _currentWeapon = _newWeapons[_currentWeaponIndex];
     }
 
-
-
-
+    #region Upgades
+    public void UpgradeWeaponRechargeTime()
+    {
+        _currentWeapon.rechargeTime = Mathf.Clamp(_currentWeapon.rechargeTime - 0.1f, _currentWeapon.minRchargeTime, float.MaxValue);
+        SaveUpgrade();
+    }
+    public void UpgadeWeaponFireRate()
+    {
+        _currentWeapon.fireRate = Mathf.Clamp(_currentWeapon.fireRate - 0.1f, _currentWeapon.minFireRate, float.MaxValue);
+        SaveUpgrade();
+    }
+    public void UpgadeWeaponmMagazine()
+    {
+        _currentWeapon.magazine = Mathf.Clamp(_currentWeapon.magazine + 1, 0, _currentWeapon.maxCountBulletInMagazine);
+        SaveUpgrade();
+    }
+    private void SaveUpgrade()
+    {
+        Data.Save(_currentWeapon, _currentWeapon.weaponName);
+    }
+    #endregion
 }

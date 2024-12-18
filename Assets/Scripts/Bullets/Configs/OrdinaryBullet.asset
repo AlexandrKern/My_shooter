@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e764498e03eb246b2447a5ed07b668, type: 3}
   m_Name: OrdinaryBullet
   m_EditorClassIdentifier: 
+  bulletName: OrdinaryBullet
   bulletPrefub: {fileID: 810867663007689805, guid: 1fd0175beda663549bae820e816d13d8, type: 3}
   speed: 20
   damage: 1
+  typeOfBullet: 0

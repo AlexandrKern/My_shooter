@@ -26,6 +26,14 @@ public class PlayerShoot : MonoBehaviour
         NextBullet(_input.IsNextBullet());
         Recharge(_input.IsRecharge());
         UpdateRechargeTime();
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            PlayerControleer.Instace.weponManager.UpgadeWeaponFireRate();
+            PlayerControleer.Instace.weponManager.UpgadeWeaponmMagazine();
+            PlayerControleer.Instace.weponManager.UpgradeWeaponRechargeTime();
+            Debug.Log("Заапргрейдился");
+        }
     }
 
     private void Shoot(bool IsShoot)
