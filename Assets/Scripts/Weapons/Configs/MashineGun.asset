@@ -15,12 +15,16 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   currrentCountBullet: 30
   weaponName: MashineGun
+  typeOfWepon: 1
   weaponPrefub: {fileID: 5026979148904666650, guid: 09fbb86e99a5b244797c961f397976f8, type: 3}
-  rechargeTime: 3
+  tyoeOfShooting: 0
+  typeOfSuitableBullets: 0000000002000000
+  priceRechargeTime: 640
+  rechargeTime: 1.7000018
   minRchargeTime: 0.1
-  fireRate: 0.2
+  priceFireRate: 145
+  fireRate: 0.1
   minFireRate: 0.1
+  priceMagazine: 100
   magazine: 30
   maxCountBulletInMagazine: 100
-  tyoeOfShooting: 0
-  TypeOfSuitableBullets: 02000000

@@ -1,6 +1,8 @@
 
+using System;
 using UnityEngine;
-[SerializeField]
+
+[Serializable]
 [CreateAssetMenu(fileName = "OrdinaryBullet", menuName = "Bullets/OrdinaryBullet")]
 public class OrdinaryBullet : BulletBase
 {

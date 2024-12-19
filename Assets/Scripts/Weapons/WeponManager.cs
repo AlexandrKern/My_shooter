@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public class WeponManager : MonoBehaviour
@@ -11,6 +13,8 @@ public class WeponManager : MonoBehaviour
     private Weapon _currentWeapon;
     private Transform _weponPosition;
     private int _currentWeaponIndex = 0;
+
+    public event Action<ButtonController,float> OnWeaponUpgrade;
 
     private void Start()
     {
@@ -49,24 +53,47 @@ public class WeponManager : MonoBehaviour
     }
 
     #region Upgades
-    public void UpgradeWeaponRechargeTime()
+    public void UpgradeWeaponRechargeTime(ButtonController buttonController)
     {
-        _currentWeapon.rechargeTime = Mathf.Clamp(_currentWeapon.rechargeTime - 0.1f, _currentWeapon.minRchargeTime, float.MaxValue);
-        SaveUpgrade();
+        if(CheckMoney(_currentWeapon.priceRechargeTime))
+        {
+            _currentWeapon.rechargeTime = Mathf.Clamp(_currentWeapon.rechargeTime - 0.1f, _currentWeapon.minRchargeTime, float.MaxValue);
+            DataPlayer.SubstractMoney(_currentWeapon.priceRechargeTime);
+            _currentWeapon.priceRechargeTime *= 2;
+            OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceRechargeTime);
+            SaveUpgrade();
+        }
     }
-    public void UpgadeWeaponFireRate()
+    public void UpgadeWeaponFireRate(ButtonController buttonController)
     {
-        _currentWeapon.fireRate = Mathf.Clamp(_currentWeapon.fireRate - 0.1f, _currentWeapon.minFireRate, float.MaxValue);
-        SaveUpgrade();
+        if (CheckMoney(_currentWeapon.priceFireRate))
+        {
+            _currentWeapon.fireRate = Mathf.Clamp(_currentWeapon.fireRate - 0.1f, _currentWeapon.minFireRate, float.MaxValue);
+            DataPlayer.SubstractMoney(_currentWeapon.priceFireRate);
+            _currentWeapon.fireRate *= 2;
+            OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceFireRate);
+            SaveUpgrade();
+        }
     }
-    public void UpgadeWeaponmMagazine()
+    public void UpgadeWeaponmMagazine(ButtonController buttonController)
     {
-        _currentWeapon.magazine = Mathf.Clamp(_currentWeapon.magazine + 1, 0, _currentWeapon.maxCountBulletInMagazine);
-        SaveUpgrade();
+        if (CheckMoney(_currentWeapon.priceFireRate))
+        {
+            _currentWeapon.magazine = Mathf.Clamp(_currentWeapon.magazine + 1, 0, _currentWeapon.maxCountBulletInMagazine);
+            DataPlayer.SubstractMoney(_currentWeapon.priceMagazine);
+            _currentWeapon.priceMagazine *= 2;
+            OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceMagazine);
+            SaveUpgrade();
+        }
     }
     private void SaveUpgrade()
     {
-        Data.Save(_currentWeapon, _currentWeapon.weaponName);
+        DataScriptableObject.Save(_currentWeapon, _currentWeapon.weaponName);
+    }
+
+    private bool CheckMoney(int amount)
+    {
+        return amount <= DataPlayer.GetMoney();
     }
     #endregion
 }

@@ -14,12 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletName: ExplosionBullet
   bulletPrefub: {fileID: 2472166879957309202, guid: 31e1628b8c015de4cb9612f419444069, type: 3}
-  speed: 10
-  damage: 1
   typeOfBullet: 1
-  explosionRadius: 100
-  explosionForce: 1000
-  explosionTimer: 2
+  SupportedUpgrades: 0000000001000000030000000400000002000000
+  speed: 12
+  maxSpeed: 100
+  priceSpeed: 144
+  damage: 1
+  maxDamage: 100
+  priceDamage: 12
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
+  priceRadius: 177
+  explosionRadius: 100
+  maxExplosionRadius: 100
+  priceForce: 33
+  explosionForce: 1000
+  maxExplosionForce: 100
+  priceTimer: 88
+  explosionTimer: 2
+  minExplosionTimer: 0.1
