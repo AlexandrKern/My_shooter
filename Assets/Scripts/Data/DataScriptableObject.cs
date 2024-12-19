@@ -4,7 +4,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-public static class Data 
+public static class DataScriptableObject 
 {
     private static string _path = Application.persistentDataPath;
 
@@ -35,4 +35,6 @@ public static class Data
             return newData;
         }
     }
+
+
 }

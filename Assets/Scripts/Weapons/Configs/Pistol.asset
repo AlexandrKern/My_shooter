@@ -15,12 +15,16 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   currrentCountBullet: 10
   weaponName: Pistol
+  typeOfWepon: 0
   weaponPrefub: {fileID: 5622310873228093851, guid: 3875396f2a8ee594bb0adb7aeeb4fb4b, type: 3}
-  rechargeTime: 2
+  tyoeOfShooting: 1
+  typeOfSuitableBullets: 00000000
+  priceRechargeTime: 100
+  rechargeTime: 4
   minRchargeTime: 0.5
+  priceFireRate: 100
   fireRate: 1
   minFireRate: 0.5
+  priceMagazine: 23
   magazine: 10
   maxCountBulletInMagazine: 30
-  tyoeOfShooting: 1
-  TypeOfSuitableBullets: 0200000000000000

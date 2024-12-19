@@ -1,13 +1,30 @@
+using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 public class BulletBase : ScriptableObject
 {
+    [BoxGroup("Bullet properties")]
     public string bulletName;
+    [BoxGroup("Bullet properties")]
     public GameObject bulletPrefub;
-    public float speed = 10;
-    public float maxSpeed = 100;
-    public int damage = 1;
-    public int maxDamage = 100;
+    [BoxGroup("Bullet properties")]
     public TypeOfBullet typeOfBullet;
+    [BoxGroup("Bullet properties")]
+    public List<TypeUpgradeBullet> SupportedUpgrades = new List<TypeUpgradeBullet>();
+
+    [BoxGroup("Speed properties")]
+    public float speed = 10;
+    [BoxGroup("Speed properties")]
+    public float maxSpeed = 100;
+    [BoxGroup("Speed properties")]
+    public int priceSpeed = 10;
+
+    [BoxGroup("Damage properties")]
+    public int damage = 1;
+    [BoxGroup("Damage properties")]
+    public int maxDamage = 100;
+    [BoxGroup("Damage properties")]
+    public int priceDamage = 10;
 }
 
 public enum TypeOfBullet
