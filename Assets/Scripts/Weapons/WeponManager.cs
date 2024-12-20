@@ -14,7 +14,7 @@ public class WeponManager : MonoBehaviour
     private Transform _weponPosition;
     private int _currentWeaponIndex = 0;
 
-    public event Action<ButtonController,float> OnWeaponUpgrade;
+    public event Action<ButtonController, int> OnWeaponUpgrade;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class WeponManager : MonoBehaviour
 
     private void InitializeWeapon()
     {
-        _weponPosition = PlayerControleer.Instace.weaponPosition;
+        _weponPosition = PlayerController.Instace.weaponPosition;
         foreach (Weapon weapon in weapons)
         {
             GameObject newWeapon = Instantiate(weapon.weaponPrefub, _weponPosition.position, Quaternion.identity);
@@ -53,6 +53,27 @@ public class WeponManager : MonoBehaviour
     }
 
     #region Upgades
+
+
+    public void UpgradeWepon(ButtonController buttonController)
+    {
+        SetWeapon(buttonController.weapon);
+        switch (buttonController.typeWeaponUpgrade)
+        {
+            case TypeUpgradeWeapon.RechargeTime:
+                UpgradeWeaponRechargeTime(buttonController);
+                break;
+            case TypeUpgradeWeapon.FireRate:
+                UpgadeWeaponFireRate(buttonController);
+                break;
+            case TypeUpgradeWeapon.Magazine:
+                UpgadeWeaponmMagazine(buttonController);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void UpgradeWeaponRechargeTime(ButtonController buttonController)
     {
         if(CheckMoney(_currentWeapon.priceRechargeTime))
@@ -70,7 +91,7 @@ public class WeponManager : MonoBehaviour
         {
             _currentWeapon.fireRate = Mathf.Clamp(_currentWeapon.fireRate - 0.1f, _currentWeapon.minFireRate, float.MaxValue);
             DataPlayer.SubstractMoney(_currentWeapon.priceFireRate);
-            _currentWeapon.fireRate *= 2;
+            _currentWeapon.priceFireRate *= 2;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceFireRate);
             SaveUpgrade();
         }

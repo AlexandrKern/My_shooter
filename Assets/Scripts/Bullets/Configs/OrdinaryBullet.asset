@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletName: OrdinaryBullet
   bulletPrefub: {fileID: 810867663007689805, guid: 1fd0175beda663549bae820e816d13d8, type: 3}
-  speed: 10
-  maxSpeed: 100
-  damage: 1
-  maxDamage: 100
   typeOfBullet: 0
   SupportedUpgrades: 0000000001000000
+  speed: 3
+  maxSpeed: 15
+  priceSpeed: 1
+  damage: 20
+  maxDamage: 20
+  priceDamage: 2560

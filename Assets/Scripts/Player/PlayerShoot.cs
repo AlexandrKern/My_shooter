@@ -11,8 +11,8 @@ public class PlayerShoot : MonoBehaviour
 
     private void Start()
     {
-        _input = PlayerControleer.Instace.inputManager._currentInputShoot;
-        _playerTransform = PlayerControleer.Instace.playerTransform;
+        _input = GameControler.Instace.inputManager._currentInputShoot;
+        _playerTransform = PlayerController.Instace.playerTransform;
         SetMaxCountBullet();
         SetCurrentCountBullet();
         SetRechargeTime();
@@ -35,10 +35,10 @@ public class PlayerShoot : MonoBehaviour
             _isRecharge = true;
             return;
         }
-        Weapon weapon = PlayerControleer.Instace.weponManager.GetWeapon();
+        Weapon weapon = GameControler.Instace.weponManager.GetWeapon();
         if (IsShoot && !_isRecharge && Time.time >= _lastShootTime + weapon.fireRate)
         {
-            BulletBase bulletBase = PlayerControleer.Instace.bulletManager.GetBullet();
+            BulletBase bulletBase = GameControler.Instace.bulletManager.GetBullet();
             foreach (TypeOfBullet type in weapon.typeOfSuitableBullets)
             {
                 if (bulletBase.typeOfBullet == type)
@@ -63,7 +63,7 @@ public class PlayerShoot : MonoBehaviour
         if(isNextWeapon)
         {
             SetCurrentCountBullet();
-            PlayerControleer.Instace.weponManager.NextWepon();
+            GameControler.Instace.weponManager.NextWepon();
             SetCurrentCountBulletInMagazine();
             SetRechargeTime();
             _isRecharge = false;
@@ -74,7 +74,7 @@ public class PlayerShoot : MonoBehaviour
         if (isNextBullet)
         {
             Debug.Log("Нажал кнопку поменять пулю");
-            PlayerControleer.Instace.bulletManager.NextBullet();
+            GameControler.Instace.bulletManager.NextBullet();
         }
     }
 
@@ -102,37 +102,37 @@ public class PlayerShoot : MonoBehaviour
     /// </summary>
     private void SetMaxCountBullet()
     {
-        _maxCountBulletInMagazine = PlayerControleer.Instace.weponManager.GetWeapon().magazine;
+        _maxCountBulletInMagazine = GameControler.Instace.weponManager.GetWeapon().magazine;
     }
     /// <summary>
     /// Обнуление времени перезарядки
     /// </summary>
     private void SetRechargeTime()
     {
-        _rechargeTime = PlayerControleer.Instace.weponManager.GetWeapon().rechargeTime;
+        _rechargeTime = GameControler.Instace.weponManager.GetWeapon().rechargeTime;
     }
     /// <summary>
     /// Устанавлевает оставшиеся патроны
     /// </summary>
     private void SetCurrentCountBullet()
     {
-        PlayerControleer.Instace.weponManager.GetWeapon().currrentCountBullet = _maxCountBulletInMagazine;
+        GameControler.Instace.weponManager.GetWeapon().currrentCountBullet = _maxCountBulletInMagazine;
     }
     /// <summary>
     /// Устанавливает оставшиеся патроны в магазин
     /// </summary>
     private void SetCurrentCountBulletInMagazine()
     {
-        _maxCountBulletInMagazine = PlayerControleer.Instace.weponManager.GetWeapon().currrentCountBullet;
+        _maxCountBulletInMagazine = GameControler.Instace.weponManager.GetWeapon().currrentCountBullet;
     }
 
     private void SetLustShootTime()
     {
-        _lastShootTime = -PlayerControleer.Instace.weponManager.GetWeapon().fireRate;
+        _lastShootTime = -GameControler.Instace.weponManager.GetWeapon().fireRate;
     }
     private void Recharge(bool isRecharge)
     {
-        if (isRecharge && _maxCountBulletInMagazine != PlayerControleer.Instace.weponManager.GetWeapon().magazine)
+        if (isRecharge && _maxCountBulletInMagazine != GameControler.Instace.weponManager.GetWeapon().magazine)
         {
             _isRecharge = isRecharge;
         }
@@ -140,7 +140,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void DetermineTypeOfShooting()
     {
-        switch (PlayerControleer.Instace.weponManager.GetWeapon().tyoeOfShooting)
+        switch (GameControler.Instace.weponManager.GetWeapon().tyoeOfShooting)
         {
             case TyoeOfShooting.Queue:
                 Shoot(_input.IsShootQueue());

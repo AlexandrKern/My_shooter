@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControleer : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     #region Singleton
-    public static PlayerControleer Instace;
+    public static PlayerController Instace;
 
     private void Awake()
     {
@@ -22,20 +22,18 @@ public class PlayerControleer : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private float groundCheckDistance;
 
-    public InputManager inputManager;
-    public WeponManager weponManager;
-    public BulletManager bulletManager;
+    [HideInInspector] public Transform playerTransform;
+    [HideInInspector] public bool isMove;
+    [HideInInspector] public bool isShoot;
 
     public Transform weaponPosition;
 
-    [SerializeField]private LayerMask groundMask;
-    [SerializeField]private float groundCheckDistance;
-
-    [HideInInspector] public Transform playerTransform;
     public bool CheckIsGrounded()
     {
-        return Physics.Raycast(playerTransform.position,Vector3.down, groundCheckDistance, groundMask);
+        return Physics.Raycast(playerTransform.position, Vector3.down, groundCheckDistance, groundMask);
     }
 
 }
