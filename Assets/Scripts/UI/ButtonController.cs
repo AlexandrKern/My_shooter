@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,157 +26,59 @@ public class ButtonController : MonoBehaviour
 
     private void Start()
     {
-        InitializeUpgradeBulletButtonText();
-        InitializeUpgradeWeponButtonText();
-        PlayerControleer.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
+        InitializeUpgradeButtonText();
+        GameControler.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
         {
             if(buttonController == this)
             {
                 UpdateButtonText(money);
             }
         };
-
-        PlayerControleer.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
+        GameControler.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
         {
             if (buttonController == this)
             {
                 UpdateButtonText(money);
             }
-
         };
     }
-    #region Initialize button text
-    public void ButtonClicked()
-    {
-        GameManager.Instance.ButtonPress(buttonType, bullet, typeUpgradeBullet, weapon, typeWeaponUpgrade,this);
-    }
 
+    public void ButtonClicked() => GameManager.Instance.ButtonPress(this);
+  
+    #region Initialize button text
+
+    private void InitializeUpgradeButtonText()
+    {
+        switch (buttonType)
+        {
+            case ButtonType.UpgraddeBullets:
+                InitializeUpgradeBulletButtonText();
+                break;
+            case ButtonType.UpgradeWeapons:
+                InitializeUpgradeWeponButtonText();
+                break;
+        }
+    }
     private void InitializeUpgradeBulletButtonText()
     {
-        if (buttonType == ButtonType.UpgraddeBullets)
-        {
-            switch (typeUpgradeBullet)
-            {
-                case TypeUpgradeBullet.Speed:
-                    SetBulletButttonSpeedText(bullet);
-                    break;
-                case TypeUpgradeBullet.Damage:
-                    SetBulletButttonDamageText(bullet);
-                    break;
-                case TypeUpgradeBullet.ExplosionRadius:
-                    SetBulletButttonRadiusText(bullet);
-                    break;
-                case TypeUpgradeBullet.ExplosionForce:
-                    SetBulletButttonForceText(bullet);
-                    break;
-                case TypeUpgradeBullet.ExplosionTimer:
-                    SetBulletButttonTimerText(bullet);
-                    break;
-                case TypeUpgradeBullet.RotationSpeed:
-                    SetBulletButttonRotationSpeedText(bullet);
-                    break;
-                case TypeUpgradeBullet.RotationDuration:
-                    SetBulletButttonDurationText(bullet);
-                    break;
-                default:
-                    break;
-            }
-        }
-       
-    }
+        if (bullet == null) return;
 
-    private void SetBulletButttonSpeedText(BulletBase bullet)
-    {
-        switch (bullet)
+        Func<BulletBase, int> priceSelector = typeUpgradeBullet switch
         {
-            case ExplosionBullet explosionBullet:
-                UpdateButtonText(explosionBullet.priceSpeed); 
-                break;
-            case OrdinaryBullet ordinaryBullet:
-                UpdateButtonText(ordinaryBullet.priceSpeed);
-                break;
-            case RotationBullet rotationBullet:
-                UpdateButtonText(rotationBullet.priceSpeed);
-                break;
-            default:
-                break;
-        }
-    }
+            TypeUpgradeBullet.Speed => b => b.priceSpeed,
+            TypeUpgradeBullet.Damage => b => b.priceDamage,
+            TypeUpgradeBullet.ExplosionRadius => b => (b as ExplosionBullet)?.priceRadius ?? 0,
+            TypeUpgradeBullet.ExplosionForce => b => (b as ExplosionBullet)?.priceForce ?? 0,
+            TypeUpgradeBullet.ExplosionTimer => b => (b as ExplosionBullet)?.priceTimer ?? 0,
+            TypeUpgradeBullet.RotationSpeed => b => (b as RotationBullet)?.priceRotationSpeed ?? 0,
+            TypeUpgradeBullet.RotationDuration => b => (b as RotationBullet)?.priceDuration ?? 0,
+            _ => null
+        };
 
-    private void SetBulletButttonDamageText(BulletBase bullet)
-    {
-        switch (bullet)
+        if (priceSelector != null)
         {
-            case ExplosionBullet explosionBullet:
-                UpdateButtonText(explosionBullet.priceDamage);
-                break;
-            case OrdinaryBullet ordinaryBullet:
-                UpdateButtonText(ordinaryBullet.priceDamage);
-                break;
-            case RotationBullet rotationBullet:
-                UpdateButtonText(rotationBullet.priceDamage);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void SetBulletButttonRadiusText(BulletBase bullet)
-    {
-        switch (bullet)
-        {
-            case ExplosionBullet explosionBullet:
-                UpdateButtonText(explosionBullet.priceRadius);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void SetBulletButttonForceText(BulletBase bullet)
-    {
-        switch (bullet)
-        {
-            case ExplosionBullet explosionBullet:
-                UpdateButtonText(explosionBullet.priceForce);
-                break;
-            default:
-                break;
-        }
-    }
-    private void SetBulletButttonTimerText(BulletBase bullet)
-    {
-        switch (bullet)
-        {
-            case ExplosionBullet explosionBullet:
-                UpdateButtonText(explosionBullet.priceTimer);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void SetBulletButttonDurationText(BulletBase bullet)
-    {
-        switch (bullet)
-        {
-            case RotationBullet rotationBullet:
-                UpdateButtonText(rotationBullet.priceDuration);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void SetBulletButttonRotationSpeedText(BulletBase bullet)
-    {
-        switch (bullet)
-        {
-            case RotationBullet rotationBullet:
-                UpdateButtonText(rotationBullet.priceRotationSpeed);
-                break;
-            default:
-                break;
+            int price = priceSelector(bullet);
+            UpdateButtonText(price);
         }
     }
 
@@ -198,16 +101,50 @@ public class ButtonController : MonoBehaviour
                     break;
             }
         }
-       
     }
 
-    private void UpdateButtonText(float money)
+    private void UpdateButtonText(int money) => buttonText.text = IsMaxUpgrade() ? "Max" : money.ToString();
+    private bool IsMaxUpgrade()
     {
-       buttonText.text = money.ToString();
+        switch (buttonType)
+        {
+            case ButtonType.UpgraddeBullets:
+                if(typeUpgradeBullet == TypeUpgradeBullet.Speed)
+                    return bullet.speed >= bullet.maxSpeed;
+                if (typeUpgradeBullet == TypeUpgradeBullet.Damage)
+                    return bullet.damage >= bullet.maxDamage;
+                if (typeUpgradeBullet == TypeUpgradeBullet.ExplosionForce)
+                    if(bullet is ExplosionBullet explosionBullet)
+                        return explosionBullet.explosionForce >= explosionBullet.maxExplosionForce;
+                if (typeUpgradeBullet == TypeUpgradeBullet.ExplosionRadius)
+                    if (bullet is ExplosionBullet explosionBullet)
+                        return explosionBullet.explosionRadius >= explosionBullet.maxExplosionRadius;
+                if (typeUpgradeBullet == TypeUpgradeBullet.ExplosionTimer)
+                    if (bullet is ExplosionBullet explosionBullet)
+                        return explosionBullet.explosionTimer <= explosionBullet.minExplosionTimer;
+                if (typeUpgradeBullet == TypeUpgradeBullet.RotationSpeed)
+                    if (bullet is RotationBullet rotationBullet)
+                        return rotationBullet.rotationSpeed >= rotationBullet.maxRotationSpeed;
+                if (typeUpgradeBullet == TypeUpgradeBullet.RotationDuration)
+                    if (bullet is RotationBullet rotationBullet)
+                        return rotationBullet.rotationDuration >= rotationBullet.maxRotationDuration;
+                return false;
+            case ButtonType.UpgradeWeapons:
+                if (typeWeaponUpgrade == TypeUpgradeWeapon.Magazine)
+                    return weapon.magazine >= weapon.maxCountBulletInMagazine;
+                if (typeWeaponUpgrade == TypeUpgradeWeapon.FireRate)
+                    return weapon.fireRate <= weapon.minFireRate;
+                if (typeWeaponUpgrade == TypeUpgradeWeapon.RechargeTime)
+                    return weapon.rechargeTime <= weapon.minRchargeTime;
+                return false;
+            default:
+                return false;
+        }
+    
     }
     #endregion
 
-    #region Didplay inspector
+    #region Display inspector
     private void OnValidate()
     {
         if (buttonType == ButtonType.UpgraddeBullets && bullet != null)

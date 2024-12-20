@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletName: RotationBullet
   bulletPrefub: {fileID: 810867663007689805, guid: c80665cc434f7484faf255a58ed0d08e, type: 3}
-  speed: 2
-  maxSpeed: 100
-  damage: 1
-  maxDamage: 100
   typeOfBullet: 2
   SupportedUpgrades: 00000000010000000500000006000000
-  rotationSpeed: 100
-  maxRotationSpeed: 100
+  speed: 1
+  maxSpeed: 5
+  priceSpeed: 1
+  damage: 1
+  maxDamage: 100
+  priceDamage: 10
+  priceRotationSpeed: 12800
+  rotationSpeed: 20
+  maxRotationSpeed: 20
+  priceDuration: 100
   rotationDuration: 3
   maxRotationDuration: 20

@@ -13,18 +13,36 @@ public class BulletBase : ScriptableObject
     public List<TypeUpgradeBullet> SupportedUpgrades = new List<TypeUpgradeBullet>();
 
     [BoxGroup("Speed properties")]
+    public int countOfUpgradesSpeed = 10;
+    [BoxGroup("Speed properties")]
     public float speed = 10;
+    [BoxGroup("Speed properties")]
+    public float howMuchUpgradeSpeed = 10;
     [BoxGroup("Speed properties")]
     public float maxSpeed = 100;
     [BoxGroup("Speed properties")]
     public int priceSpeed = 10;
 
     [BoxGroup("Damage properties")]
+    public int countOfUpgradesDamage = 10;
+    [BoxGroup("Damage properties")]
     public int damage = 1;
+    [BoxGroup("Damage properties")]
+    public int howMuchUpgradeDamage = 10;
     [BoxGroup("Damage properties")]
     public int maxDamage = 100;
     [BoxGroup("Damage properties")]
     public int priceDamage = 10;
+
+    public virtual int GetCurrentPrise(TypeUpgradeBullet typeUpgradeBullet)
+    {
+        return 0;
+    }
+
+    public virtual void SetCurrentPrise(TypeUpgradeBullet typeUpgradeBullet, int price)
+    {
+
+    }
 }
 
 public enum TypeOfBullet

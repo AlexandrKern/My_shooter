@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _input = PlayerControleer.Instace.inputManager._currentInputMove;
+        _input = GameControler.Instace.inputManager._currentInputMove;
 
     }
     private void Update()
@@ -35,7 +35,7 @@ public class PlayerMove : MonoBehaviour
 
     public void Jump(bool isButtonJumpPressed)
     {
-        if (PlayerControleer.Instace.CheckIsGrounded() && isButtonJumpPressed)
+        if (PlayerController.Instace.CheckIsGrounded() && isButtonJumpPressed)
         {
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }

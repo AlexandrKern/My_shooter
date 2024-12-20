@@ -19,8 +19,8 @@ MonoBehaviour:
   weaponPrefub: {fileID: 5622310873228093851, guid: 3875396f2a8ee594bb0adb7aeeb4fb4b, type: 3}
   tyoeOfShooting: 1
   typeOfSuitableBullets: 00000000
-  priceRechargeTime: 100
-  rechargeTime: 4
+  priceRechargeTime: 32
+  rechargeTime: 0.5
   minRchargeTime: 0.5
   priceFireRate: 100
   fireRate: 1

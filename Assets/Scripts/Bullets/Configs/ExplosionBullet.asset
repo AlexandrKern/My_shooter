@@ -16,21 +16,31 @@ MonoBehaviour:
   bulletPrefub: {fileID: 2472166879957309202, guid: 31e1628b8c015de4cb9612f419444069, type: 3}
   typeOfBullet: 1
   SupportedUpgrades: 0000000001000000030000000400000002000000
-  speed: 12
-  maxSpeed: 100
-  priceSpeed: 144
+  countOfUpgradesSpeed: 10
+  speed: 7
+  howMuchUpgradeSpeed: 10
+  maxSpeed: 10
+  priceSpeed: 1
+  countOfUpgradesDamage: 10
   damage: 1
+  howMuchUpgradeDamage: 10
   maxDamage: 100
   priceDamage: 12
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
-  priceRadius: 177
-  explosionRadius: 100
-  maxExplosionRadius: 100
-  priceForce: 33
-  explosionForce: 1000
-  maxExplosionForce: 100
+  countOfUpgradesRadius: 10
+  priceRadius: 6400
+  howMuchExplosionRadius: 10
+  explosionRadius: 11
+  maxExplosionRadius: 15
+  countOfUpgradesForce: 8
+  priceForce: 10
+  howMuchExplosionForce: 10
+  explosionForce: 2
+  maxExplosionForce: 20
+  countOfUpgradesTimer: 10
   priceTimer: 88
+  howMuchExplosionTimer: 10
   explosionTimer: 2
   minExplosionTimer: 0.1

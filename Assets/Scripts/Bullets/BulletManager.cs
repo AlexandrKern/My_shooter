@@ -10,7 +10,7 @@ public class BulletManager : MonoBehaviour
     private BulletBase _currentBullet;
     private int _currentBulletIndex = 0;
 
-    public event Action<ButtonController, float> OnBulletUpgrade;
+    public event Action<ButtonController, int> OnBulletUpgrade;
 
     private void Start()
     {
@@ -34,14 +34,46 @@ public class BulletManager : MonoBehaviour
     }
 
     #region Upgrades
+
+    public void UpgradeBullet(ButtonController buttonController)
+    {
+        SetBullet(buttonController.bullet);
+        switch (buttonController.typeUpgradeBullet)
+        {
+            case TypeUpgradeBullet.Speed:
+                UpgradeBulletSpeed(buttonController);
+                break;
+            case TypeUpgradeBullet.Damage:
+                UpgradeBulletDamage(buttonController);
+                break;
+            case TypeUpgradeBullet.ExplosionRadius:
+                UpgradeBulletExplosionRadius(buttonController);
+                break;
+            case TypeUpgradeBullet.ExplosionForce:
+                UpgradeBulletExplosionForce(buttonController);
+                break;
+            case TypeUpgradeBullet.ExplosionTimer:
+                UpgradeBulletExplosionTimer(buttonController);
+                break;
+            case TypeUpgradeBullet.RotationSpeed:
+                UpgradeBulletRotationSpeed(buttonController);
+                break;
+            case TypeUpgradeBullet.RotationDuration:
+                UpgradeBulletRotationDuration(buttonController);
+                break;
+        }
+    }
+
     public void UpgradeBulletSpeed(ButtonController buttonController)
     {
-        if(CheckMoney(_currentBullet.priceSpeed))
+        int price = _currentBullet.GetCurrentPrise(buttonController.typeUpgradeBullet);
+        if (CheckMoney(price))
         {
             _currentBullet.speed = Mathf.Clamp(_currentBullet.speed + 1, 0, _currentBullet.maxSpeed);
-            DataPlayer.SubstractMoney(_currentBullet.priceSpeed);
-            _currentBullet.priceSpeed *= 2;
-            OnBulletUpgrade?.Invoke(buttonController, _currentBullet.priceSpeed);
+            DataPlayer.SubstractMoney(price);
+            price *= 2;
+            _currentBullet.SetCurrentPrise(buttonController.typeUpgradeBullet, price);
+            OnBulletUpgrade?.Invoke(buttonController, price);
             SaveUpgrade();
         }
     }

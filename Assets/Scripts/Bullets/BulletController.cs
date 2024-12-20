@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour
 
     private void Awake()
     {
-        _bulletBase = PlayerControleer.Instace.bulletManager.GetBullet();
+        _bulletBase = GameControler.Instace.bulletManager.GetBullet();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -91,7 +91,8 @@ public class BulletController : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        
+        Destroy(gameObject,2);
+
     }
 
     private void HandleOrdinaryBullet(GameObject target, OrdinaryBullet ordinaryBullet)

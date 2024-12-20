@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: GrenadeLauncher
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
-  currrentCountBullet: 1
+  currrentCountBullet: 10
   weaponName: GrenadeLauncher
   typeOfWepon: 2
   weaponPrefub: {fileID: 5622310873228093851, guid: 19cf8711f2b2ee742b2c28e54be76c86, type: 3}
   tyoeOfShooting: 1
   typeOfSuitableBullets: 01000000
-  priceRechargeTime: 244
-  rechargeTime: 121.700005
+  priceRechargeTime: 512
+  rechargeTime: 0.1
   minRchargeTime: 0.1
   priceFireRate: 100
   fireRate: 1
   minFireRate: 0.1
-  priceMagazine: 100
-  magazine: 1
+  priceMagazine: 409600
+  magazine: 10
   maxCountBulletInMagazine: 10
