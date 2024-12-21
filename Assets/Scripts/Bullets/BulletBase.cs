@@ -33,16 +33,6 @@ public class BulletBase : ScriptableObject
     public int maxDamage = 100;
     [BoxGroup("Damage properties")]
     public int priceDamage = 10;
-
-    public virtual int GetCurrentPrise(TypeUpgradeBullet typeUpgradeBullet)
-    {
-        return 0;
-    }
-
-    public virtual void SetCurrentPrise(TypeUpgradeBullet typeUpgradeBullet, int price)
-    {
-
-    }
 }
 
 public enum TypeOfBullet

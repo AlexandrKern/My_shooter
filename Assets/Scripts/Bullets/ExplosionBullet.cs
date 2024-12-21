@@ -40,45 +40,4 @@ public class ExplosionBullet : BulletBase
     public float explosionTimer = 3;
     [BoxGroup("Timer properties")]
     public float minExplosionTimer = 0.1f;
-
-    public override int GetCurrentPrise(TypeUpgradeBullet typeUpgradeBullet)
-    {
-        switch (typeUpgradeBullet)
-        {
-            case TypeUpgradeBullet.Speed:
-                return priceSpeed;
-            case TypeUpgradeBullet.Damage:
-                return priceDamage;
-            case TypeUpgradeBullet.ExplosionRadius:
-                return priceRadius;
-            case TypeUpgradeBullet.ExplosionForce:
-                return priceForce;
-            case TypeUpgradeBullet.ExplosionTimer:
-                return priceTimer;
-            default:
-                return 0;
-        }
-    }
-    public override void SetCurrentPrise(TypeUpgradeBullet typeUpgradeBullet, int price)
-    {
-        switch (typeUpgradeBullet)
-        {
-            case TypeUpgradeBullet.Speed:
-                priceSpeed = price;
-                break;
-            case TypeUpgradeBullet.Damage:
-                priceDamage = price;
-                break;
-            case TypeUpgradeBullet.ExplosionRadius:
-                priceRadius = price;
-                break;
-            case TypeUpgradeBullet.ExplosionForce:
-                priceForce = price;
-                break;
-            case TypeUpgradeBullet.ExplosionTimer:
-                priceTimer = price;
-                break;
-        }
-    }
-
 }

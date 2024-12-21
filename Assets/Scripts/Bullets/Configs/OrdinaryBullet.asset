@@ -16,9 +16,13 @@ MonoBehaviour:
   bulletPrefub: {fileID: 810867663007689805, guid: 1fd0175beda663549bae820e816d13d8, type: 3}
   typeOfBullet: 0
   SupportedUpgrades: 0000000001000000
-  speed: 3
-  maxSpeed: 15
+  countOfUpgradesSpeed: 10
+  speed: 1
+  howMuchUpgradeSpeed: 1
+  maxSpeed: 11
   priceSpeed: 1
-  damage: 20
-  maxDamage: 20
-  priceDamage: 2560
+  countOfUpgradesDamage: 10
+  damage: 1
+  howMuchUpgradeDamage: 1
+  maxDamage: 11
+  priceDamage: 1

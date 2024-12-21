@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ public class DivisionBar : MonoBehaviour
     [SerializeField] private ButtonController buttonController;
     [SerializeField] private Color _activColor;
     [SerializeField] private Color _inActivColor;
-    [SerializeField] private bool _valueOpposite;
     private Transform _transform;
     private Image[] _divisions;
     private int _currentValue; 
@@ -19,6 +19,13 @@ public class DivisionBar : MonoBehaviour
         _transform = transform;
         InitializeBar();
         UpdateDivisions();
+        GameControler.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
+        {
+            if (buttonController == this.buttonController)
+            {
+                AddDivision();
+            }
+        };
     }
 
     private void InitializeBar()
@@ -32,14 +39,14 @@ public class DivisionBar : MonoBehaviour
         switch (buttonController.buttonType)
         {
             case ButtonType.UpgraddeBullets:
-                InitializeValueBulletBar();
+                SetCurrentValueBulletBar();
                 break;
             case ButtonType.UpgradeWeapons:
                 break;
 
         }
     }
-    private void InitializeValueBulletBar()
+    private void SetCurrentValueBulletBar()
     {
         Func<BulletBase, int> valueSelector = buttonController.typeUpgradeBullet switch
         {
@@ -60,18 +67,31 @@ public class DivisionBar : MonoBehaviour
     }
     private void UpdateDivisions()
     {
-        int totalDivision = _transform.childCount;
-        for (int i = totalDivision-1; i >= 0; i--)
+        int totalDivision = _divisions.Length;
+        int filledCount = totalDivision - _currentValue;
+
+        for (int i = 0; i < totalDivision; i++)
         {
-            int index = totalDivision - 1 - i;
-            if(index < _currentValue)
+            if (i < filledCount)
             {
-                _divisions[index].color = _activColor;
+                _divisions[i].color = _activColor;
             }
             else
             {
-                _divisions[index].color = _inActivColor;
+                _divisions[i].color = _inActivColor;
             }
         }
     }
+    private void AddDivision()
+    {
+        SetCurrentValueBulletBar();
+        int totalDivisions = _divisions.Length;
+        int targetIndex = totalDivisions - 1 - _currentValue;
+        if (targetIndex >= 0 && targetIndex < totalDivisions)
+        {
+            GameControler.Instace.imageManager.AnimationImageDivision(_divisions[targetIndex]);
+            
+        }
+    }
+
 }

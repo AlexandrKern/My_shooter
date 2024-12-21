@@ -43,8 +43,8 @@ public class ButtonController : MonoBehaviour
         };
     }
 
-    public void ButtonClicked() => GameManager.Instance.ButtonPress(this);
-  
+    public void ButtonClicked() => GameControler.Instace.uiManager.ButtonPress(this);
+
     #region Initialize button text
 
     private void InitializeUpgradeButtonText()
@@ -103,7 +103,21 @@ public class ButtonController : MonoBehaviour
         }
     }
 
-    private void UpdateButtonText(int money) => buttonText.text = IsMaxUpgrade() ? "Max" : money.ToString();
+    private void UpdateButtonText(int money) 
+    {
+      
+        if (IsMaxUpgrade())
+        {
+            buttonText.text = IsMaxUpgrade() ? "Max" : money.ToString();
+            Button button = GetComponent<Button>();
+            Image image = GetComponent<Image>();
+            Color color = image.color;
+            button.enabled = false;
+            color.a = 0.5f;
+            image.color = color;
+        }
+       
+    }
     private bool IsMaxUpgrade()
     {
         switch (buttonType)

@@ -1,27 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
-
-public class GameManager : MonoBehaviour
+public class UiManager : MonoBehaviour
 {
-    #region Singleton
-    public static GameManager Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-
     public void ButtonPress(ButtonController buttonController)
     {
         switch (buttonController.buttonType)
