@@ -17,30 +17,30 @@ MonoBehaviour:
   typeOfBullet: 1
   SupportedUpgrades: 0000000001000000030000000400000002000000
   countOfUpgradesSpeed: 10
-  speed: 7
-  howMuchUpgradeSpeed: 10
-  maxSpeed: 10
+  speed: 1
+  howMuchUpgradeSpeed: 1
+  maxSpeed: 11
   priceSpeed: 1
-  countOfUpgradesDamage: 10
-  damage: 1
-  howMuchUpgradeDamage: 10
-  maxDamage: 100
-  priceDamage: 12
+  countOfUpgradesDamage: 6
+  damage: 5
+  howMuchUpgradeDamage: 1
+  maxDamage: 11
+  priceDamage: 16
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
-  countOfUpgradesRadius: 10
-  priceRadius: 6400
-  howMuchExplosionRadius: 10
-  explosionRadius: 11
-  maxExplosionRadius: 15
-  countOfUpgradesForce: 8
-  priceForce: 10
-  howMuchExplosionForce: 10
-  explosionForce: 2
-  maxExplosionForce: 20
-  countOfUpgradesTimer: 10
-  priceTimer: 88
-  howMuchExplosionTimer: 10
-  explosionTimer: 2
+  countOfUpgradesRadius: 5
+  priceRadius: 32
+  howMuchExplosionRadius: 1
+  explosionRadius: 6
+  maxExplosionRadius: 11
+  countOfUpgradesForce: 5
+  priceForce: 32
+  howMuchExplosionForce: 1
+  explosionForce: 6
+  maxExplosionForce: 11
+  countOfUpgradesTimer: 6
+  priceTimer: 16
+  howMuchExplosionTimer: 0.1
+  explosionTimer: 0.6999999
   minExplosionTimer: 0.1

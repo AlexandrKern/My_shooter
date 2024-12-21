@@ -63,17 +63,16 @@ public class BulletManager : MonoBehaviour
                 break;
         }
     }
-
     public void UpgradeBulletSpeed(ButtonController buttonController)
     {
-        int price = _currentBullet.GetCurrentPrise(buttonController.typeUpgradeBullet);
-        if (CheckMoney(price))
+        if (CheckMoney(_currentBullet.priceSpeed))
         {
-            _currentBullet.speed = Mathf.Clamp(_currentBullet.speed + 1, 0, _currentBullet.maxSpeed);
-            DataPlayer.SubstractMoney(price);
-            price *= 2;
-            _currentBullet.SetCurrentPrise(buttonController.typeUpgradeBullet, price);
-            OnBulletUpgrade?.Invoke(buttonController, price);
+            _currentBullet.speed = Mathf.Clamp(_currentBullet.speed + _currentBullet.howMuchUpgradeSpeed, 0, _currentBullet.maxSpeed);
+            DataPlayer.SubstractMoney(_currentBullet.priceSpeed);
+            _currentBullet.priceSpeed *= 2;
+            _currentBullet.countOfUpgradesSpeed--;
+            OnBulletUpgrade?.Invoke(buttonController, _currentBullet.priceSpeed);
+
             SaveUpgrade();
         }
     }
@@ -81,9 +80,10 @@ public class BulletManager : MonoBehaviour
     {
         if (CheckMoney(_currentBullet.priceDamage))
         {
-            _currentBullet.damage = Mathf.Clamp(_currentBullet.damage + 1, 0, _currentBullet.maxDamage);
+            _currentBullet.damage = Mathf.Clamp(_currentBullet.damage + _currentBullet.howMuchUpgradeDamage, 0, _currentBullet.maxDamage);
             DataPlayer.SubstractMoney(_currentBullet.priceDamage);
             _currentBullet.priceDamage *= 2;
+            _currentBullet.countOfUpgradesDamage--;
             OnBulletUpgrade?.Invoke(buttonController, _currentBullet.priceDamage);
             SaveUpgrade();
         }
@@ -94,9 +94,10 @@ public class BulletManager : MonoBehaviour
         {
             if (CheckMoney(bullet.priceRadius))
             {
-                bullet.explosionRadius = Mathf.Clamp(bullet.explosionRadius + 1, 0, bullet.maxExplosionRadius);
+                bullet.explosionRadius = Mathf.Clamp(bullet.explosionRadius + bullet.howMuchExplosionRadius, 0, bullet.maxExplosionRadius);
                 DataPlayer.SubstractMoney(bullet.priceRadius);
                 bullet.priceRadius *= 2;
+                bullet.countOfUpgradesRadius--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceRadius);
                 SaveUpgrade();
             }
@@ -109,9 +110,10 @@ public class BulletManager : MonoBehaviour
         {
             if (CheckMoney(bullet.priceForce))
             {
-                bullet.explosionForce = Mathf.Clamp(bullet.explosionForce + 1, 0, bullet.maxExplosionForce);
+                bullet.explosionForce = Mathf.Clamp(bullet.explosionForce + bullet.howMuchExplosionForce, 0, bullet.maxExplosionForce);
                 DataPlayer.SubstractMoney(bullet.priceForce);
                 bullet.priceForce *= 2;
+                bullet.countOfUpgradesForce--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceForce);
                 SaveUpgrade();
             }
@@ -123,9 +125,10 @@ public class BulletManager : MonoBehaviour
         {
             if (CheckMoney(bullet.priceTimer))
             {
-                bullet.explosionTimer = Mathf.Clamp(bullet.explosionTimer - 0.1f, bullet.minExplosionTimer, float.MaxValue);
+                bullet.explosionTimer = Mathf.Clamp(bullet.explosionTimer - bullet.howMuchExplosionTimer, bullet.minExplosionTimer, float.MaxValue);
                 DataPlayer.SubstractMoney(bullet.priceTimer);
                 bullet.priceTimer *= 2;
+                bullet.countOfUpgradesTimer--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceTimer);
                 SaveUpgrade();
             }
@@ -137,9 +140,10 @@ public class BulletManager : MonoBehaviour
         {
             if (CheckMoney(bullet.priceRotationSpeed))
             {
-                bullet.rotationSpeed = Mathf.Clamp(bullet.rotationSpeed + 1, 0, bullet.maxRotationSpeed);
+                bullet.rotationSpeed = Mathf.Clamp(bullet.rotationSpeed + bullet.howMuchRotationSpeed, 0, bullet.maxRotationSpeed);
                 DataPlayer.SubstractMoney(bullet.priceRotationSpeed);
                 bullet.priceRotationSpeed *= 2;
+                bullet.countOfUpgradesRotationSpeed--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceRotationSpeed);
                 SaveUpgrade();
             }
@@ -151,9 +155,10 @@ public class BulletManager : MonoBehaviour
         {
             if (CheckMoney(bullet.priceDuration))
             {
-                bullet.rotationDuration = Mathf.Clamp(bullet.rotationDuration + 1, 0, bullet.maxRotationDuration);
+                bullet.rotationDuration = Mathf.Clamp(bullet.rotationDuration + bullet.howMuchRotationDuration, 0, bullet.maxRotationDuration);
                 DataPlayer.SubstractMoney(bullet.priceDuration);
                 bullet.priceDuration *= 2;
+                bullet.countOfUpgradesDuration--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceDuration);
                 SaveUpgrade();
             }
