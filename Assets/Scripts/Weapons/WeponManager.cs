@@ -18,19 +18,21 @@ public class WeponManager : MonoBehaviour
 
     private void Start()
     {
-         InitializeWeapon();
+         EquipWeapon();
     }
-
-    private void InitializeWeapon()
+    private void EquipWeapon()
     {
-        _weponPosition = PlayerController.Instace.weaponPosition;
-        foreach (Weapon weapon in weapons)
+        if (PlayerController.Instace != null)
         {
-            GameObject newWeapon = Instantiate(weapon.weaponPrefub, _weponPosition.position, Quaternion.identity);
-            newWeapon.transform.SetParent(_weponPosition);
-            newWeapon.SetActive(false);
-            weapon.firePoint = newWeapon.transform.Find("FirePoint"); 
-            _weaponOjects.Add(newWeapon);
+            _weponPosition = PlayerController.Instace.weaponPosition;
+            foreach (Weapon weapon in weapons)
+            {
+                GameObject newWeapon = Instantiate(weapon.weaponPrefub, _weponPosition.position, Quaternion.identity);
+                newWeapon.transform.SetParent(_weponPosition);
+                newWeapon.SetActive(false);
+                weapon.firePoint = newWeapon.transform.Find("FirePoint");
+                _weaponOjects.Add(newWeapon);
+            }
         }
         _newWeapons = weapons;
         _currentWeapon = _newWeapons[0];
@@ -38,6 +40,7 @@ public class WeponManager : MonoBehaviour
 
     public Weapon GetWeapon()
     {
+        if(_weaponOjects.Count<=0) EquipWeapon();
         _weaponOjects[_currentWeaponIndex].SetActive(true);
         return _currentWeapon;
     }
@@ -78,9 +81,10 @@ public class WeponManager : MonoBehaviour
     {
         if(CheckMoney(_currentWeapon.priceRechargeTime))
         {
-            _currentWeapon.rechargeTime = Mathf.Clamp(_currentWeapon.rechargeTime - 0.1f, _currentWeapon.minRchargeTime, float.MaxValue);
+            _currentWeapon.rechargeTime = Mathf.Clamp(_currentWeapon.rechargeTime - _currentWeapon.howMuchUpgradeRechargeTime, _currentWeapon.minRchargeTime, float.MaxValue);
             DataPlayer.SubstractMoney(_currentWeapon.priceRechargeTime);
             _currentWeapon.priceRechargeTime *= 2;
+            _currentWeapon.countOfUpgradesRechargeTime--;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceRechargeTime);
             SaveUpgrade();
         }
@@ -89,9 +93,10 @@ public class WeponManager : MonoBehaviour
     {
         if (CheckMoney(_currentWeapon.priceFireRate))
         {
-            _currentWeapon.fireRate = Mathf.Clamp(_currentWeapon.fireRate - 0.1f, _currentWeapon.minFireRate, float.MaxValue);
+            _currentWeapon.fireRate = Mathf.Clamp(_currentWeapon.fireRate - _currentWeapon.howMuchUpgradeFireRate, _currentWeapon.minFireRate, float.MaxValue);
             DataPlayer.SubstractMoney(_currentWeapon.priceFireRate);
             _currentWeapon.priceFireRate *= 2;
+            _currentWeapon.countOfUpgradesFireRate--;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceFireRate);
             SaveUpgrade();
         }
@@ -100,9 +105,10 @@ public class WeponManager : MonoBehaviour
     {
         if (CheckMoney(_currentWeapon.priceFireRate))
         {
-            _currentWeapon.magazine = Mathf.Clamp(_currentWeapon.magazine + 1, 0, _currentWeapon.maxCountBulletInMagazine);
+            _currentWeapon.magazine = Mathf.Clamp(_currentWeapon.magazine + _currentWeapon.howMuchUpgradeMagazine, 0, _currentWeapon.maxCountBulletInMagazine);
             DataPlayer.SubstractMoney(_currentWeapon.priceMagazine);
             _currentWeapon.priceMagazine *= 2;
+            _currentWeapon.countOfUpgradesMagazine--;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceMagazine);
             SaveUpgrade();
         }

@@ -13,18 +13,24 @@ MonoBehaviour:
   m_Name: MashineGun
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
-  currrentCountBullet: 30
+  currrentCountBullet: 10
   weaponName: MashineGun
   typeOfWepon: 1
   weaponPrefub: {fileID: 5026979148904666650, guid: 09fbb86e99a5b244797c961f397976f8, type: 3}
   tyoeOfShooting: 0
   typeOfSuitableBullets: 0000000002000000
-  priceRechargeTime: 1024
-  rechargeTime: 0.1
+  howMuchUpgradeRechargeTime: 0.1
+  countOfUpgradesRechargeTime: 10
+  priceRechargeTime: 1
+  rechargeTime: 1.1
   minRchargeTime: 0.1
-  priceFireRate: 580
-  fireRate: 0.1
+  howMuchUpgradeFireRate: 0.1
+  countOfUpgradesFireRate: 10
+  priceFireRate: 1
+  fireRate: 1.1
   minFireRate: 0.1
-  priceMagazine: 100
-  magazine: 30
-  maxCountBulletInMagazine: 100
+  howMuchUpgradeMagazine: 1
+  countOfUpgradesMagazine: 10
+  priceMagazine: 1
+  magazine: 10
+  maxCountBulletInMagazine: 21

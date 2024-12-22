@@ -19,7 +19,14 @@ public class DivisionBar : MonoBehaviour
         _transform = transform;
         InitializeBar();
         UpdateDivisions();
-        GameControler.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
+        GameManager.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
+        {
+            if (buttonController == this.buttonController)
+            {
+                AddDivision();
+            }
+        };
+        GameManager.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
         {
             if (buttonController == this.buttonController)
             {
@@ -42,6 +49,7 @@ public class DivisionBar : MonoBehaviour
                 SetCurrentValueBulletBar();
                 break;
             case ButtonType.UpgradeWeapons:
+                SetCurrentValueWeaponBar();
                 break;
 
         }
@@ -65,6 +73,22 @@ public class DivisionBar : MonoBehaviour
             _currentValue = valueSelector(buttonController.bullet);
         }
     }
+
+    private void SetCurrentValueWeaponBar()
+    {
+        switch (buttonController.typeWeaponUpgrade)
+        {
+            case TypeUpgradeWeapon.RechargeTime:
+                _currentValue = buttonController.weapon.countOfUpgradesRechargeTime;
+                break;
+            case TypeUpgradeWeapon.FireRate:
+                _currentValue = buttonController.weapon.countOfUpgradesFireRate;
+                break;
+            case TypeUpgradeWeapon.Magazine:
+                _currentValue = buttonController.weapon.countOfUpgradesMagazine;
+                break;
+        }
+    }
     private void UpdateDivisions()
     {
         int totalDivision = _divisions.Length;
@@ -84,12 +108,20 @@ public class DivisionBar : MonoBehaviour
     }
     private void AddDivision()
     {
-        SetCurrentValueBulletBar();
+        switch (buttonController.buttonType)
+        {
+            case ButtonType.UpgraddeBullets:
+                SetCurrentValueBulletBar();
+                break;
+            case ButtonType.UpgradeWeapons:
+                SetCurrentValueWeaponBar();
+                break;
+        }
         int totalDivisions = _divisions.Length;
         int targetIndex = totalDivisions - 1 - _currentValue;
         if (targetIndex >= 0 && targetIndex < totalDivisions)
         {
-            GameControler.Instace.imageManager.AnimationImageDivision(_divisions[targetIndex]);
+            GameManager.Instace.imageManager.AnimationImageDivision(_divisions[targetIndex]);
             
         }
     }

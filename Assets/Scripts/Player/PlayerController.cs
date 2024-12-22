@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
         if (Instace == null)
         {
             Instace = this;
-            DontDestroyOnLoad(gameObject);
             playerTransform = transform;
         }
         else

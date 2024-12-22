@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _input = GameControler.Instace.inputManager._currentInputMove;
+        _input = GameManager.Instace.inputManager._currentInputMove;
 
     }
     private void Update()

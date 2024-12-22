@@ -27,14 +27,14 @@ public class ButtonController : MonoBehaviour
     private void Start()
     {
         InitializeUpgradeButtonText();
-        GameControler.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
+        GameManager.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
         {
             if(buttonController == this)
             {
                 UpdateButtonText(money);
             }
         };
-        GameControler.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
+        GameManager.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
         {
             if (buttonController == this)
             {
@@ -43,7 +43,7 @@ public class ButtonController : MonoBehaviour
         };
     }
 
-    public void ButtonClicked() => GameControler.Instace.uiManager.ButtonPress(this);
+    public void ButtonClicked() => SceneController.Instance.uiBase.ButtonPress(this);
 
     #region Initialize button text
 
@@ -190,8 +190,18 @@ public class ButtonController : MonoBehaviour
 }
 public enum ButtonType
 {
+    Menu,
     Pause,
     Start,
+    Upgrades,
+    UpgradeWeaponScreen,
+    UpgradeBulletScreen,
+    ExplosionBullet,
+    OrdinaryBullet,
+    RotationBullet,
+    Pistol,
+    MashineGun,
+    GrenadeLauncher,
     Audio,
     UpgraddeBullets,
     UpgradeWeapons

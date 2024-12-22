@@ -23,6 +23,10 @@ public class Weapon : ScriptableObject
     public TypeOfBullet[] typeOfSuitableBullets;
 
     [BoxGroup("Recharge time properties")]
+    public float howMuchUpgradeRechargeTime = 10;
+    [BoxGroup("Recharge time properties")]
+    public int countOfUpgradesRechargeTime = 10;
+    [BoxGroup("Recharge time properties")]
     public int priceRechargeTime = 100;
     [BoxGroup("Recharge time properties")]
     public float rechargeTime = 2;
@@ -30,12 +34,20 @@ public class Weapon : ScriptableObject
     public float minRchargeTime = 0.1f;
 
     [BoxGroup("FireRate properties")]
+    public float howMuchUpgradeFireRate = 10;
+    [BoxGroup("FireRate properties")]
+    public int countOfUpgradesFireRate = 10;
+    [BoxGroup("FireRate properties")]
     public int priceFireRate = 100;
     [BoxGroup("FireRate properties")]
     public float fireRate = 1;
     [BoxGroup("FireRate properties")]
     public float minFireRate = 0.1f;
 
+    [BoxGroup("Magazine properties")]
+    public int howMuchUpgradeMagazine = 10;
+    [BoxGroup("Magazine properties")]
+    public int countOfUpgradesMagazine = 10;
     [BoxGroup("Magazine properties")]
     public int priceMagazine = 100;
     [BoxGroup("Magazine properties")]
