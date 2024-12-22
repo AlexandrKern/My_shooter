@@ -21,26 +21,26 @@ MonoBehaviour:
   howMuchUpgradeSpeed: 1
   maxSpeed: 11
   priceSpeed: 1
-  countOfUpgradesDamage: 6
-  damage: 5
+  countOfUpgradesDamage: 7
+  damage: 4
   howMuchUpgradeDamage: 1
   maxDamage: 11
-  priceDamage: 16
+  priceDamage: 8
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
-  countOfUpgradesRadius: 5
-  priceRadius: 32
+  countOfUpgradesRadius: 9
+  priceRadius: 2
   howMuchExplosionRadius: 1
-  explosionRadius: 6
+  explosionRadius: 2
   maxExplosionRadius: 11
-  countOfUpgradesForce: 5
-  priceForce: 32
+  countOfUpgradesForce: 8
+  priceForce: 4
   howMuchExplosionForce: 1
-  explosionForce: 6
+  explosionForce: 3
   maxExplosionForce: 11
-  countOfUpgradesTimer: 6
-  priceTimer: 16
+  countOfUpgradesTimer: 9
+  priceTimer: 2
   howMuchExplosionTimer: 0.1
-  explosionTimer: 0.6999999
+  explosionTimer: 1
   minExplosionTimer: 0.1

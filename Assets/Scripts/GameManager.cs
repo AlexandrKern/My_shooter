@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameControler : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     #region Singleton
-    public static GameControler Instace;
+    public static GameManager Instace;
 
     private void Awake()
     {
@@ -26,6 +26,4 @@ public class GameControler : MonoBehaviour
     public WeponManager weponManager;
     public BulletManager bulletManager;
     public AnimationImageManager imageManager;
-    public UiManager uiManager;
-
 }

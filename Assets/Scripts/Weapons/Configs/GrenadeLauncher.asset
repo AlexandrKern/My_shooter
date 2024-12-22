@@ -19,12 +19,18 @@ MonoBehaviour:
   weaponPrefub: {fileID: 5622310873228093851, guid: 19cf8711f2b2ee742b2c28e54be76c86, type: 3}
   tyoeOfShooting: 1
   typeOfSuitableBullets: 01000000
-  priceRechargeTime: 512
-  rechargeTime: 0.1
+  howMuchUpgradeRechargeTime: 0.1
+  countOfUpgradesRechargeTime: 10
+  priceRechargeTime: 1
+  rechargeTime: 1.1
   minRchargeTime: 0.1
-  priceFireRate: 100
-  fireRate: 1
+  howMuchUpgradeFireRate: 0.1
+  countOfUpgradesFireRate: 10
+  priceFireRate: 1
+  fireRate: 1.1
   minFireRate: 0.1
-  priceMagazine: 409600
+  howMuchUpgradeMagazine: 1
+  countOfUpgradesMagazine: 10
+  priceMagazine: 1
   magazine: 10
-  maxCountBulletInMagazine: 10
+  maxCountBulletInMagazine: 21

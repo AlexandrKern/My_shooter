@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour
 
     private void Awake()
     {
-        _bulletBase = GameControler.Instace.bulletManager.GetBullet();
+        _bulletBase = GameManager.Instace.bulletManager.GetBullet();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,6 +23,7 @@ public class BulletController : MonoBehaviour
         switch (_bulletBase)
         {
             case ExplosionBullet explosionBullet:
+                if(collision.gameObject.CompareTag("Player")) return;
                 StartCoroutine(HandleExplosionBullet(explosionBullet));
                 break;
 
