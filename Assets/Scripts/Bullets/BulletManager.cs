@@ -11,6 +11,7 @@ public class BulletManager : MonoBehaviour
     private int _currentBulletIndex = 0;
 
     public event Action<ButtonController, int> OnBulletUpgrade;
+    public event Action<ButtonController, bool> OnBulletUnlock;
 
     private void Start()
     {
@@ -31,6 +32,16 @@ public class BulletManager : MonoBehaviour
     {
         _currentBulletIndex = (_currentBulletIndex - 1 +_bullets.Length) % _bullets.Length;
         _currentBullet = _bullets[_currentBulletIndex];
+    }
+    public void UnlockBullet(ButtonController buttonController)
+    {
+        if (CheckMoney(buttonController.bullet.priceBullet))
+        {
+            SetBullet(buttonController.bullet);
+            _currentBullet.isUnlock = true;
+            OnBulletUnlock?.Invoke(buttonController, true);
+            Save();
+        }
     }
 
     #region Upgrades
@@ -73,7 +84,7 @@ public class BulletManager : MonoBehaviour
             _currentBullet.countOfUpgradesSpeed--;
             OnBulletUpgrade?.Invoke(buttonController, _currentBullet.priceSpeed);
 
-            SaveUpgrade();
+            Save();
         }
     }
     public void UpgradeBulletDamage(ButtonController buttonController)
@@ -85,7 +96,7 @@ public class BulletManager : MonoBehaviour
             _currentBullet.priceDamage *= 2;
             _currentBullet.countOfUpgradesDamage--;
             OnBulletUpgrade?.Invoke(buttonController, _currentBullet.priceDamage);
-            SaveUpgrade();
+            Save();
         }
     }
     public void UpgradeBulletExplosionRadius(ButtonController buttonController)
@@ -99,7 +110,7 @@ public class BulletManager : MonoBehaviour
                 bullet.priceRadius *= 2;
                 bullet.countOfUpgradesRadius--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceRadius);
-                SaveUpgrade();
+                Save();
             }
             
         }
@@ -115,7 +126,7 @@ public class BulletManager : MonoBehaviour
                 bullet.priceForce *= 2;
                 bullet.countOfUpgradesForce--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceForce);
-                SaveUpgrade();
+                Save();
             }
         }
     }
@@ -130,7 +141,7 @@ public class BulletManager : MonoBehaviour
                 bullet.priceTimer *= 2;
                 bullet.countOfUpgradesTimer--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceTimer);
-                SaveUpgrade();
+                Save();
             }
         }
     }
@@ -145,7 +156,7 @@ public class BulletManager : MonoBehaviour
                 bullet.priceRotationSpeed *= 2;
                 bullet.countOfUpgradesRotationSpeed--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceRotationSpeed);
-                SaveUpgrade();
+                Save();
             }
         }
     }
@@ -160,11 +171,11 @@ public class BulletManager : MonoBehaviour
                 bullet.priceDuration *= 2;
                 bullet.countOfUpgradesDuration--;
                 OnBulletUpgrade?.Invoke(buttonController, bullet.priceDuration);
-                SaveUpgrade();
+                Save();
             }
         }
     }
-    private void SaveUpgrade()
+    private void Save()
     {
         DataScriptableObject.Save(_currentBullet, _currentBullet.bulletName);
     }

@@ -12,6 +12,10 @@ public class Weapon : ScriptableObject
     [HideInInspector] public int currrentCountBullet;
 
     [BoxGroup("Weapon properties")]
+    public int priceWeapon = 100;
+    [BoxGroup("Weapon properties")]
+    public bool isUnlock;
+    [BoxGroup("Weapon properties")]
     public string weaponName;
     [BoxGroup("Weapon properties")]
     public TypeOfWepon typeOfWepon;

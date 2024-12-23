@@ -4,6 +4,10 @@ using UnityEngine;
 public class BulletBase : ScriptableObject
 {
     [BoxGroup("Bullet properties")]
+    public int priceBullet;
+    [BoxGroup("Bullet properties")]
+    public bool isUnlock;
+    [BoxGroup("Bullet properties")]
     public string bulletName;
     [BoxGroup("Bullet properties")]
     public GameObject bulletPrefub;

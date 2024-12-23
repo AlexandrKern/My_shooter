@@ -12,27 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984f9b0da1ea91a42a2b99c490bc11ed, type: 3}
   m_Name: RotationBullet
   m_EditorClassIdentifier: 
+  priceBullet: 100
+  isUnlock: 0
   bulletName: RotationBullet
   bulletPrefub: {fileID: 810867663007689805, guid: c80665cc434f7484faf255a58ed0d08e, type: 3}
   typeOfBullet: 2
   SupportedUpgrades: 00000000010000000500000006000000
-  countOfUpgradesSpeed: 10
-  speed: 1
+  countOfUpgradesSpeed: 9
+  speed: 2
   howMuchUpgradeSpeed: 1
   maxSpeed: 11
-  priceSpeed: 1
-  countOfUpgradesDamage: 10
-  damage: 1
+  priceSpeed: 2
+  countOfUpgradesDamage: 9
+  damage: 2
   howMuchUpgradeDamage: 1
   maxDamage: 11
-  priceDamage: 1
-  countOfUpgradesRotationSpeed: 10
-  priceRotationSpeed: 1
+  priceDamage: 2
+  countOfUpgradesRotationSpeed: 9
+  priceRotationSpeed: 2
   howMuchRotationSpeed: 1
-  rotationSpeed: 1
+  rotationSpeed: 2
   maxRotationSpeed: 11
-  countOfUpgradesDuration: 10
-  priceDuration: 1
+  countOfUpgradesDuration: 9
+  priceDuration: 2
   howMuchRotationDuration: 1
-  rotationDuration: 1
+  rotationDuration: 2
   maxRotationDuration: 11
