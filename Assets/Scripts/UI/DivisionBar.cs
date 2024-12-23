@@ -45,7 +45,7 @@ public class DivisionBar : MonoBehaviour
 
         switch (buttonController.buttonType)
         {
-            case ButtonType.UpgraddeBullets:
+            case ButtonType.UpgradeBullets:
                 SetCurrentValueBulletBar();
                 break;
             case ButtonType.UpgradeWeapons:
@@ -110,7 +110,7 @@ public class DivisionBar : MonoBehaviour
     {
         switch (buttonController.buttonType)
         {
-            case ButtonType.UpgraddeBullets:
+            case ButtonType.UpgradeBullets:
                 SetCurrentValueBulletBar();
                 break;
             case ButtonType.UpgradeWeapons:

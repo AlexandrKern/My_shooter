@@ -7,41 +7,31 @@ using UnityEngine.Windows;
 
 public class WeponManager : MonoBehaviour
 {
-    [SerializeField] private Weapon[] weapons;
-    private Weapon[] _newWeapons;
-    private List<GameObject> _weaponOjects = new List<GameObject>(); 
+    public Weapon[] weapons;
+    [HideInInspector] public List<Weapon> unlockWeaponList = new List<Weapon>();
     private Weapon _currentWeapon;
-    private Transform _weponPosition;
     private int _currentWeaponIndex = 0;
 
     public event Action<ButtonController, int> OnWeaponUpgrade;
+    public event Action<ButtonController, bool> OnWeaponUnlock;
 
     private void Start()
     {
-         EquipWeapon();
+         InitializeWeapon();
     }
-    private void EquipWeapon()
+    private void InitializeWeapon()
     {
-        if (PlayerController.Instace != null)
+        foreach (Weapon weapon in weapons)
         {
-            _weponPosition = PlayerController.Instace.weaponPosition;
-            foreach (Weapon weapon in weapons)
+            if (weapon.isUnlock)
             {
-                GameObject newWeapon = Instantiate(weapon.weaponPrefub, _weponPosition.position, Quaternion.identity);
-                newWeapon.transform.SetParent(_weponPosition);
-                newWeapon.SetActive(false);
-                weapon.firePoint = newWeapon.transform.Find("FirePoint");
-                _weaponOjects.Add(newWeapon);
+                unlockWeaponList.Add(weapon);
             }
         }
-        _newWeapons = weapons;
-        _currentWeapon = _newWeapons[0];
+        _currentWeapon = unlockWeaponList[0];
     }
-
     public Weapon GetWeapon()
     {
-        if(_weaponOjects.Count<=0) EquipWeapon();
-        _weaponOjects[_currentWeaponIndex].SetActive(true);
         return _currentWeapon;
     }
     public void SetWeapon(Weapon weapon)
@@ -50,9 +40,20 @@ public class WeponManager : MonoBehaviour
     }
     public void NextWepon()
     {
-        _weaponOjects[_currentWeaponIndex].SetActive(false);
-        _currentWeaponIndex = (_currentWeaponIndex - 1 + _newWeapons.Length) % _newWeapons.Length;
-        _currentWeapon = _newWeapons[_currentWeaponIndex];
+        _currentWeaponIndex = (_currentWeaponIndex - 1 + unlockWeaponList.Count) % unlockWeaponList.Count;
+        _currentWeapon = unlockWeaponList[_currentWeaponIndex];
+    }
+
+    public void UnlockWeapon(ButtonController buttonController)
+    {
+        if (CheckMoney(buttonController.weapon.priceWeapon))
+        {
+            SetWeapon(buttonController.weapon);
+            _currentWeapon.isUnlock = true;
+            OnWeaponUnlock?.Invoke(buttonController, true);
+            InitializeWeapon();
+            Save();
+        }
     }
 
     #region Upgades
@@ -76,7 +77,6 @@ public class WeponManager : MonoBehaviour
                 break;
         }
     }
-
     public void UpgradeWeaponRechargeTime(ButtonController buttonController)
     {
         if(CheckMoney(_currentWeapon.priceRechargeTime))
@@ -86,7 +86,7 @@ public class WeponManager : MonoBehaviour
             _currentWeapon.priceRechargeTime *= 2;
             _currentWeapon.countOfUpgradesRechargeTime--;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceRechargeTime);
-            SaveUpgrade();
+            Save();
         }
     }
     public void UpgadeWeaponFireRate(ButtonController buttonController)
@@ -98,7 +98,7 @@ public class WeponManager : MonoBehaviour
             _currentWeapon.priceFireRate *= 2;
             _currentWeapon.countOfUpgradesFireRate--;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceFireRate);
-            SaveUpgrade();
+            Save();
         }
     }
     public void UpgadeWeaponmMagazine(ButtonController buttonController)
@@ -110,10 +110,10 @@ public class WeponManager : MonoBehaviour
             _currentWeapon.priceMagazine *= 2;
             _currentWeapon.countOfUpgradesMagazine--;
             OnWeaponUpgrade?.Invoke(buttonController, _currentWeapon.priceMagazine);
-            SaveUpgrade();
+            Save();
         }
     }
-    private void SaveUpgrade()
+    private void Save()
     {
         DataScriptableObject.Save(_currentWeapon, _currentWeapon.weaponName);
     }

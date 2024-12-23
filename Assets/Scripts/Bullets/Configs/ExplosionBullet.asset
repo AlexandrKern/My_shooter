@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703b4acc61ba881499da972856687efd, type: 3}
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
+  priceBullet: 100
+  isUnlock: 1
   bulletName: ExplosionBullet
   bulletPrefub: {fileID: 2472166879957309202, guid: 31e1628b8c015de4cb9612f419444069, type: 3}
   typeOfBullet: 1
   SupportedUpgrades: 0000000001000000030000000400000002000000
-  countOfUpgradesSpeed: 10
-  speed: 1
+  countOfUpgradesSpeed: 8
+  speed: 3
   howMuchUpgradeSpeed: 1
   maxSpeed: 11
-  priceSpeed: 1
+  priceSpeed: 4
   countOfUpgradesDamage: 7
   damage: 4
   howMuchUpgradeDamage: 1
@@ -29,10 +31,10 @@ MonoBehaviour:
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
-  countOfUpgradesRadius: 9
-  priceRadius: 2
+  countOfUpgradesRadius: 8
+  priceRadius: 4
   howMuchExplosionRadius: 1
-  explosionRadius: 2
+  explosionRadius: 3
   maxExplosionRadius: 11
   countOfUpgradesForce: 8
   priceForce: 4

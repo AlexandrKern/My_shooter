@@ -12,6 +12,7 @@ public class UiMenuManager : UiBase
     [SerializeField] private GameObject _upgradeMashineGunScreen;
     [SerializeField] private GameObject _upgradeGrenadeLauncherScreen;
     [SerializeField] private GameObject _menuScreen;
+    [SerializeField] private GameObject _shopScreen;
     private GameObject _currentScreen;
 
 
@@ -24,6 +25,15 @@ public class UiMenuManager : UiBase
     {
         switch (buttonController.buttonType)
         {
+            case ButtonType.Shop:
+                ChangeScreen(_shopScreen);
+                break;
+            case ButtonType.UnlockWeapons:
+                GameManager.Instace.weponManager.UnlockWeapon(buttonController);
+                break;
+            case ButtonType.UnlockBullets:
+                GameManager.Instace.bulletManager.UnlockBullet(buttonController);
+                break;
             case ButtonType.UpgradeBulletScreen:
                 ChangeScreen(_upgradeBulletScreen);
                 break;
@@ -52,20 +62,16 @@ public class UiMenuManager : UiBase
                 ChangeScreen(_upgradeGrenadeLauncherScreen);
                 break;
             case ButtonType.Pause:
-
                 break;
             case ButtonType.Start:
                 LoadScene("GameScene");
-
                 break;
             case ButtonType.Upgrades:
                 ChangeScreen(_upgradeScreen);
-
                 break;
             case ButtonType.Audio:
-
                 break;
-            case ButtonType.UpgraddeBullets:
+            case ButtonType.UpgradeBullets:
                 GameManager.Instace.bulletManager.UpgradeBullet(buttonController);
                 break;
             case ButtonType.UpgradeWeapons:

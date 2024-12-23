@@ -44,6 +44,11 @@ public class PlayerShoot : MonoBehaviour
             {
                 if (bulletBase.typeOfBullet == type)
                 {
+                    if (!bulletBase.isUnlock) 
+                    {
+                        NextBullet(true);
+                        return;
+                    } 
                     Vector3 bulletDirection = _playerTransform.forward;
                     GameObject bulletPrefub = Instantiate(bulletBase.bulletPrefub
                             , _currentWeapon.firePoint.position
@@ -65,6 +70,7 @@ public class PlayerShoot : MonoBehaviour
         {
             SetCurrentCountBullet();
             GameManager.Instace.weponManager.NextWepon();
+            PlayerController.Instace.ChangeWeapon();
             _currentWeapon = GameManager.Instace.weponManager.GetWeapon();
             SetCurrentCountBulletInMagazine();
             SetRechargeTime();
