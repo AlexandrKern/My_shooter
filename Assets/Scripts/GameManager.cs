@@ -25,5 +25,6 @@ public class GameManager : MonoBehaviour
     public InputManager inputManager;
     public WeponManager weponManager;
     public BulletManager bulletManager;
-    public AnimationImageManager imageManager;
+    public AnimationImageManager animationImageManager;
+    public AnimationButtonManager animationButtonManager;
 }

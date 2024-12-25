@@ -121,7 +121,7 @@ public class DivisionBar : MonoBehaviour
         int targetIndex = totalDivisions - 1 - _currentValue;
         if (targetIndex >= 0 && targetIndex < totalDivisions)
         {
-            GameManager.Instace.imageManager.AnimationImageDivision(_divisions[targetIndex]);
+            GameManager.Instace.animationImageManager.AnimationImageDivision(_divisions[targetIndex]);
             
         }
     }
