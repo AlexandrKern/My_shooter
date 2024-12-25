@@ -30,56 +30,90 @@ public class ButtonController : MonoBehaviour
         InitializeButtonText();
     }
 
+
     private void Start()
     {
         button = GetComponent<Button>();
         image = GetComponent<Image>();
         InitializeButtonText();
-        GameManager.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
-        {
-            if(buttonController == this)
-            {
-                UpdateUpgradeButton(money);
-            }
-        };
+        SetBottonAnimation();
         GameManager.Instace.weponManager.OnWeaponUnlock += (buttonController, isUnlock) =>
         {
             if (buttonController == this)
             {
-                UpdateItemButton(isUnlock);
+                SetEnabledItemButton(isUnlock);
+                SetEnabledUnlockButton(isUnlock);
             }
         };
         GameManager.Instace.bulletManager.OnBulletUnlock += (buttonController, isUnlock) =>
         {
             if (buttonController == this)
             {
-                UpdateItemButton(isUnlock);
+                SetEnabledItemButton(isUnlock);
+                SetEnabledUnlockButton(isUnlock);
             }
         };
-        GameManager.Instace.weponManager.OnWeaponUnlock += (buttonController, isUnlock) =>
-        {
-            if (buttonController == this)
-            {
-                UpdateUnlockButton(isUnlock);
-            }
-        };
-        GameManager.Instace.bulletManager.OnBulletUnlock += (buttonController, isUnlock) =>
-        {
-            if (buttonController == this)
-            {
-                UpdateUnlockButton(isUnlock);
-            }
-        };
-
         GameManager.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
         {
             if (buttonController == this)
             {
-                UpdateUpgradeButton(money);
+                SetEnabledUpgradeButton(money);
+            }
+        };
+        GameManager.Instace.weponManager.OnWeaponUpgrade += (buttonController, money) =>
+        {
+            if (buttonController == this)
+            {
+                SetEnabledUpgradeButton(money);
             }
         };
     }
 
+    private void SetBottonAnimation()
+    {
+        switch (buttonType)
+        {
+            case ButtonType.Menu:
+                break;
+            case ButtonType.Pause:
+                break;
+            case ButtonType.Start:
+                GameManager.Instace.animationButtonManager.ButtonPulsation(button);
+                break;
+            case ButtonType.Shop:
+                break;
+            case ButtonType.Upgrades:
+                break;
+            case ButtonType.UpgradeWeaponScreen:
+                break;
+            case ButtonType.UpgradeBulletScreen:
+                break;
+            case ButtonType.ExplosionBullet:
+                break;
+            case ButtonType.OrdinaryBullet:
+                break;
+            case ButtonType.RotationBullet:
+                break;
+            case ButtonType.Pistol:
+                break;
+            case ButtonType.MashineGun:
+                break;
+            case ButtonType.GrenadeLauncher:
+                break;
+            case ButtonType.Audio:
+                break;
+            case ButtonType.UpgradeBullets:
+                break;
+            case ButtonType.UpgradeWeapons:
+                break;
+            case ButtonType.UnlockBullets:
+                break;
+            case ButtonType.UnlockWeapons:
+                break;
+            default:
+                break;
+        }
+    }
     public void ButtonClicked() => SceneController.Instance.uiBase.ButtonPress(this);
 
     #region Initialize button text
@@ -89,19 +123,19 @@ public class ButtonController : MonoBehaviour
         switch (buttonType)
         {
             case ButtonType.UnlockBullets:
-                UpdateItemButton(!bullet.isUnlock);
+                SetEnabledItemButton(!bullet.isUnlock);
                 break;
             case ButtonType.UnlockWeapons:
-                UpdateItemButton(!weapon.isUnlock);
+                SetEnabledItemButton(!weapon.isUnlock);
                 break;
             case ButtonType.MashineGun:
-                UpdateItemButton(weapon.isUnlock);
+                SetEnabledItemButton(weapon.isUnlock);
                 break;
             case ButtonType.GrenadeLauncher:
-                UpdateItemButton(weapon.isUnlock);
+                SetEnabledItemButton(weapon.isUnlock);
                 break;
             case ButtonType.RotationBullet:
-                UpdateItemButton(bullet.isUnlock);
+                SetEnabledItemButton(bullet.isUnlock);
                 break;
             case ButtonType.UpgradeBullets:
                 InitializeUpgradeBulletButton();
@@ -110,11 +144,6 @@ public class ButtonController : MonoBehaviour
                 InitializeUpgradeWeponButton();
                 break;
         }
-    }
-
-    private void InitializeBulletButton()
-    {
-       
     }
     private void InitializeUpgradeBulletButton()
     {
@@ -135,10 +164,9 @@ public class ButtonController : MonoBehaviour
         if (priceSelector != null)
         {
             int price = priceSelector(bullet);
-            UpdateUpgradeButton(price);
+            SetEnabledUpgradeButton(price);
         }
     }
-
     private void InitializeUpgradeWeponButton()
     {
         if (buttonType == ButtonType.UpgradeWeapons)
@@ -146,21 +174,20 @@ public class ButtonController : MonoBehaviour
             switch (typeWeaponUpgrade)
             {
                 case TypeUpgradeWeapon.RechargeTime:
-                    UpdateUpgradeButton(weapon.priceRechargeTime);
+                    SetEnabledUpgradeButton(weapon.priceRechargeTime);
                     break;
                 case TypeUpgradeWeapon.FireRate:
-                    UpdateUpgradeButton(weapon.priceFireRate);
+                    SetEnabledUpgradeButton(weapon.priceFireRate);
                     break;
                 case TypeUpgradeWeapon.Magazine:
-                    UpdateUpgradeButton(weapon.priceMagazine);
+                    SetEnabledUpgradeButton(weapon.priceMagazine);
                     break;
                 default:
                     break;
             }
         }
     }
-
-    private void UpdateUpgradeButton(int money) 
+    private void SetEnabledUpgradeButton(int money) 
     {
       
         if (IsMaxUpgrade())
@@ -173,7 +200,7 @@ public class ButtonController : MonoBehaviour
         }
        
     }
-    private void UpdateItemButton(bool isUnlock)
+    private void SetEnabledItemButton(bool isUnlock)
     {
         if(image ==  null)return;
         if (isUnlock)
@@ -191,8 +218,7 @@ public class ButtonController : MonoBehaviour
             image.color = color;
         }
     }
-
-    private void UpdateUnlockButton(bool isUnlock)
+    private void SetEnabledUnlockButton(bool isUnlock)
     {
         Color color = image.color;
         button.enabled = !isUnlock;
@@ -304,8 +330,6 @@ public class ButtonController : MonoBehaviour
                 return false;
         }
     }
-
-
 
     #endregion
 }
