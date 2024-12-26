@@ -189,16 +189,27 @@ public class ButtonController : MonoBehaviour
     }
     private void SetEnabledUpgradeButton(int money) 
     {
-      
-        if (IsMaxUpgrade())
+
+        bool isMaxUpgrade = IsMaxUpgrade();
+
+        buttonText.text = isMaxUpgrade ? "Max" : money.ToString();
+
+        if(button == null&& image == null)return;
+        if (isMaxUpgrade)
         {
-            buttonText.text = IsMaxUpgrade() ? "Max" : money.ToString();
-            Color color = image.color;
             button.enabled = false;
-            color.a = 0.5f;
+            Color color = image.color;
+            color.a = 0.2f;
             image.color = color;
         }
-       
+        else
+        {
+            button.enabled = true;
+            Color color = image.color;
+            color.a = 1f; 
+            image.color = color;
+        }
+
     }
     private void SetEnabledItemButton(bool isUnlock)
     {
@@ -214,7 +225,7 @@ public class ButtonController : MonoBehaviour
         {
             Color color = image.color;
             button.enabled = isUnlock;
-            color.a = 0.5f;
+            color.a = 0.3f;
             image.color = color;
         }
     }
@@ -222,7 +233,7 @@ public class ButtonController : MonoBehaviour
     {
         Color color = image.color;
         button.enabled = !isUnlock;
-        color.a = 0.5f;
+        color.a = 0.3f;
         image.color = color;
     }
     private bool IsMaxUpgrade()
