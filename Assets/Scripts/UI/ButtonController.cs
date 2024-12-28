@@ -39,6 +39,7 @@ public class ButtonController : MonoBehaviour
         SetBottonAnimation();
         GameManager.Instace.weponManager.OnWeaponUnlock += (buttonController, isUnlock) =>
         {
+            if (buttonController == null) Debug.Log("Кнопка ровна Null");
             if (buttonController == this)
             {
                 SetEnabledItemButton(isUnlock);
@@ -114,7 +115,11 @@ public class ButtonController : MonoBehaviour
                 break;
         }
     }
-    public void ButtonClicked() => SceneController.Instance.uiBase.ButtonPress(this);
+    public void ButtonClicked() 
+    { 
+        SceneController.Instance.uiBase.ButtonPress(this);
+        AudioManager.Instance.PlaySFX("Click");
+    }
 
     #region Initialize button text
 
@@ -363,7 +368,10 @@ public enum ButtonType
     UpgradeBullets,
     UpgradeWeapons,
     UnlockBullets,
-    UnlockWeapons
+    UnlockWeapons,
+    Continue,
+    Back,
+    Return
 }
 
 public enum TypeUpgradeWeapon

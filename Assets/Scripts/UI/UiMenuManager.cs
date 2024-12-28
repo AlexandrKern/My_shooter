@@ -15,8 +15,10 @@ public class UiMenuManager : UiBase
     [SerializeField] private GameObject _upgradeGrenadeLauncherScreen;
     [SerializeField] private GameObject _menuScreen;
     [SerializeField] private GameObject _shopScreen;
-    [SerializeField] private Text _playerMonyText;
     [SerializeField] private GameObject _moneyScreen;
+    [SerializeField] private GameObject _audioScreen;
+    [SerializeField] private Text _playerMonyText;
+   
 
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
@@ -86,6 +88,7 @@ public class UiMenuManager : UiBase
                 ChangeScreen(_upgradeScreen);
                 break;
             case ButtonType.Audio:
+                ChangeScreen(_audioScreen);
                 break;
             case ButtonType.UpgradeBullets:
                 GameManager.Instace.bulletManager.UpgradeBullet(buttonController);
@@ -114,41 +117,19 @@ public class UiMenuManager : UiBase
 
     private void ChangeMonyScreen(int money)
     {
-        // Если уже есть запущенная корутина, остановим её
         if (_updateMoneyCoroutine != null)
         {
             StopCoroutine(_updateMoneyCoroutine);
         }
 
-        // Запускаем новую корутину для обновления значения
         _updateMoneyCoroutine = StartCoroutine(AnimateMoneyChange(money));
     }
     private bool MoneyScreenActivate(string screenName)
     {
         switch (screenName)
         {
-            case "MenuPanel":
+            case "GamePanel":
              return true;
-            case "UpgradePanels":
-                return false;
-            case "ShopPanel":
-                return true;
-            case "UpgradeBullet":
-                return false;
-            case "UpgradeExplosionBulletPanel":
-                return true;
-            case "UpgradeRotationBulletPanel":
-                return true;
-            case "UpgradeOrdinaryBulletPanel":
-                return true;
-            case "UpgradeWeapon":
-                return false;
-            case "UpgradePistol":
-                return true;
-            case "UpgradeMashineGun":
-                return true;
-            case "UpgradeGrenadeLauncher":
-                return true;
             default:
                 return true; 
         }
@@ -161,11 +142,9 @@ public class UiMenuManager : UiBase
 
     private IEnumerator AnimateMoneyChange(int targetMoney)
     {
-        // Парсим текущее значение с экрана
         int currentMoney = int.Parse(_playerMonyText.text);
 
-        // Вычисляем разницу
-        float duration = 0.5f; // Длительность анимации в секундах
+        float duration = 0.5f; 
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -173,14 +152,12 @@ public class UiMenuManager : UiBase
             elapsed += Time.deltaTime;
             float progress = Mathf.Clamp01(elapsed / duration);
 
-            // Интерполяция значения
             int displayedMoney = Mathf.RoundToInt(Mathf.Lerp(currentMoney, targetMoney, progress));
             _playerMonyText.text = displayedMoney.ToString();
 
-            yield return null; // Ждем до следующего кадра
+            yield return null; 
         }
 
-        // Устанавливаем конечное значение
         _playerMonyText.text = targetMoney.ToString();
     }
 
