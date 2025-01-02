@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984f9b0da1ea91a42a2b99c490bc11ed, type: 3}
   m_Name: RotationBullet
   m_EditorClassIdentifier: 
+  countBullet: 150
   priceBullet: 100
   isUnlock: 0
   bulletName: RotationBullet

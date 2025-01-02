@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703b4acc61ba881499da972856687efd, type: 3}
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
+  countBullet: 3
   priceBullet: 100
   isUnlock: 1
   bulletName: ExplosionBullet

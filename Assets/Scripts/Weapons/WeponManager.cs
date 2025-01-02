@@ -15,7 +15,7 @@ public class WeponManager : MonoBehaviour
     public event Action<ButtonController, int> OnWeaponUpgrade;
     public event Action<ButtonController, bool> OnWeaponUnlock;
 
-    private void Start()
+    private void Awake()
     {
          InitializeWeapon();
     }

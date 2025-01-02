@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
   currrentCountBullet: 10
+  priceWeapon: 100
   isUnlock: 1
   weaponName: Pistol
   typeOfWepon: 0
-  weaponPrefub: {fileID: 5622310873228093851, guid: 3875396f2a8ee594bb0adb7aeeb4fb4b, type: 3}
+  weaponPrefub: {fileID: 6074793781764415449, guid: 3875396f2a8ee594bb0adb7aeeb4fb4b, type: 3}
+  iconWeapon: {fileID: 21300000, guid: ed3e7a027ae1f5d4787823e7b6255b48, type: 3}
   tyoeOfShooting: 1
   typeOfSuitableBullets: 000000000100000002000000
   howMuchUpgradeRechargeTime: 0.1

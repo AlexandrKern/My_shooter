@@ -12,7 +12,12 @@ public class UiGameSceneManager : UiBase
     [SerializeField] private GameObject _pauseScreen;
     [SerializeField] private GameObject _audioScreen;
     [SerializeField] private GameObject _moneyScreen;
+
+    [SerializeField] private Image _notificationScreen;
+    [SerializeField] private Image _weaponImage;
+
     [SerializeField] private Text _playerMonyText;
+    [SerializeField] private Text _notificationText;
 
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
@@ -20,10 +25,14 @@ public class UiGameSceneManager : UiBase
     private void OnEnable()
     {
         DataPlayer.OnMoneyChanged += ChangeMonyScreen;
+        PlayerController.Instace.playerShoot.OnEndedBullet += ShowNatitficationScreen;
+        PlayerController.Instace.playerShoot.OnNextWeapon += ChangeWeaponAnim;
     }
     private void OnDisable()
     {
         DataPlayer.OnMoneyChanged -= ChangeMonyScreen;
+        PlayerController.Instace.playerShoot.OnEndedBullet -= ShowNatitficationScreen;
+        PlayerController.Instace.playerShoot.OnNextWeapon -= ChangeWeaponAnim;
     }
     private void Start()
     {
@@ -59,7 +68,6 @@ public class UiGameSceneManager : UiBase
                 break;
         }
     }
-    
     private void PauseGame()
     {
         Time.timeScale = 0;
@@ -68,7 +76,6 @@ public class UiGameSceneManager : UiBase
     {
         Time.timeScale = 1;
     }
-
     private void ChangeScreen(GameObject screen)
     {
 
@@ -143,5 +150,18 @@ public class UiGameSceneManager : UiBase
         }
 
         _playerMonyText.text = targetMoney.ToString();
+    }
+
+    private void ShowNatitficationScreen(string text)
+    {
+        _notificationText.text = text;
+        GameManager.Instace.animationImageManager.AnimationNotification(_notificationScreen,_notificationText);
+
+    }
+
+    private void ChangeWeaponAnim(Sprite sprite)
+    {
+        _weaponImage.sprite = sprite;
+        GameManager.Instace.animationImageManager.AnimationWeapon(_weaponImage);
     }
 }

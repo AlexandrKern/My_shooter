@@ -31,6 +31,34 @@ public class AnimationImageManager : MonoBehaviour
     [SerializeField]
     private Vector3 moveOffset = new Vector3(0f, 50f, 0f);
     #endregion
+
+    #region Image Notification
+    [Foldout("Image notification")]
+    [SerializeField]
+    private float showDuration = 2f;
+    #endregion
+
+    #region Image Weapon
+    [Foldout("Image Weapon")]
+    [SerializeField]
+    private float animationWeaponDuration = 2f; // Продолжительность анимации
+    [Foldout("Image Weapon")]
+    [SerializeField]
+    private float scaleWeaponFactor = 1.5f; // Масштаб для увеличения
+    [Foldout("Image Weapon")]
+    [SerializeField]
+    private float rotationAngle = 180f; // Угол поворота
+    [Foldout("Image Weapon")]
+    [SerializeField]
+    private Vector3 originalScale; // Исходный масштаб
+    [Foldout("Image Weapon")]
+    [SerializeField]
+    private Vector3 originalPosition; // Исходная позиция
+    [Foldout("Image Weapon")]
+    [SerializeField]
+    private float originalAlpha; // Исходная прозрачность
+
+    #endregion
     public void AnimationImageDivision(Image image)
     {
         Image division = image;
@@ -58,4 +86,48 @@ public class AnimationImageManager : MonoBehaviour
 
         sequence.Play();
     }
+
+    public void AnimationNotification(Image image,Text text)
+    {
+        image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+
+        Sequence sequence = DOTween.Sequence();
+        sequence
+            .Append(image.DOFade(0.3f, showDuration))
+            .Join(text.DOFade(0.3f, showDuration))
+            .AppendInterval(showDuration) 
+            .Append(image.DOFade(0, showDuration))
+            .Join(text.DOFade(0, showDuration))
+            .Play();
+    }
+    public void AnimationWeapon(Image image)
+    {
+        // Сохраняем исходные значения
+        originalScale = image.transform.localScale;
+        originalPosition = image.transform.position;
+        originalAlpha = image.color.a;
+
+        // 1. Анимация прозрачности
+        var fade = image.DOFade(0.3f, animationDuration).SetEase(Ease.InOutQuad);
+
+        // 2. Анимация масштаба
+        var scale = image.transform.DOScale(scaleFactor, animationDuration).SetEase(Ease.InOutQuad);
+
+        // 3. Анимация поворота
+        var rotate = image.transform.DORotate(new Vector3(0, 0, rotationAngle), animationDuration, RotateMode.FastBeyond360).SetEase(Ease.InOutQuad);
+
+        // 4. Восстановление всех свойств до исходных
+        var sequence = DOTween.Sequence()
+            .Append(fade)
+            .Join(scale)
+            .Join(rotate)
+            .AppendInterval(1f) // Ожидание перед возвратом
+            .Append(image.DOFade(originalAlpha, animationDuration))
+            .Join(image.transform.DOScale(originalScale, animationDuration))
+            .Join(image.transform.DORotate(Vector3.zero, animationDuration, RotateMode.FastBeyond360))
+            .OnComplete(() => Debug.Log("Анимация завершена!")); // Завершение анимации
+
+    }
+
 }

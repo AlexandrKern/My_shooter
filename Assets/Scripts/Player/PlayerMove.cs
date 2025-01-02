@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float _moveSpeed = 5;
     [SerializeField] private float _jumpForce = 5;
     [SerializeField] private float _rotationSpeed = 5;
+
+    public static Action<Vector3> OnMove;
+    public static Action<bool> OnJump;
 
 
     private void Start()
@@ -31,13 +35,16 @@ public class PlayerMove : MonoBehaviour
         }
         _rb.velocity = new Vector3(direction.x * _moveSpeed, _rb.velocity.y, direction.z * _moveSpeed);
         _rb.angularVelocity = Vector3.zero;
+        OnMove?.Invoke(direction);
     }
 
     public void Jump(bool isButtonJumpPressed)
     {
+        OnJump?.Invoke(PlayerController.Instace.CheckIsGrounded() && isButtonJumpPressed);
         if (PlayerController.Instace.CheckIsGrounded() && isButtonJumpPressed)
         {
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
+       
     }
 }
