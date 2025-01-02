@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
     private void Awake()
     {
         DataPlayer.Load();
+        SetBulletCount();
         //_ordinaryBullet = Data.Load(_ordinaryBullet, _ordinaryBullet.bulletName);
         //_rotationBullet = Data.Load(_rotationBullet, _rotationBullet.bulletName);
         //_expsionBullet = Data.Load(_expsionBullet, _expsionBullet.bulletName);
@@ -32,5 +33,12 @@ public class DataManager : MonoBehaviour
         //Data.Save(_pistol, _pistol.weaponName);
         //Data.Save(_mashineGun, _mashineGun.weaponName);
         //Data.Save(_grenadeLauncher, _grenadeLauncher.weaponName);
+    }
+
+    private void SetBulletCount()
+    {
+        _ordinaryBullet.countBullet = int.MaxValue;
+        _expsionBullet.countBullet = 1;
+        _rotationBullet.countBullet = 150;
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e764498e03eb246b2447a5ed07b668, type: 3}
   m_Name: OrdinaryBullet
   m_EditorClassIdentifier: 
+  countBullet: 2147483638
   priceBullet: 100
   isUnlock: 1
   bulletName: OrdinaryBullet

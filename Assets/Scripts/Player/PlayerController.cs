@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private List<Weapon> weapons;
     private List<GameObject> _weaponOjects = new List<GameObject>();
     private int  _currentWeaponIndex;
-
+    public PlayerShoot playerShoot;
     public Transform weaponPosition;
 
     #region Singleton
@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
         {
             GameObject newWeapon = Instantiate(weapon.weaponPrefub, weaponPosition.position, Quaternion.identity);
             newWeapon.transform.SetParent(weaponPosition);
+            newWeapon.transform.localPosition = Vector3.zero;
+            newWeapon.transform.localRotation = Quaternion.identity;
             newWeapon.SetActive(false);
             weapon.firePoint = newWeapon.transform.Find("FirePoint");
             _weaponOjects.Add(newWeapon);

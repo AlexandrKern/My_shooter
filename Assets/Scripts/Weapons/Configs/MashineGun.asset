@@ -15,10 +15,11 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   currrentCountBullet: 11
   priceWeapon: 0
-  isUnlock: 0
+  isUnlock: 1
   weaponName: MashineGun
   typeOfWepon: 1
   weaponPrefub: {fileID: 5026979148904666650, guid: 09fbb86e99a5b244797c961f397976f8, type: 3}
+  iconWeapon: {fileID: 21300000, guid: 15f97c6df7955e54ea95173bd6002129, type: 3}
   tyoeOfShooting: 0
   typeOfSuitableBullets: 0000000002000000
   howMuchUpgradeRechargeTime: 0.1

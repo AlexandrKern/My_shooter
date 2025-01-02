@@ -1,8 +1,11 @@
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 public class BulletBase : ScriptableObject
 {
+    [BoxGroup("Bullet properties")]
+    public int countBullet;
     [BoxGroup("Bullet properties")]
     public int priceBullet;
     [BoxGroup("Bullet properties")]

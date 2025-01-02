@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class PlayerShoot : MonoBehaviour
     private bool _isRecharge = false;
     private int _maxCountBulletInMagazine;
     private float _lastShootTime;
+    public Action<string> OnEndedBullet;
+    public Action<Sprite> OnNextWeapon;
 
     private void Start()
     {
@@ -40,6 +44,11 @@ public class PlayerShoot : MonoBehaviour
         if (IsShoot && !_isRecharge && Time.time >= _lastShootTime + _currentWeapon.fireRate)
         {
             BulletBase bulletBase = GameManager.Instace.bulletManager.GetBullet();
+            if (bulletBase.countBullet <= 0) 
+            {
+                OnEndedBullet?.Invoke("Нет снарядов");
+                return;
+            } 
             foreach (TypeOfBullet type in _currentWeapon.typeOfSuitableBullets)
             {
                 if (bulletBase.typeOfBullet == type)
@@ -49,13 +58,14 @@ public class PlayerShoot : MonoBehaviour
                         NextBullet(true);
                         return;
                     } 
-                    Vector3 bulletDirection = _playerTransform.forward;
+                    Vector3 bulletDirection = _currentWeapon.firePoint.forward;
                     GameObject bulletPrefub = Instantiate(bulletBase.bulletPrefub
                             , _currentWeapon.firePoint.position
                             , Quaternion.identity);
                     Rigidbody _rb = bulletPrefub.GetComponent<Rigidbody>();
                     _rb.AddForce(bulletDirection * bulletBase.speed, ForceMode.Impulse);
                     _maxCountBulletInMagazine--;
+                    bulletBase.countBullet--;
                     _lastShootTime = Time.time;
                     return;
                 }
@@ -72,6 +82,7 @@ public class PlayerShoot : MonoBehaviour
             GameManager.Instace.weponManager.NextWepon();
             PlayerController.Instace.ChangeWeapon();
             _currentWeapon = GameManager.Instace.weponManager.GetWeapon();
+            OnNextWeapon?.Invoke(_currentWeapon.iconWeapon);
             SetCurrentCountBulletInMagazine();
             SetRechargeTime();
             _isRecharge = false;

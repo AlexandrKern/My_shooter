@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Weapon")]
@@ -21,6 +22,8 @@ public class Weapon : ScriptableObject
     public TypeOfWepon typeOfWepon;
     [BoxGroup("Weapon properties")]
     public GameObject weaponPrefub;
+    [BoxGroup("Weapon properties")]
+    public Sprite iconWeapon;
     [BoxGroup("Weapon properties")]
     public TyoeOfShooting tyoeOfShooting;
     [BoxGroup("Weapon properties")]
