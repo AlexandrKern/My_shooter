@@ -16,7 +16,7 @@ MonoBehaviour:
   priceBullet: 100
   isUnlock: 1
   bulletName: ExplosionBullet
-  bulletPrefub: {fileID: 2472166879957309202, guid: 31e1628b8c015de4cb9612f419444069, type: 3}
+  bulletPrefub: {fileID: 8121584145642229360, guid: 6e280fb5a9f0c804ba82802c17c20100, type: 3}
   typeOfBullet: 1
   SupportedUpgrades: 0000000001000000030000000400000002000000
   countOfUpgradesSpeed: 10

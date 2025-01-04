@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrenadeLauncher
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
-  currrentCountBullet: 11
+  currrentCountBullet: 5
   priceWeapon: 0
   isUnlock: 1
   weaponName: GrenadeLauncher
@@ -35,5 +35,5 @@ MonoBehaviour:
   howMuchUpgradeMagazine: 1
   countOfUpgradesMagazine: 9
   priceMagazine: 2
-  magazine: 11
+  magazine: 5
   maxCountBulletInMagazine: 21

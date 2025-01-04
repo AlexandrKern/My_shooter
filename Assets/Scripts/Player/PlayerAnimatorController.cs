@@ -24,8 +24,6 @@ public class PlayerAnimatorController : MonoBehaviour
     private void Move(Vector3 direction)
     {
         _animator.SetBool("IsMove",direction.magnitude > 0.1);
-
-        Debug.Log(direction.magnitude);
     }
 
     private void Jump(bool jump)

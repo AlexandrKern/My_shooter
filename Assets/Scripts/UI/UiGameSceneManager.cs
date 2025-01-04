@@ -18,6 +18,7 @@ public class UiGameSceneManager : UiBase
 
     [SerializeField] private Text _playerMonyText;
     [SerializeField] private Text _notificationText;
+    [SerializeField] private Text _bulletCountText;
 
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
@@ -27,12 +28,14 @@ public class UiGameSceneManager : UiBase
         DataPlayer.OnMoneyChanged += ChangeMonyScreen;
         PlayerController.Instace.playerShoot.OnEndedBullet += ShowNatitficationScreen;
         PlayerController.Instace.playerShoot.OnNextWeapon += ChangeWeaponAnim;
+        PlayerController.Instace.playerShoot.OnChangeBulletCount += ChangeBulletCountText;
     }
     private void OnDisable()
     {
         DataPlayer.OnMoneyChanged -= ChangeMonyScreen;
         PlayerController.Instace.playerShoot.OnEndedBullet -= ShowNatitficationScreen;
         PlayerController.Instace.playerShoot.OnNextWeapon -= ChangeWeaponAnim;
+        PlayerController.Instace.playerShoot.OnChangeBulletCount -= ChangeBulletCountText;
     }
     private void Start()
     {
@@ -163,5 +166,10 @@ public class UiGameSceneManager : UiBase
     {
         _weaponImage.sprite = sprite;
         GameManager.Instace.animationImageManager.AnimationWeapon(_weaponImage);
+    }
+
+    private void ChangeBulletCountText(int countMagazine,int countBullet)
+    {
+        _bulletCountText.text = $"{countMagazine}/{countBullet}";
     }
 }

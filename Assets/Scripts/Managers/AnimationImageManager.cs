@@ -40,23 +40,12 @@ public class AnimationImageManager : MonoBehaviour
 
     #region Image Weapon
     [Foldout("Image Weapon")]
-    [SerializeField]
-    private float animationWeaponDuration = 2f; // Продолжительность анимации
+    [SerializeField] 
+    private float pulseScale = 1.2f;   // Максимальный размер во время пульсации
     [Foldout("Image Weapon")]
-    [SerializeField]
-    private float scaleWeaponFactor = 1.5f; // Масштаб для увеличения
-    [Foldout("Image Weapon")]
-    [SerializeField]
-    private float rotationAngle = 180f; // Угол поворота
-    [Foldout("Image Weapon")]
-    [SerializeField]
-    private Vector3 originalScale; // Исходный масштаб
-    [Foldout("Image Weapon")]
-    [SerializeField]
-    private Vector3 originalPosition; // Исходная позиция
-    [Foldout("Image Weapon")]
-    [SerializeField]
-    private float originalAlpha; // Исходная прозрачность
+    [SerializeField] 
+    private float duration = 0.5f;     // Длительность анимации
+
 
     #endregion
     public void AnimationImageDivision(Image image)
@@ -103,31 +92,18 @@ public class AnimationImageManager : MonoBehaviour
     }
     public void AnimationWeapon(Image image)
     {
-        // Сохраняем исходные значения
-        originalScale = image.transform.localScale;
-        originalPosition = image.transform.position;
-        originalAlpha = image.color.a;
+        RectTransform targetTransform = image.rectTransform;
+        Vector3 originalScale = targetTransform.localScale;
 
-        // 1. Анимация прозрачности
-        var fade = image.DOFade(0.3f, animationDuration).SetEase(Ease.InOutQuad);
-
-        // 2. Анимация масштаба
-        var scale = image.transform.DOScale(scaleFactor, animationDuration).SetEase(Ease.InOutQuad);
-
-        // 3. Анимация поворота
-        var rotate = image.transform.DORotate(new Vector3(0, 0, rotationAngle), animationDuration, RotateMode.FastBeyond360).SetEase(Ease.InOutQuad);
-
-        // 4. Восстановление всех свойств до исходных
-        var sequence = DOTween.Sequence()
-            .Append(fade)
-            .Join(scale)
-            .Join(rotate)
-            .AppendInterval(1f) // Ожидание перед возвратом
-            .Append(image.DOFade(originalAlpha, animationDuration))
-            .Join(image.transform.DOScale(originalScale, animationDuration))
-            .Join(image.transform.DORotate(Vector3.zero, animationDuration, RotateMode.FastBeyond360))
-            .OnComplete(() => Debug.Log("Анимация завершена!")); // Завершение анимации
-
+        // Анимация: увеличение и возврат к оригинальному масштабу
+        targetTransform
+            .DOScale(originalScale * pulseScale, duration / 2)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() =>
+                targetTransform
+                    .DOScale(originalScale, duration / 2)
+                    .SetEase(Ease.InQuad)
+            );
     }
 
 }
