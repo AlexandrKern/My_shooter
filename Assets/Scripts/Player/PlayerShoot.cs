@@ -7,22 +7,27 @@ public class PlayerShoot : MonoBehaviour
     private IInputShooter _input;
     private Transform _playerTransform;
     private Weapon _currentWeapon;
+    BulletBase bulletBase;
     private float _rechargeTime;
     private bool _isRecharge = false;
     private int _maxCountBulletInMagazine;
     private float _lastShootTime;
     public Action<string> OnEndedBullet;
     public Action<Sprite> OnNextWeapon;
+    public Action<int,int> OnChangeBulletCount;
 
     private void Start()
     {
         _input = GameManager.Instace.inputManager._currentInputShoot;
         _playerTransform = PlayerController.Instace.playerTransform;
+        bulletBase = GameManager.Instace.bulletManager.GetBullet();
+        _currentWeapon = GameManager.Instace.weponManager.GetWeapon();
+        _maxCountBulletInMagazine = GameManager.Instace.weponManager.GetWeapon().magazine;
         SetMaxCountBullet();
         SetCurrentCountBullet();
         SetRechargeTime();
         SetLustShootTime();
-        _currentWeapon = GameManager.Instace.weponManager.GetWeapon();
+       
     }
 
     private void Update()
@@ -36,19 +41,16 @@ public class PlayerShoot : MonoBehaviour
 
     private void Shoot(bool IsShoot)
     {
+
         if (_maxCountBulletInMagazine <= 0)
         {
+            if(bulletBase.countBullet<=0)OnEndedBullet?.Invoke("Нет снарядов");
             _isRecharge = true;
             return;
         }
         if (IsShoot && !_isRecharge && Time.time >= _lastShootTime + _currentWeapon.fireRate)
         {
-            BulletBase bulletBase = GameManager.Instace.bulletManager.GetBullet();
-            if (bulletBase.countBullet <= 0) 
-            {
-                OnEndedBullet?.Invoke("Нет снарядов");
-                return;
-            } 
+            bulletBase = GameManager.Instace.bulletManager.GetBullet();
             foreach (TypeOfBullet type in _currentWeapon.typeOfSuitableBullets)
             {
                 if (bulletBase.typeOfBullet == type)
@@ -65,13 +67,12 @@ public class PlayerShoot : MonoBehaviour
                     Rigidbody _rb = bulletPrefub.GetComponent<Rigidbody>();
                     _rb.AddForce(bulletDirection * bulletBase.speed, ForceMode.Impulse);
                     _maxCountBulletInMagazine--;
-                    bulletBase.countBullet--;
+                    OnChangeBulletCount?.Invoke(_maxCountBulletInMagazine,bulletBase.countBullet);
                     _lastShootTime = Time.time;
                     return;
                 }
             }
             NextBullet(true);
-
         }
     }
     private void NextWepon(bool isNextWeapon)
@@ -83,24 +84,68 @@ public class PlayerShoot : MonoBehaviour
             PlayerController.Instace.ChangeWeapon();
             _currentWeapon = GameManager.Instace.weponManager.GetWeapon();
             OnNextWeapon?.Invoke(_currentWeapon.iconWeapon);
+
+            EnsureCompatibleBullet(); // Проверка и выбор совместимого снаряда
+
             SetCurrentCountBulletInMagazine();
+            OnChangeBulletCount?.Invoke(_currentWeapon.currrentCountBullet, bulletBase.countBullet);
             SetRechargeTime();
             _isRecharge = false;
         }
+    }
+
+    /// <summary>
+    /// Проверяет, совместим ли текущий снаряд с новым оружием, и выбирает подходящий при необходимости.
+    /// </summary>
+    private void EnsureCompatibleBullet()
+    {
+        if (!IsBulletCompatibleWithWeapon(bulletBase))
+        {
+            do
+            {
+                GameManager.Instace.bulletManager.NextBullet();
+                bulletBase = GameManager.Instace.bulletManager.GetBullet();
+            }
+            while (!IsBulletCompatibleWithWeapon(bulletBase));
+        }
+        OnChangeBulletCount?.Invoke(_maxCountBulletInMagazine, bulletBase.countBullet);
     }
     private void NextBullet(bool isNextBullet)
     {
         if (isNextBullet)
         {
-            Debug.Log("Нажал кнопку поменять пулю");
-            GameManager.Instace.bulletManager.NextBullet();
+            bulletBase.countBullet += _maxCountBulletInMagazine;
+            do
+            {
+                GameManager.Instace.bulletManager.NextBullet();
+                bulletBase = GameManager.Instace.bulletManager.GetBullet();
+            }
+            while (!IsBulletCompatibleWithWeapon(bulletBase));
+            _maxCountBulletInMagazine = 0;
+            _isRecharge = true;
+            OnChangeBulletCount?.Invoke(_maxCountBulletInMagazine, bulletBase.countBullet);
         }
+    }
+    /// <summary>
+    /// Проверяет, совместим ли снаряд с текущим оружием
+    /// </summary>
+    private bool IsBulletCompatibleWithWeapon(BulletBase bullet)
+    {
+        foreach (TypeOfBullet type in _currentWeapon.typeOfSuitableBullets)
+        {
+            if (bullet.typeOfBullet == type)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void UpdateRechargeTime()
     {
         if (_isRecharge)
         {
+            if (_maxCountBulletInMagazine == _currentWeapon.magazine && bulletBase.countBullet == 0) return;
             if (_rechargeTime >= 0)
             {
                 Debug.Log("Перезаряжается");
@@ -121,7 +166,26 @@ public class PlayerShoot : MonoBehaviour
     /// </summary>
     private void SetMaxCountBullet()
     {
-        _maxCountBulletInMagazine = GameManager.Instace.weponManager.GetWeapon().magazine;
+        if (bulletBase.countBullet == 0) return;
+
+        int weaponMagazine = GameManager.Instace.weponManager.GetWeapon().magazine;
+        int remainingSpaceInMagazine = weaponMagazine - _maxCountBulletInMagazine;
+
+        // Если в пуле достаточно патронов для заполнения магазина
+        if (bulletBase.countBullet >= remainingSpaceInMagazine)
+        {
+            _maxCountBulletInMagazine += remainingSpaceInMagazine;
+            bulletBase.countBullet -= remainingSpaceInMagazine;
+        }
+        else
+        {
+            // Если патронов меньше, чем требуется для заполнения магазина
+            _maxCountBulletInMagazine += bulletBase.countBullet;
+            bulletBase.countBullet = 0;
+        }
+
+        // Вызываем событие с обновленными значениями
+        OnChangeBulletCount?.Invoke(_maxCountBulletInMagazine, bulletBase.countBullet);
     }
     /// <summary>
     /// Обнуление времени перезарядки
@@ -144,7 +208,6 @@ public class PlayerShoot : MonoBehaviour
     {
         _maxCountBulletInMagazine = GameManager.Instace.weponManager.GetWeapon().currrentCountBullet;
     }
-
     private void SetLustShootTime()
     {
         _lastShootTime = -GameManager.Instace.weponManager.GetWeapon().fireRate;
