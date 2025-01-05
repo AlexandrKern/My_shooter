@@ -13,7 +13,8 @@ public class WeponManager : MonoBehaviour
     private int _currentWeaponIndex = 0;
 
     public event Action<ButtonController, int> OnWeaponUpgrade;
-    public event Action<ButtonController, bool> OnWeaponUnlock;
+    public event Action<ButtonController, bool,int> OnWeaponUnlock;
+    public event Action<string> OnCheckMoney;
 
     private void Awake()
     {
@@ -50,7 +51,8 @@ public class WeponManager : MonoBehaviour
         {
             SetWeapon(buttonController.weapon);
             _currentWeapon.isUnlock = true;
-            OnWeaponUnlock?.Invoke(buttonController, true);
+            OnWeaponUnlock?.Invoke(buttonController, true,_currentWeapon.priceWeapon);
+            DataPlayer.SubstractMoney(_currentWeapon.priceWeapon);
             InitializeWeapon();
             Save();
         }
@@ -120,7 +122,16 @@ public class WeponManager : MonoBehaviour
 
     private bool CheckMoney(int amount)
     {
-        return amount <= DataPlayer.GetMoney();
+        if (amount <= DataPlayer.GetMoney())
+        {
+            return true;
+        }
+        else
+        {
+            OnCheckMoney?.Invoke("Не хватает денег");
+            return false;
+        }
+        
     }
     #endregion
 }

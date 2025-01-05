@@ -36,22 +36,21 @@ public class ButtonController : MonoBehaviour
         button = GetComponent<Button>();
         image = GetComponent<Image>();
         InitializeButtonText();
-        SetBottonAnimation();
-        GameManager.Instace.weponManager.OnWeaponUnlock += (buttonController, isUnlock) =>
+        SetButtonAnimation();
+        GameManager.Instace.weponManager.OnWeaponUnlock += (buttonController, isUnlock,price) =>
         {
-            if (buttonController == null) Debug.Log("Кнопка ровна Null");
             if (buttonController == this)
             {
-                SetEnabledItemButton(isUnlock);
-                SetEnabledUnlockButton(isUnlock);
+                SetEnabledItemButton(isUnlock, price);
+                SetEnabledUnlockButton(isUnlock,price);
             }
         };
-        GameManager.Instace.bulletManager.OnBulletUnlock += (buttonController, isUnlock) =>
+        GameManager.Instace.bulletManager.OnBulletUnlock += (buttonController, isUnlock,price) =>
         {
             if (buttonController == this)
             {
-                SetEnabledItemButton(isUnlock);
-                SetEnabledUnlockButton(isUnlock);
+                SetEnabledItemButton(isUnlock,price);
+                SetEnabledUnlockButton(isUnlock, price);
             }
         };
         GameManager.Instace.bulletManager.OnBulletUpgrade += (buttonController, money) =>
@@ -70,7 +69,7 @@ public class ButtonController : MonoBehaviour
         };
     }
 
-    private void SetBottonAnimation()
+    private void SetButtonAnimation()
     {
         switch (buttonType)
         {
@@ -118,6 +117,7 @@ public class ButtonController : MonoBehaviour
     public void ButtonClicked() 
     { 
         SceneController.Instance.uiBase.ButtonPress(this);
+        GameManager.Instace.animationButtonManager.ButtonChangeScale(button);
         AudioManager.Instance.PlaySFX("Click");
     }
 
@@ -128,19 +128,19 @@ public class ButtonController : MonoBehaviour
         switch (buttonType)
         {
             case ButtonType.UnlockBullets:
-                SetEnabledItemButton(!bullet.isUnlock);
+                SetEnabledItemButton(!bullet.isUnlock,bullet.priceBullet);
                 break;
             case ButtonType.UnlockWeapons:
-                SetEnabledItemButton(!weapon.isUnlock);
+                SetEnabledItemButton(!weapon.isUnlock,weapon.priceWeapon);
                 break;
             case ButtonType.MashineGun:
-                SetEnabledItemButton(weapon.isUnlock);
+                SetEnabledItemButton(weapon.isUnlock,weapon.priceWeapon);
                 break;
             case ButtonType.GrenadeLauncher:
-                SetEnabledItemButton(weapon.isUnlock);
+                SetEnabledItemButton(weapon.isUnlock, weapon.priceWeapon);
                 break;
             case ButtonType.RotationBullet:
-                SetEnabledItemButton(bullet.isUnlock);
+                SetEnabledItemButton(bullet.isUnlock,bullet.priceBullet);
                 break;
             case ButtonType.UpgradeBullets:
                 InitializeUpgradeBulletButton();
@@ -204,7 +204,7 @@ public class ButtonController : MonoBehaviour
         {
             button.enabled = false;
             Color color = image.color;
-            color.a = 0.2f;
+            color.a = 0.7f;
             image.color = color;
         }
         else
@@ -216,7 +216,7 @@ public class ButtonController : MonoBehaviour
         }
 
     }
-    private void SetEnabledItemButton(bool isUnlock)
+    private void SetEnabledItemButton(bool isUnlock,int price)
     {
         if(image ==  null)return;
         if (isUnlock)
@@ -230,16 +230,31 @@ public class ButtonController : MonoBehaviour
         {
             Color color = image.color;
             button.enabled = isUnlock;
-            color.a = 0.3f;
+            color.a = 0.7f;
             image.color = color;
         }
+        SetShopButtonText(isUnlock,price);
     }
-    private void SetEnabledUnlockButton(bool isUnlock)
+    private void SetEnabledUnlockButton(bool isUnlock, int price)
     {
         Color color = image.color;
         button.enabled = !isUnlock;
         color.a = 0.3f;
         image.color = color;
+        SetShopButtonText(!isUnlock,price);
+    }
+    private void SetShopButtonText(bool isUnlock,int price)
+    {
+        if (buttonText == null) return;
+        if (isUnlock)
+        {
+            buttonText.text = price.ToString();
+        }
+        else
+        {
+            buttonText.text = "Купленно";
+        }
+        
     }
     private bool IsMaxUpgrade()
     {
@@ -306,7 +321,7 @@ public class ButtonController : MonoBehaviour
 
     private bool IsButtonTextValid()
     {
-        return buttonType == ButtonType.UpgradeBullets ||buttonType == ButtonType.UpgradeWeapons;
+        return buttonType == ButtonType.UpgradeBullets ||buttonType == ButtonType.UpgradeWeapons||buttonType == ButtonType.UnlockWeapons||buttonType==ButtonType.UnlockBullets;
     }
 
     private bool IsUpgradeBullet()
@@ -371,7 +386,7 @@ public enum ButtonType
     UnlockWeapons,
     Continue,
     Back,
-    Return
+    Return,
 }
 
 public enum TypeUpgradeWeapon

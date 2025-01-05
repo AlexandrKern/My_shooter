@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GrenadeLauncher
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
-  currrentCountBullet: 5
-  priceWeapon: 0
-  isUnlock: 1
+  currrentCountBullet: 2
+  priceWeapon: 10000
+  isUnlock: 0
   weaponName: GrenadeLauncher
   typeOfWepon: 2
   weaponPrefub: {fileID: 5622310873228093851, guid: 19cf8711f2b2ee742b2c28e54be76c86, type: 3}
@@ -35,5 +35,8 @@ MonoBehaviour:
   howMuchUpgradeMagazine: 1
   countOfUpgradesMagazine: 9
   priceMagazine: 2
-  magazine: 5
+  magazine: 2
   maxCountBulletInMagazine: 21
+  countRotationBullet: 2
+  countExplosionBullet: 2
+  countOrdinaryBullet: 2
