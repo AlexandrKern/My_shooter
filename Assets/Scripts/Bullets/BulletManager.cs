@@ -11,9 +11,10 @@ public class BulletManager : MonoBehaviour
     private int _currentBulletIndex = 0;
 
     public event Action<ButtonController, int> OnBulletUpgrade;
-    public event Action<ButtonController, bool> OnBulletUnlock;
+    public event Action<ButtonController, bool,int> OnBulletUnlock;
+    public event Action<string> OnCheckMoney;
 
-    private void Start()
+    private void Awake()
     {
         _currentBullet = _bullets[0];
     }
@@ -39,9 +40,15 @@ public class BulletManager : MonoBehaviour
         {
             SetBullet(buttonController.bullet);
             _currentBullet.isUnlock = true;
-            OnBulletUnlock?.Invoke(buttonController, true);
+            OnBulletUnlock?.Invoke(buttonController, true,_currentBullet.priceBullet);
+            DataPlayer.SubstractMoney(_currentBullet.priceBullet);
             Save();
         }
+    }
+
+    public BulletBase[] GetAllBullets()
+    {
+        return _bullets;
     }
 
     #region Upgrades
@@ -181,7 +188,16 @@ public class BulletManager : MonoBehaviour
     }
     private bool CheckMoney(int amount)
     {
-        return amount <= DataPlayer.GetMoney();
+        if (amount <= DataPlayer.GetMoney())
+        {
+            return true;
+        }
+        else
+        {
+            OnCheckMoney?.Invoke("Не хватает денег");
+            return false;
+        }
+
     }
     #endregion
 }

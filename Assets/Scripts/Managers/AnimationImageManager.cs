@@ -36,6 +36,10 @@ public class AnimationImageManager : MonoBehaviour
     [Foldout("Image notification")]
     [SerializeField]
     private float showDuration = 2f;
+    [Foldout("Image notification")]
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float imageAlpha = 1f;
     #endregion
 
     #region Image Weapon
@@ -45,6 +49,7 @@ public class AnimationImageManager : MonoBehaviour
     [Foldout("Image Weapon")]
     [SerializeField] 
     private float duration = 0.5f;     // Длительность анимации
+    private bool isAnimating = false;
 
 
     #endregion
@@ -78,13 +83,14 @@ public class AnimationImageManager : MonoBehaviour
 
     public void AnimationNotification(Image image,Text text)
     {
+        Debug.Log("вызвалась анимашка");
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
 
         Sequence sequence = DOTween.Sequence();
         sequence
-            .Append(image.DOFade(0.3f, showDuration))
-            .Join(text.DOFade(0.3f, showDuration))
+            .Append(image.DOFade(imageAlpha, showDuration))
+            .Join(text.DOFade(imageAlpha, showDuration))
             .AppendInterval(showDuration) 
             .Append(image.DOFade(0, showDuration))
             .Join(text.DOFade(0, showDuration))
@@ -92,6 +98,9 @@ public class AnimationImageManager : MonoBehaviour
     }
     public void AnimationWeapon(Image image)
     {
+        if (isAnimating) return;  // Проверяем, идет ли анимация
+
+        isAnimating = true;  // Устанавливаем флаг, что анимация началась
         RectTransform targetTransform = image.rectTransform;
         Vector3 originalScale = targetTransform.localScale;
 
@@ -100,10 +109,12 @@ public class AnimationImageManager : MonoBehaviour
             .DOScale(originalScale * pulseScale, duration / 2)
             .SetEase(Ease.OutQuad)
             .OnComplete(() =>
+            {
                 targetTransform
                     .DOScale(originalScale, duration / 2)
                     .SetEase(Ease.InQuad)
-            );
+                    .OnComplete(() => isAnimating = false);  // Сбрасываем флаг после завершения анимации
+            });
     }
 
 }

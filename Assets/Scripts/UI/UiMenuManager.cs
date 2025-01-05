@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,8 +18,15 @@ public class UiMenuManager : UiBase
     [SerializeField] private GameObject _shopScreen;
     [SerializeField] private GameObject _moneyScreen;
     [SerializeField] private GameObject _audioScreen;
+    [SerializeField] private GameObject _ñonfirmImaage;
+    [SerializeField] private GameObject _ñonfirmPanel;
+
     [SerializeField] private Text _playerMonyText;
-   
+    [SerializeField] private Text _notificationText;
+
+    [SerializeField] private Image _notificationScreen;
+    
+
 
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
@@ -27,11 +35,15 @@ public class UiMenuManager : UiBase
     private void OnEnable()
     {
         DataPlayer.OnMoneyChanged += ChangeMonyScreen;
+        GameManager.Instace.weponManager.OnCheckMoney += ShowNatitficationScreen;
+        GameManager.Instace.bulletManager.OnCheckMoney += ShowNatitficationScreen;
     }
 
     private void OnDisable()
     {
         DataPlayer.OnMoneyChanged -= ChangeMonyScreen;
+        GameManager.Instace.weponManager.OnCheckMoney -= ShowNatitficationScreen;
+        GameManager.Instace.bulletManager.OnCheckMoney -= ShowNatitficationScreen;
     }
     private void Start()
     {
@@ -47,10 +59,10 @@ public class UiMenuManager : UiBase
                 ChangeScreen(_shopScreen);
                 break;
             case ButtonType.UnlockWeapons:
-                GameManager.Instace.weponManager.UnlockWeapon(buttonController);
+                ShowConfirmationScreen(buttonController);
                 break;
             case ButtonType.UnlockBullets:
-                GameManager.Instace.bulletManager.UnlockBullet(buttonController);
+                ShowConfirmationScreen(buttonController);
                 break;
             case ButtonType.UpgradeBulletScreen:
                 ChangeScreen(_upgradeBulletScreen);
@@ -100,6 +112,47 @@ public class UiMenuManager : UiBase
                 break;
         }
     }
+    private void ShowConfirmationScreen(ButtonController buttonController)
+    {
+        _ñonfirmPanel.SetActive(true);
+
+        Button[] buttons = _ñonfirmImaage.GetComponentsInChildren<Button>();
+
+        Button yesButton = Array.Find(buttons, button => button.name == "Yes");
+        if (yesButton != null)
+        {
+            yesButton.onClick.RemoveAllListeners();
+            yesButton.onClick.AddListener(() =>
+            {
+                ConfirmPurchase(buttonController);
+            });
+        }
+
+        Button noButton = Array.Find(buttons, button => button.name == "No");
+        if (noButton != null)
+        {
+            noButton.onClick.RemoveAllListeners();
+            noButton.onClick.AddListener(() =>
+            {
+                _ñonfirmPanel.SetActive(false);
+            });
+        }
+    }
+
+    private void ConfirmPurchase(ButtonController buttonController)
+    {
+        _ñonfirmPanel.SetActive(false);
+
+        switch (buttonController.buttonType)
+        {
+            case ButtonType.UnlockWeapons:
+                GameManager.Instace.weponManager.UnlockWeapon(buttonController);
+                break;
+            case ButtonType.UnlockBullets:
+                GameManager.Instace.bulletManager.UnlockBullet(buttonController);
+                break;
+        }
+    }
 
     private void ChangeScreen(GameObject screen)
     {
@@ -138,6 +191,13 @@ public class UiMenuManager : UiBase
     private void SetMoneyCount()
     {
         _playerMonyText.text = DataPlayer.GetMoney().ToString();
+    }
+
+    private void ShowNatitficationScreen(string text)
+    {
+        _notificationText.text = text;
+        GameManager.Instace.animationImageManager.AnimationNotification(_notificationScreen, _notificationText);
+
     }
 
     private IEnumerator AnimateMoneyChange(int targetMoney)

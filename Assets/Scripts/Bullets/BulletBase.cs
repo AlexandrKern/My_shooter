@@ -5,6 +5,8 @@ using UnityEngine;
 public class BulletBase : ScriptableObject
 {
     [BoxGroup("Bullet properties")]
+    public Sprite icon;
+    [BoxGroup("Bullet properties")]
     public int countBullet;
     [BoxGroup("Bullet properties")]
     public int priceBullet;

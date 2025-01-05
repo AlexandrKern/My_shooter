@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984f9b0da1ea91a42a2b99c490bc11ed, type: 3}
   m_Name: RotationBullet
   m_EditorClassIdentifier: 
-  countBullet: 150
+  icon: {fileID: 21300000, guid: 20a948ab110ce804abab99149c04bfa7, type: 3}
+  countBullet: 30
   priceBullet: 100
   isUnlock: 0
   bulletName: RotationBullet
-  bulletPrefub: {fileID: 810867663007689805, guid: c80665cc434f7484faf255a58ed0d08e, type: 3}
+  bulletPrefub: {fileID: 8052779213802753135, guid: 858223cba683aa64e979d9715fdd6701, type: 3}
   typeOfBullet: 2
   SupportedUpgrades: 00000000010000000500000006000000
   countOfUpgradesSpeed: 9

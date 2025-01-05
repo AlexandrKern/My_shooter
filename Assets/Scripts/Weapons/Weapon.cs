@@ -62,9 +62,17 @@ public class Weapon : ScriptableObject
     [BoxGroup("Magazine properties")]
     public int  maxCountBulletInMagazine = 100;
 
+    [HideInInspector] public int countRotationBullet;
+    [HideInInspector] public int countExplosionBullet;
+    [HideInInspector] public int countOrdinaryBullet;
+
     private void OnValidate()
     {
         currrentCountBullet = magazine;
+        countRotationBullet = magazine;
+        countExplosionBullet = magazine;
+        countOrdinaryBullet = magazine;
+
     }
 }
 
