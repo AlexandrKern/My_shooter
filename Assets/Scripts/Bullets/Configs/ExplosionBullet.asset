@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b25b0001c87a37741b91d954c1de6b42, type: 3}
-  countBullet: 3
+  countBullet: 1
   priceBullet: 100
   isUnlock: 1
   bulletName: ExplosionBullet
@@ -36,13 +36,13 @@ MonoBehaviour:
   countOfUpgradesRadius: 10
   priceRadius: 1
   howMuchExplosionRadius: 1
-  explosionRadius: 1
-  maxExplosionRadius: 11
+  explosionRadius: 10000
+  maxExplosionRadius: 10000
   countOfUpgradesForce: 10
   priceForce: 1
   howMuchExplosionForce: 1
-  explosionForce: 1
-  maxExplosionForce: 11
+  explosionForce: 10000
+  maxExplosionForce: 10000
   countOfUpgradesTimer: 10
   priceTimer: 1
   howMuchExplosionTimer: 0.1

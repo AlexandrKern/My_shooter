@@ -46,6 +46,8 @@ public class BulletController : MonoBehaviour
         float explosionTimer = explosionBullet.explosionTimer;
         _isExplosionTriggered = false;
 
+        List<Rigidbody> affectedRigidbodies = new List<Rigidbody>();
+
         while (explosionTimer > 0)
         {
             explosionTimer -= Time.deltaTime;
@@ -59,18 +61,31 @@ public class BulletController : MonoBehaviour
             Debug.Log("Взрыв пули");
 
             Collider[] enemyColiders = Physics.OverlapSphere(transform.position, explosionBullet.explosionRadius, explosionBullet.damageableLayers);
-
             foreach (Collider enemy in enemyColiders)
             {
                 if (IsDamageable(enemy.gameObject))
                 {
                     _damageable.TakeDamage(explosionBullet.damage);
                 }
+
                 Rigidbody enemyRigidbody = enemy.GetComponent<Rigidbody>();
                 if (enemyRigidbody != null)
                 {
-                    enemyRigidbody.AddExplosionForce(explosionBullet.explosionForce,transform.position, explosionBullet.explosionRadius);
+                    if (enemyRigidbody.isKinematic)
+                    {
+                        enemyRigidbody.isKinematic = false;
+                        affectedRigidbodies.Add(enemyRigidbody); 
+                    }
+
+                    enemyRigidbody.AddExplosionForce(explosionBullet.explosionForce, transform.position, explosionBullet.explosionRadius);
                 }
+            }
+
+            yield return new WaitForSeconds(0.5f); 
+
+            foreach (Rigidbody rb in affectedRigidbodies)
+            {
+                rb.isKinematic = true;
             }
             Destroy(gameObject);
         }
