@@ -65,6 +65,7 @@ public class PlayerShoot : MonoBehaviour
                         return;
                     }
                     Vector3 bulletDirection = _currentWeapon.firePoint.forward;
+                    bulletDirection = Quaternion.Euler(0, -15, 0) * bulletDirection;
                     GameObject bulletPrefub = Instantiate(bulletBase.bulletPrefub
                             , _currentWeapon.firePoint.position
                             , Quaternion.identity);

@@ -28,13 +28,18 @@ public class PlayerMove : MonoBehaviour
     }
     public void Move(Vector3 direction)
     {
-        if(direction != Vector3.zero)
+        if (direction != Vector3.zero)
         {
+            // ѕоворот на 90 градусов влево (по оси Y)
+            // Ќаправление остаетс€ вперед, но сам персонаж ориентирован на левую сторону.
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation * Quaternion.Euler(0, 40, 0), _rotationSpeed * Time.deltaTime);
         }
+
+        // ƒвигаем персонажа вперед в направлении
         _rb.velocity = new Vector3(direction.x * _moveSpeed, _rb.velocity.y, direction.z * _moveSpeed);
         _rb.angularVelocity = Vector3.zero;
+
         OnMove?.Invoke(direction);
     }
 
