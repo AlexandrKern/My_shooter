@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9917d37cfdbc304aba01357e2bd89c8, type: 3}
   m_Name: Mutant
   m_EditorClassIdentifier: 
-  enemyName: Enemy
+  enemyName: Mutant
   moveSpeed: 1
   attackSpeed: 3
   attackRange: 2

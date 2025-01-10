@@ -24,7 +24,7 @@ public class EnemyAnimatorController : MonoBehaviour
 
     private void OnDisable()
     {
-        _enemyHealth.OnDie += Die;
+        _enemyHealth.OnDie -= Die;
         _enemyBase.OnMove -= Move;
         _enemyBase.OnAttack -= Attack;
     }

@@ -14,6 +14,9 @@ public class PlayerMove : MonoBehaviour
     public static Action<Vector3> OnMove;
     public static Action<bool> OnJump;
 
+    private Vector3 lastDirection;
+    public float rot = 40;
+
 
     private void Start()
     {
@@ -28,12 +31,19 @@ public class PlayerMove : MonoBehaviour
     }
     public void Move(Vector3 direction)
     {
+        
         if (direction != Vector3.zero)
         {
             // ѕоворот на 90 градусов влево (по оси Y)
             // Ќаправление остаетс€ вперед, но сам персонаж ориентирован на левую сторону.
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation * Quaternion.Euler(0, 40, 0), _rotationSpeed * Time.deltaTime);
+            lastDirection = direction;
+        }
+        else
+        {
+            Quaternion stopRotation = Quaternion.LookRotation(lastDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation * Quaternion.Euler(0, rot, 0), _rotationSpeed * Time.deltaTime);
         }
 
         // ƒвигаем персонажа вперед в направлении
