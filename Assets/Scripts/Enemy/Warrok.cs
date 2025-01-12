@@ -9,6 +9,7 @@ public class Warrok : EnemyBase
     {
         if (PlayerDetected() && canAttack)
         {
+            OnAttack?.Invoke(false);
             canAttack = false;
             StartCoroutine(AttackCooldown());
         }

@@ -118,7 +118,7 @@ public class ButtonController : MonoBehaviour
     { 
         SceneController.Instance.uiBase.ButtonPress(this);
         GameManager.Instace.animationButtonManager.ButtonChangeScale(button);
-        AudioManager.Instance.PlaySFX("Click");
+        //AudioManager.Instance.PlaySFX("Click");
     }
 
     #region Initialize button text

@@ -14,12 +14,14 @@ public class PlayerAnimatorController : MonoBehaviour
     {
         PlayerMove.OnMove += Move;
         PlayerMove.OnJump += Jump;
+        PlayerHealth.OnDie += Die;
     }
 
     private void OnDisable()
     {
         PlayerMove.OnMove -= Move;
         PlayerMove.OnJump -= Jump;
+        PlayerHealth.OnDie -= Die;
     }
     private void Move(Vector3 direction)
     {
@@ -29,5 +31,9 @@ public class PlayerAnimatorController : MonoBehaviour
     private void Jump(bool jump)
     {
         _animator.SetBool("IsJump", jump);
+    }
+    private void Die(bool isDeath)
+    {
+        _animator.SetBool("IsDeath", isDeath);
     }
 }

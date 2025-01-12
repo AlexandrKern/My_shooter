@@ -13,7 +13,7 @@ using UnityEngine.AI;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    [SerializeField] protected EnemySettings _settings;
+    public EnemySettings settings;
     protected NavMeshAgent _agent;
     protected Transform _enemyTransform;
     protected Transform _playerTransform;
@@ -37,7 +37,7 @@ public abstract class EnemyBase : MonoBehaviour
         _enemyTransform = transform;
         _playerTransform = PlayerController.Instace.playerTransform;
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = _settings.moveSpeed;
+        _agent.speed = settings.moveSpeed;
     }
 
     protected virtual void OnEnable()
@@ -54,7 +54,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(_settings.attackSpeed);
+        yield return new WaitForSeconds(settings.attackSpeed);
         OnAttack?.Invoke(true);
         canAttack = true;
     }
@@ -97,7 +97,7 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual bool PlayerDetected()
     {
         float distanceToPlayer = Vector3.Distance(_enemyTransform.position, _playerTransform.position);
-        return distanceToPlayer <= _settings.attackRange;
+        return distanceToPlayer <= settings.attackRange;
     }
 
     protected virtual void OnDestroy()

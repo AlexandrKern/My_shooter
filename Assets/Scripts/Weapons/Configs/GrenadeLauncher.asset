@@ -15,7 +15,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   currrentCountBullet: 2
   priceWeapon: 10000
-  isUnlock: 0
+  isUnlock: 1
   weaponName: GrenadeLauncher
   typeOfWepon: 2
   weaponPrefub: {fileID: 5622310873228093851, guid: 19cf8711f2b2ee742b2c28e54be76c86, type: 3}

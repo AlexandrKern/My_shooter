@@ -53,6 +53,23 @@ public class AnimationImageManager : MonoBehaviour
 
 
     #endregion
+
+    #region Image Health bar
+    [Foldout("Image Health bar")]
+    [SerializeField]
+    private float animationDurationHealthBar = 0.5f;
+    [Foldout("Image Health bar")]
+    [SerializeField] 
+    private Color fullHealthColor = Color.green;
+    [Foldout("Image Health bar")]
+    [SerializeField] 
+    private Color lowHealthColor = Color.red;
+    [Foldout("Image Health bar")]
+    [SerializeField] 
+    private float shakeIntensity = 10f; 
+    #endregion
+
+
     public void AnimationImageDivision(Image image)
     {
         Image division = image;
@@ -115,6 +132,33 @@ public class AnimationImageManager : MonoBehaviour
                     .SetEase(Ease.InQuad)
                     .OnComplete(() => isAnimating = false);  // —брасываем флаг после завершени€ анимации
             });
+    }
+
+    public void AnimationUpdateHealth(float newHealthValue,Image healthImage)
+    {
+        if(healthImage == null) return;
+        newHealthValue = Mathf.Clamp01(newHealthValue);
+
+        healthImage.DOFillAmount(newHealthValue, animationDurationHealthBar)
+            .SetEase(Ease.OutCubic)
+            .OnUpdate(() => UpdateHealthBarColor(newHealthValue,healthImage)); 
+
+
+        healthImage.transform.DOScale(Vector3.one * 1.1f, 0.2f)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine);
+
+        if (newHealthValue < 0.2f)
+        {
+            healthImage.transform.DOShakePosition(0.3f, shakeIntensity, 10, 90, false, true);
+        }
+    }
+
+    private void UpdateHealthBarColor(float health, Image healthImage)
+    {
+
+        Color currentColor = Color.Lerp(lowHealthColor, fullHealthColor, health);
+        healthImage.color = currentColor;
     }
 
 }

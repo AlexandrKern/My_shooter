@@ -16,11 +16,14 @@ public class UiGameSceneManager : UiBase
     [SerializeField] private Image _notificationScreen;
     [SerializeField] private Image _weaponImage;
     [SerializeField] private Image _bulletImage;
+    [SerializeField] private Image healthImage;
+
 
     [SerializeField] private Text _playerMonyText;
     [SerializeField] private Text _notificationText;
     [SerializeField] private Text _bulletCountText;
 
+    
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
 
@@ -33,6 +36,8 @@ public class UiGameSceneManager : UiBase
         PlayerController.Instace.playerShoot.OnNextWeapon += ChangeWeaponAnim;
         PlayerController.Instace.playerShoot.OnChangeBulletCount += ChangeBulletCountText;
         PlayerController.Instace.playerShoot.OnNextBullet += ChangeBulletImage;
+        PlayerHealth.OnHealthChanged += ChangeHealthBar;
+        PlayerHealth.OnDie += OnDeathScreen;
     }
     private void OnDisable()
     {
@@ -41,6 +46,8 @@ public class UiGameSceneManager : UiBase
         PlayerController.Instace.playerShoot.OnNextWeapon -= ChangeWeaponAnim;
         PlayerController.Instace.playerShoot.OnChangeBulletCount -= ChangeBulletCountText;
         PlayerController.Instace.playerShoot.OnNextBullet -= ChangeBulletImage;
+        PlayerHealth.OnHealthChanged += ChangeHealthBar;
+        PlayerHealth.OnDie += OnDeathScreen;
     }
     private void Start()
     {
@@ -86,7 +93,7 @@ public class UiGameSceneManager : UiBase
     }
     private void ChangeScreen(GameObject screen)
     {
-
+        if(_currentScreen==null) return;
         _currentScreen.SetActive(false);
         screen.SetActive(true);
         _currentScreen = screen;
@@ -181,5 +188,20 @@ public class UiGameSceneManager : UiBase
     private void ChangeBulletImage(Sprite sprite)
     {
         _bulletImage.sprite = sprite;
+    }
+
+    private void ChangeHealthBar(int health)
+    {
+        float healthPercentage = Mathf.Clamp01(health / 100f);
+        GameManager.Instace.animationImageManager.AnimationUpdateHealth(healthPercentage,healthImage);
+    }
+
+    private void OnDeathScreen(bool IsDeath)
+    {
+        if (IsDeath)
+        {
+            ChangeScreen(_gameOverScreen);
+        }
+        
     }
 }
