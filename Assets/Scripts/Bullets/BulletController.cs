@@ -58,8 +58,6 @@ public class BulletController : MonoBehaviour
 
         if (_isExplosionTriggered)
         {
-            Debug.Log("Взрыв пули");
-
             Collider[] enemyColiders = Physics.OverlapSphere(transform.position, explosionBullet.explosionRadius, explosionBullet.damageableLayers);
             foreach (Collider enemy in enemyColiders)
             {

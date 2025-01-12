@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
-  currrentCountBullet: 10
+  currrentCountBullet: 3
   priceWeapon: 100
   isUnlock: 1
   weaponName: Pistol
@@ -35,8 +35,8 @@ MonoBehaviour:
   howMuchUpgradeMagazine: 1
   countOfUpgradesMagazine: 10
   priceMagazine: 1
-  magazine: 10
+  magazine: 3
   maxCountBulletInMagazine: 21
-  countRotationBullet: 10
-  countExplosionBullet: 10
-  countOrdinaryBullet: 10
+  countRotationBullet: 3
+  countExplosionBullet: 3
+  countOrdinaryBullet: 3

@@ -28,15 +28,15 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Awake()
     {
         _health = GetComponent<EnemyHealth>();
+        _enemyTransform = transform;
+        _playerTransform = PlayerController.Instace.playerTransform;
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     protected virtual void Start()
     {
         canAttack = true;
         isDeath = true;
-        _enemyTransform = transform;
-        _playerTransform = PlayerController.Instace.playerTransform;
-        _agent = GetComponent<NavMeshAgent>();
         _agent.speed = settings.moveSpeed;
     }
 
