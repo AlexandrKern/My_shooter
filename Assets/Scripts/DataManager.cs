@@ -37,7 +37,7 @@ public class DataManager : MonoBehaviour
 
     private void SetBulletCount()
     {
-        _ordinaryBullet.countBullet = 10;
+        _ordinaryBullet.countBullet = 3;
         _expsionBullet.countBullet = 1;
         _rotationBullet.countBullet = 30;
     }

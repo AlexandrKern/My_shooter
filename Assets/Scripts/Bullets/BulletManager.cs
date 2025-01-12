@@ -13,6 +13,7 @@ public class BulletManager : MonoBehaviour
     public event Action<ButtonController, int> OnBulletUpgrade;
     public event Action<ButtonController, bool,int> OnBulletUnlock;
     public event Action<string> OnCheckMoney;
+    public event Action<int> OnChangeCountBullet;
 
     private void Awake()
     {
@@ -49,6 +50,21 @@ public class BulletManager : MonoBehaviour
     public BulletBase[] GetAllBullets()
     {
         return _bullets;
+    }
+
+    public void AddBullets(int ammoAmount, TypeOfBullet typeOfBullet)
+    {
+        foreach (BulletBase bullet in _bullets)
+        {
+            if(bullet.typeOfBullet == typeOfBullet)
+            {
+                bullet.countBullet += ammoAmount;
+                if(_currentBullet.typeOfBullet == typeOfBullet)
+                {
+                    OnChangeCountBullet?.Invoke(bullet.countBullet);
+                }
+            }
+        }
     }
 
     #region Upgrades

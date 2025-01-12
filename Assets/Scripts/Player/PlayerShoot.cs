@@ -17,7 +17,8 @@ public class PlayerShoot : MonoBehaviour
     public Action<string> OnEndedBullet;
     public Action<Sprite> OnNextWeapon;
     public Action<Sprite> OnNextBullet;
-    public Action<int, int> OnChangeBulletCount;
+    public Action<int> OnChangeBulletCount;
+    public Action<int> OnChangeBulletCountInmagazine;
     private bool _isDeath = false;
 
     private void Start()
@@ -60,11 +61,12 @@ public class PlayerShoot : MonoBehaviour
                 OnEndedBullet?.Invoke("Нет снарядов");
                 return;
         }
-        if (_countBulletInMagazine <= 0)
+        if (_countBulletInMagazine <= 0 &&  bulletBase.countBullet != 0)
         {
             _isRecharge = true;
             return;
         }
+        Debug.Log("Не перезаряжается " + !_isRecharge);
         if (IsShoot && !_isRecharge && Time.time >= _lastShootTime + _currentWeapon.fireRate)
         {
             bulletBase = GameManager.Instace.bulletManager.GetBullet();
@@ -85,7 +87,8 @@ public class PlayerShoot : MonoBehaviour
                     Rigidbody _rb = bulletPrefub.GetComponent<Rigidbody>();
                     _rb.AddForce(bulletDirection * bulletBase.speed, ForceMode.Impulse);
                     _countBulletInMagazine--;
-                    OnChangeBulletCount?.Invoke(_countBulletInMagazine, bulletBase.countBullet);
+                    OnChangeBulletCount?.Invoke(bulletBase.countBullet);
+                    OnChangeBulletCountInmagazine?.Invoke(_countBulletInMagazine);
                     _lastShootTime = Time.time;
                     return;
                 }
@@ -104,7 +107,8 @@ public class PlayerShoot : MonoBehaviour
             EnsureCompatibleBullet();
             SetCountBulletInMagazine();
             OnNextWeapon?.Invoke(_currentWeapon.iconWeapon);
-            OnChangeBulletCount?.Invoke(_countBulletInMagazine, bulletBase.countBullet);
+            OnChangeBulletCount?.Invoke(bulletBase.countBullet);
+            OnChangeBulletCountInmagazine?.Invoke(_countBulletInMagazine);
         }
     }
 
@@ -123,7 +127,8 @@ public class PlayerShoot : MonoBehaviour
             while (!IsBulletCompatibleWithWeapon(bulletBase));
         }
         OnNextBullet?.Invoke(bulletBase.icon);
-        OnChangeBulletCount?.Invoke(_countBulletInMagazine, bulletBase.countBullet);
+        OnChangeBulletCount?.Invoke(bulletBase.countBullet);
+        OnChangeBulletCountInmagazine?.Invoke(_countBulletInMagazine);
     }
     private void NextBullet(bool isNextBullet)
     {
@@ -135,7 +140,8 @@ public class PlayerShoot : MonoBehaviour
             EnsureCompatibleBullet();
             SetCountBulletInMagazine();
             OnNextBullet?.Invoke(bulletBase.icon);
-            OnChangeBulletCount?.Invoke(_countBulletInMagazine, bulletBase.countBullet);
+            OnChangeBulletCount?.Invoke(bulletBase.countBullet);
+            OnChangeBulletCountInmagazine?.Invoke(_countBulletInMagazine);
         }
     }
     /// <summary>
@@ -220,7 +226,8 @@ public class PlayerShoot : MonoBehaviour
         }
 
         // Вызываем событие с обновленными значениями
-        OnChangeBulletCount?.Invoke(_countBulletInMagazine, bulletBase.countBullet);
+        OnChangeBulletCount?.Invoke(bulletBase.countBullet);
+        OnChangeBulletCountInmagazine?.Invoke(_countBulletInMagazine);
     }
     /// <summary>
     /// Устанавливает патроны в магазин
@@ -241,7 +248,8 @@ public class PlayerShoot : MonoBehaviour
             default:
                 break;
         }
-        OnChangeBulletCount?.Invoke(_countBulletInMagazine, bulletBase.countBullet);
+        OnChangeBulletCount?.Invoke(bulletBase.countBullet);
+        OnChangeBulletCountInmagazine?.Invoke(_countBulletInMagazine);
     }
     /// <summary>
     /// Устанавливает конкректные паторны в подходящий магазин

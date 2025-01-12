@@ -22,8 +22,9 @@ public class UiGameSceneManager : UiBase
     [SerializeField] private Text _playerMonyText;
     [SerializeField] private Text _notificationText;
     [SerializeField] private Text _bulletCountText;
+    [SerializeField] private Text _bulletCountInMagazineText;
 
-    
+
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
 
@@ -32,9 +33,11 @@ public class UiGameSceneManager : UiBase
     private void OnEnable()
     {
         DataPlayer.OnMoneyChanged += ChangeMonyScreen;
+        GameManager.Instace.bulletManager.OnChangeCountBullet += ChangeBulletCountText;
         PlayerController.Instace.playerShoot.OnEndedBullet += ShowNatitficationScreen;
         PlayerController.Instace.playerShoot.OnNextWeapon += ChangeWeaponAnim;
         PlayerController.Instace.playerShoot.OnChangeBulletCount += ChangeBulletCountText;
+        PlayerController.Instace.playerShoot.OnChangeBulletCountInmagazine += ChangeBulletCountInMagazineText;
         PlayerController.Instace.playerShoot.OnNextBullet += ChangeBulletImage;
         PlayerHealth.OnHealthChanged += ChangeHealthBar;
         PlayerHealth.OnDie += OnDeathScreen;
@@ -42,9 +45,11 @@ public class UiGameSceneManager : UiBase
     private void OnDisable()
     {
         DataPlayer.OnMoneyChanged -= ChangeMonyScreen;
+        GameManager.Instace.bulletManager.OnChangeCountBullet -= ChangeBulletCountText;
         PlayerController.Instace.playerShoot.OnEndedBullet -= ShowNatitficationScreen;
         PlayerController.Instace.playerShoot.OnNextWeapon -= ChangeWeaponAnim;
         PlayerController.Instace.playerShoot.OnChangeBulletCount -= ChangeBulletCountText;
+        PlayerController.Instace.playerShoot.OnChangeBulletCountInmagazine -= ChangeBulletCountInMagazineText;
         PlayerController.Instace.playerShoot.OnNextBullet -= ChangeBulletImage;
         PlayerHealth.OnHealthChanged += ChangeHealthBar;
         PlayerHealth.OnDie += OnDeathScreen;
@@ -180,9 +185,13 @@ public class UiGameSceneManager : UiBase
         GameManager.Instace.animationImageManager.AnimationWeapon(_weaponImage);
     }
 
-    private void ChangeBulletCountText(int countMagazine,int countBullet)
+    private void ChangeBulletCountText(int countBullet)
     {
-        _bulletCountText.text = $"{countMagazine}/{countBullet}";
+        _bulletCountText.text = $"/ {countBullet}";
+    }
+    private void ChangeBulletCountInMagazineText(int countMagazine)
+    {
+        _bulletCountInMagazineText.text = countMagazine.ToString();
     }
 
     private void ChangeBulletImage(Sprite sprite)
