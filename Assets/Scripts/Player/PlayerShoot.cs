@@ -18,6 +18,7 @@ public class PlayerShoot : MonoBehaviour
     public Action<Sprite> OnNextWeapon;
     public Action<Sprite> OnNextBullet;
     public Action<int, int> OnChangeBulletCount;
+    private bool _isDeath = false;
 
     private void Start()
     {
@@ -30,14 +31,26 @@ public class PlayerShoot : MonoBehaviour
         SetLustShootTime();
 
     }
+    private void OnEnable()
+    {
+        PlayerHealth.OnDie += SetIsDeath;
+    }
+    private void OnDisable()
+    {
+        PlayerHealth.OnDie -= SetIsDeath;
+    }
 
     private void Update()
     {
-        DetermineTypeOfShooting();
-        NextWepon(_input.IsNextWepon());
-        NextBullet(_input.IsNextBullet());
-        Recharge(_input.IsRecharge());
-        UpdateRechargeTime();
+        if (!_isDeath)
+        {
+            DetermineTypeOfShooting();
+            NextWepon(_input.IsNextWepon());
+            NextBullet(_input.IsNextBullet());
+            Recharge(_input.IsRecharge());
+            UpdateRechargeTime();
+        }
+       
     }
 
     private void Shoot(bool IsShoot)
@@ -65,7 +78,7 @@ public class PlayerShoot : MonoBehaviour
                         return;
                     }
                     Vector3 bulletDirection = _currentWeapon.firePoint.forward;
-                    bulletDirection = Quaternion.Euler(0, -15, 0) * bulletDirection;
+                    bulletDirection = Quaternion.Euler(0, -33, 0) * bulletDirection;
                     GameObject bulletPrefub = Instantiate(bulletBase.bulletPrefub
                             , _currentWeapon.firePoint.position
                             , Quaternion.identity);
@@ -281,5 +294,9 @@ public class PlayerShoot : MonoBehaviour
             default:
                 break;
         }
+    }
+    private void SetIsDeath(bool isDeath)
+    {
+        _isDeath = isDeath;
     }
 }

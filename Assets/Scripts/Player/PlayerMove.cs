@@ -7,59 +7,103 @@ public class PlayerMove : MonoBehaviour
 {
     private Rigidbody _rb;
     private IInputMove _input;
-    [SerializeField] private float _moveSpeed = 5;
-    [SerializeField] private float _jumpForce = 5;
-    [SerializeField] private float _rotationSpeed = 5;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _jumpForce = 5f;
+    [SerializeField, Range(0, 180)]
+    private float _rotationOffsetAngle = 0f;
 
     public static Action<Vector3> OnMove;
     public static Action<bool> OnJump;
 
-    private Vector3 lastDirection;
-    public float rot = 40;
+    private bool _isDeath = false;
+    private Camera _mainCamera;
 
+    private PlayerController _playerController;
+
+    private void OnEnable()
+    {
+        PlayerHealth.OnDie += SetIsDeath;
+    }
+
+    private void OnDisable()
+    {
+        PlayerHealth.OnDie -= SetIsDeath;
+    }
 
     private void Start()
     {
+        _playerController = PlayerController.Instace;
         _rb = GetComponent<Rigidbody>();
         _input = GameManager.Instace.inputManager._currentInputMove;
-
+        _mainCamera = Camera.main;
     }
+
     private void Update()
     {
-        Move(_input.GetDirection());
-        Jump(_input.IsJumpPressed());
+        if (!_isDeath)
+        {
+            Vector3 direction = _input.GetDirection();
+            Move(direction);
+            RotateToMouse(_input.GetMousePosition());
+            Jump(_input.IsJumpPressed());
+        }
     }
+
     public void Move(Vector3 direction)
     {
-        
         if (direction != Vector3.zero)
         {
-            // ѕоворот на 90 градусов влево (по оси Y)
-            // Ќаправление остаетс€ вперед, но сам персонаж ориентирован на левую сторону.
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation * Quaternion.Euler(0, 40, 0), _rotationSpeed * Time.deltaTime);
-            lastDirection = direction;
+            Vector3 moveDirection = new Vector3(direction.x, 0, direction.z).normalized;
+            _rb.velocity = new Vector3(moveDirection.x * _moveSpeed, _rb.velocity.y, moveDirection.z * _moveSpeed);
         }
         else
         {
-            Quaternion stopRotation = Quaternion.LookRotation(lastDirection);
-            transform.rotation = Quaternion.Lerp(transform.rotation, stopRotation * Quaternion.Euler(0, rot, 0), _rotationSpeed * Time.deltaTime);
+            _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
         }
-
-        // ƒвигаем персонажа вперед в направлении
-        _rb.velocity = new Vector3(direction.x * _moveSpeed, _rb.velocity.y, direction.z * _moveSpeed);
-        _rb.angularVelocity = Vector3.zero;
 
         OnMove?.Invoke(direction);
     }
 
+    public void RotateToMouse(Vector3 mausePosition)
+    {
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero); 
+        Ray ray = _mainCamera.ScreenPointToRay(mausePosition);
+
+        if (groundPlane.Raycast(ray, out float distance))
+        {
+            Vector3 lookPoint = ray.GetPoint(distance);
+            Vector3 lookDirection = lookPoint - transform.position;
+            lookDirection.y = 0;
+
+            if (lookDirection != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+
+              
+                if (_rotationOffsetAngle > 0f)
+                {
+                    float offsetAngle = _rotationOffsetAngle;
+                    Quaternion offsetRotation = Quaternion.Euler(0, offsetAngle, 0); 
+                    targetRotation = targetRotation * offsetRotation;
+                }
+
+                transform.rotation = targetRotation;
+            }
+        }
+    }
+
     public void Jump(bool isButtonJumpPressed)
     {
-        OnJump?.Invoke(PlayerController.Instace.CheckIsGrounded() && isButtonJumpPressed);
-        if (PlayerController.Instace.CheckIsGrounded() && isButtonJumpPressed)
+        OnJump?.Invoke(_playerController.CheckIsGrounded() && isButtonJumpPressed);
+        if (_playerController.CheckIsGrounded() && isButtonJumpPressed)
         {
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
-       
+    }
+
+    private void SetIsDeath(bool isDeath)
+    {
+        _isDeath = isDeath;
     }
 }
+

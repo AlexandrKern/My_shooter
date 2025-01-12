@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour
 {
     private BulletBase _bulletBase;
     private bool _isExplosionTriggered = false;
-    private IDamageable _damageable;
+    private IEnemyDamageable _damageable;
 
     private void Awake()
     {
@@ -126,7 +126,7 @@ public class BulletController : MonoBehaviour
 
     private bool IsDamageable(GameObject obj)
     {
-        _damageable = obj.GetComponent<IDamageable>();
+        _damageable = obj.GetComponent<IEnemyDamageable>();
         return _damageable != null;
     }
 

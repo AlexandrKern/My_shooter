@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private int  _currentWeaponIndex;
     public PlayerShoot playerShoot;
     public Transform weaponPosition;
+    public PlayerHealth playerHealth;
 
     #region Singleton
     public static PlayerController Instace;
