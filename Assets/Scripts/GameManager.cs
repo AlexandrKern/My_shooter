@@ -24,4 +24,5 @@ public class GameManager : MonoBehaviour
     public BulletManager bulletManager;
     public AnimationImageManager animationImageManager;
     public AnimationButtonManager animationButtonManager;
+    public AnimationTextManager animationTextManager;
 }

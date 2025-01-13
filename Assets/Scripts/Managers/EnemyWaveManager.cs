@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,12 @@ public class EnemyWaveManager : MonoBehaviour
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private float _interWaveTimer;
     private float _waveTimer;
+    private int _previousDisplayedTime;
     private bool playTimer = false;
-
     private int _waveCount = 1;
+
+    public event Action<int> OnCangeWaveCount;
+    public event Action<int> OnCangeTimerValue;
 
     private void Start()
     {
@@ -43,6 +47,13 @@ public class EnemyWaveManager : MonoBehaviour
         if (playTimer)
         {
             _waveTimer -= Time.deltaTime;
+            int displayedTime = Mathf.CeilToInt(_waveTimer);
+            if (displayedTime != _previousDisplayedTime)
+            {
+                _previousDisplayedTime = displayedTime;
+                OnCangeTimerValue?.Invoke(displayedTime);
+            }
+
             if (_waveTimer <= 0)
             {
                 _waveTimer = _interWaveTimer;
@@ -68,7 +79,7 @@ public class EnemyWaveManager : MonoBehaviour
         EnemyManager.Instace.enemyCount = 0;
         _enemyCount += 3;
         _waveCount++;
-        Debug.Log("Номер волны " + _waveCount);
+        OnCangeWaveCount?.Invoke(_waveCount);
     }
 
 }

@@ -11,7 +11,6 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
     {
         health -= damage;
         if (health <= 0) Die();
-        Debug.Log("Враг получил урон");
     }
 
     private void Die()
