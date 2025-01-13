@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,4 +19,12 @@ public class SceneController : MonoBehaviour
     }
 
     public UiBase uiBase;
+
+    [ShowIf("IsUiGameSceneManager")]
+    public EnemyWaveManager enemyWaveManager;
+    
+    private bool IsUiGameSceneManager()
+    {
+        return uiBase is UiGameSceneManager;
+    }
 }

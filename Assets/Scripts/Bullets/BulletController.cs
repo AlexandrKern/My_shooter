@@ -83,7 +83,7 @@ public class BulletController : MonoBehaviour
 
             foreach (Rigidbody rb in affectedRigidbodies)
             {
-                rb.isKinematic = true;
+                if(rb != null)  rb.isKinematic = true;
             }
             Destroy(gameObject);
         }

@@ -23,12 +23,14 @@ public class UiGameSceneManager : UiBase
     [SerializeField] private Text _notificationText;
     [SerializeField] private Text _bulletCountText;
     [SerializeField] private Text _bulletCountInMagazineText;
+    [SerializeField] private Text _waveTimerText;
+    [SerializeField] private Text _waveCountText;
 
 
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
 
-    
+   
 
     private void OnEnable()
     {
@@ -41,6 +43,7 @@ public class UiGameSceneManager : UiBase
         PlayerController.Instace.playerShoot.OnNextBullet += ChangeBulletImage;
         PlayerHealth.OnHealthChanged += ChangeHealthBar;
         PlayerHealth.OnDie += OnDeathScreen;
+        
     }
     private void OnDisable()
     {
@@ -53,10 +56,15 @@ public class UiGameSceneManager : UiBase
         PlayerController.Instace.playerShoot.OnNextBullet -= ChangeBulletImage;
         PlayerHealth.OnHealthChanged += ChangeHealthBar;
         PlayerHealth.OnDie += OnDeathScreen;
+        SceneController.Instance.enemyWaveManager.OnCangeWaveCount -= ChangeWaveCountText;
+        SceneController.Instance.enemyWaveManager.OnCangeTimerValue -= ChangeWaveTimerText;
     }
     private void Start()
     {
+        SceneController.Instance.enemyWaveManager.OnCangeWaveCount += ChangeWaveCountText;
+        SceneController.Instance.enemyWaveManager.OnCangeTimerValue += ChangeWaveTimerText;
         _currentScreen = _gameScreen;
+        ChangeWaveCountText(1);
         SetMoneyCount();
     }
 
@@ -87,6 +95,19 @@ public class UiGameSceneManager : UiBase
                 PlayGame();
                 break;
         }
+    }
+
+    private void ChangeWaveCountText(int waveCount)
+    {
+        _waveCountText.text = "Волна " + waveCount;
+        GameManager.Instace.animationTextManager.AnimateWaveCountText(_waveCountText);
+    }
+    private void ChangeWaveTimerText(int timer)
+    {
+        _waveTimerText.gameObject.SetActive(timer > 0);
+        _waveTimerText.text = timer.ToString();
+        GameManager.Instace.animationTextManager.AnimateTimerText(_waveTimerText);
+
     }
     private void PauseGame()
     {

@@ -10,6 +10,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyHealth))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(EnemyAnimatorController))]
+[RequireComponent(typeof(MoneySpawner))]
 
 public abstract class EnemyBase : MonoBehaviour
 {
