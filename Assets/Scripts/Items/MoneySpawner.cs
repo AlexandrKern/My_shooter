@@ -5,14 +5,24 @@ using UnityEngine;
 public class MoneySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _moneyPrefub;
+    private EnemyHealth _enemyHealth;
 
-    private void SpawnMoney()
+    private void Start()
     {
-        Instantiate(_moneyPrefub,transform.position, Quaternion.identity);
+        _enemyHealth = GetComponent<EnemyHealth>();
+        _enemyHealth.OnDie += SpawnMoney;
     }
 
-    private void OnDestroy()
+    private void SpawnMoney(bool isSpawn)
     {
-        SpawnMoney();
+        StartCoroutine(SpawnMoneyAfterEnemyDeath());
     }
+
+    private IEnumerator SpawnMoneyAfterEnemyDeath()
+    {
+        yield return new WaitForSeconds(_enemyHealth.deathTimer - 0.1f);
+        Instantiate(_moneyPrefub, transform.position, Quaternion.identity);
+    }
+
+
 }

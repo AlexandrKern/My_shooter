@@ -66,6 +66,7 @@ public class PlayerMove : MonoBehaviour
 
     public void RotateToMouse(Vector3 mausePosition)
     {
+        if(Time.timeScale ==  0) return;
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero); 
         Ray ray = _mainCamera.ScreenPointToRay(mausePosition);
 

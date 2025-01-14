@@ -387,6 +387,7 @@ public enum ButtonType
     Continue,
     Back,
     Return,
+    End
 }
 
 public enum TypeUpgradeWeapon

@@ -50,4 +50,36 @@ public static class DataPlayer
         OnMoneyChanged?.Invoke(playerStats.money);
         Save() ;
     }
+
+    public static void AddEnemyDeathCount(EnemyBase enemy)
+    {
+        if(enemy is Warrok warrok)
+        {
+            playerStats.warroktDeathCount++;
+        }
+        if (enemy is Mutant mutant)
+        {
+            playerStats.mutantDeathCount++;
+        }
+        if (enemy is Vampire vampire)
+        {
+            playerStats.vampireDeathCount++;
+        }
+        Save() ;
+    }
+
+    public static int  GetEnemyDeathCount(string enemyName)
+    {
+        switch (enemyName)
+        {
+            case "warrok":
+                return playerStats.warroktDeathCount;
+            case "mutant":
+                return playerStats.mutantDeathCount;
+            case "vampire":
+                return playerStats.vampireDeathCount;
+            default:
+                return 0;
+        }
+    }
 }
