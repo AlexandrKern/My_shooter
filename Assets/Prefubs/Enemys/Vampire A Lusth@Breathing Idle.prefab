@@ -1310,6 +1310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1417523fcfa219147bbd35b3f1355ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathTimer: 4
   health: 1
 --- !u!136 &2831512985106536155
 CapsuleCollider:

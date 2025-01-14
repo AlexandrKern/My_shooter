@@ -25,6 +25,7 @@ public class UiGameSceneManager : UiBase
     [SerializeField] private Text _bulletCountInMagazineText;
     [SerializeField] private Text _waveTimerText;
     [SerializeField] private Text _waveCountText;
+    [SerializeField] private Text _enemyDeathCountText;
 
 
     private GameObject _currentScreen;
@@ -72,6 +73,10 @@ public class UiGameSceneManager : UiBase
     {
         switch (buttonController.buttonType)
         {
+            case ButtonType.End:
+                ChangeScreen(_endScreen);
+                SetTextResultGame();
+                break;
             case ButtonType.Menu:
                 LoadScene("MenuScene");
                 PlayGame();
@@ -231,7 +236,19 @@ public class UiGameSceneManager : UiBase
         if (IsDeath)
         {
             ChangeScreen(_gameOverScreen);
+            SetTextResultGame();
         }
-        
+    }
+
+    
+
+    private void SetTextResultGame()
+    {
+        if(_enemyDeathCountText ==  null)   return;
+        _enemyDeathCountText.gameObject.SetActive(true);
+        _enemyDeathCountText.text = $"Уничтожено\n" +
+            $"мутантов: {EnemyManager.Instace.GetEnemyDeathCurrentCount("mutant")}\n" +
+            $"вампиров: {EnemyManager.Instace.GetEnemyDeathCurrentCount("vampire")}\n" +
+            $"орков: {EnemyManager.Instace.GetEnemyDeathCurrentCount("warrok")}";
     }
 }
