@@ -25,4 +25,5 @@ public class GameManager : MonoBehaviour
     public AnimationImageManager animationImageManager;
     public AnimationButtonManager animationButtonManager;
     public AnimationTextManager animationTextManager;
+    public AnimationObjectsManager animationObjectsManager;
 }

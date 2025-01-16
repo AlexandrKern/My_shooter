@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0192807e82df88e44b43c4281cf3da6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneyPrefub: {fileID: 2449805910127896366, guid: 460a05a92b3c5cf478c851415289d2ad, type: 3}
+  _moneyPrefub: {fileID: 795879086680076396, guid: 3304454cf81c5a943ab13641311dd114, type: 3}
 --- !u!4 &5773443726658430445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6502182839619065283, guid: 289b4fe4d4a7efd4096e5b87a5b376f1, type: 3}

@@ -66,7 +66,6 @@ public class PlayerShoot : MonoBehaviour
             _isRecharge = true;
             return;
         }
-        Debug.Log("Не перезаряжается " + !_isRecharge);
         if (IsShoot && !_isRecharge && Time.time >= _lastShootTime + _currentWeapon.fireRate)
         {
             bulletBase = GameManager.Instace.bulletManager.GetBullet();
@@ -189,7 +188,6 @@ public class PlayerShoot : MonoBehaviour
 
             if (_rechargeTime >= 0)
             {
-                Debug.Log("Перезаряжается");
                 _rechargeTime -= Time.deltaTime;
             }
             if (_rechargeTime <= 0)

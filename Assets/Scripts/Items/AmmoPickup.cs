@@ -6,6 +6,17 @@ public class AmmoPickup : MonoBehaviour
 {
     [SerializeField] private TypeOfBullet _typeOfBullet;
     [SerializeField] private int _ammoAmount;
+    public BulletBase bullet;
+
+    private void Start()
+    {
+        //if (!bullet.isUnlock)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
+        GameManager.Instace.animationObjectsManager.AnimateObject(transform);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
