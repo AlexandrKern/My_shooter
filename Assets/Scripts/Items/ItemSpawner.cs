@@ -18,7 +18,6 @@ public class ItemSpawner : MonoBehaviour
 
     private void Start()
     {
-       
         foreach (var itemData in _itemSpawnSettings)
         {
             itemData.currentTimer = itemData.spawnInterval;
@@ -27,22 +26,56 @@ public class ItemSpawner : MonoBehaviour
 
     private void Update()
     {
-
         foreach (var itemData in _itemSpawnSettings)
         {
             itemData.currentTimer -= Time.deltaTime;
 
             if (itemData.currentTimer <= 0)
             {
-                SpawnItem(itemData);
+                TrySpawnItem(itemData);
                 itemData.currentTimer = itemData.spawnInterval;
             }
         }
     }
 
-    private void SpawnItem(ItemSpawnData itemData)
+    private void TrySpawnItem(ItemSpawnData itemData)
     {
-        Transform spawnPoint = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-        Instantiate(itemData.itemPrefab, spawnPoint.position, Quaternion.identity);
+        
+        if (itemData.itemPrefab.GetComponent<AmmoPickup>() && !itemData.itemPrefab.GetComponent<AmmoPickup>().bullet.isUnlock)
+        {
+            return;
+        }
+        Transform spawnPoint = GetAvailableSpawnPoint();
+        if (spawnPoint != null)
+        {
+            Vector3 spawnPosition = spawnPoint.position + Vector3.up * 0.5f; 
+            Instantiate(itemData.itemPrefab, spawnPosition, Quaternion.identity);
+        }
+    }
+
+    private Transform GetAvailableSpawnPoint()
+    {
+        foreach (var spawnPoint in _spawnPoints)
+        {
+            Collider[] colliders = Physics.OverlapSphere(spawnPoint.position, 0.5f); 
+            bool isOccupied = false;
+
+            foreach (var collider in colliders)
+            {
+                if (collider.CompareTag("Item")) 
+                {
+                    isOccupied = true;
+                    break;
+                }
+            }
+
+            if (!isOccupied)
+            {
+                return spawnPoint;
+            }
+        }
+
+        return null; 
     }
 }
+

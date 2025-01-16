@@ -21,7 +21,8 @@ public class MoneySpawner : MonoBehaviour
     private IEnumerator SpawnMoneyAfterEnemyDeath()
     {
         yield return new WaitForSeconds(_enemyHealth.deathTimer - 0.1f);
-        Instantiate(_moneyPrefub, transform.position, Quaternion.identity);
+        Vector3 spawnPosition = transform.position + Vector3.up * 0.5f;
+        Instantiate(_moneyPrefub, spawnPosition, Quaternion.identity);
     }
 
 

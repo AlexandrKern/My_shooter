@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RotationBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 20a948ab110ce804abab99149c04bfa7, type: 3}
-  countBullet: 30
+  countBullet: 70
   priceBullet: 100
   isUnlock: 0
   bulletName: RotationBullet
