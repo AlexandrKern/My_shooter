@@ -23,6 +23,7 @@ public class UiMenuManager : UiBase
 
     [SerializeField] private Text _playerMonyText;
     [SerializeField] private Text _notificationText;
+    [SerializeField] private Text _warningText;
 
     [SerializeField] private Image _notificationScreen;
     
@@ -53,9 +54,11 @@ public class UiMenuManager : UiBase
 
     public override void ButtonPress(ButtonController buttonController)
     {
+       
         switch (buttonController.buttonType)
         {
             case ButtonType.Shop:
+                GameManager.Instace.animationTextManager.AnimateWaveCountText(_warningText);
                 ChangeScreen(_shopScreen);
                 break;
             case ButtonType.UnlockWeapons:

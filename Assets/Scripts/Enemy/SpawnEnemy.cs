@@ -49,7 +49,6 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(enemyData.enemyPrefab, spawnPoint.position, Quaternion.identity); 
         EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
 
-       
         if (enemyBase != null)
         {
             _enemyManager.AddEnemy(enemyBase);
@@ -59,6 +58,5 @@ public class EnemySpawner : MonoBehaviour
     {
         _isSpawning = isSpawning;
     }
-    
 }
 

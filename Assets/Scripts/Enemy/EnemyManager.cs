@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -21,11 +22,18 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField]private List<EnemyBase> _enemies = new List<EnemyBase>();
+    
+
+    private List<EnemyBase> _enemies = new List<EnemyBase>();
     [HideInInspector] public int enemyCount;
     private int warroktDeathCount;
     private int mutantDeathCount;
     private int vampireDeathCount;
+
+    [SerializeField] private EnemyHealth _mutantHealth;
+    [SerializeField] private EnemyHealth _vampiretHealth;
+    [SerializeField] private EnemyHealth _warrokHealth;
+
 
     public event Action<int> OnAddEnemy;
     public event Action<int> OnRemoveEnemy;
@@ -35,6 +43,7 @@ public class EnemyManager : MonoBehaviour
         warroktDeathCount = 0;
         mutantDeathCount = 0;
         vampireDeathCount = 0;
+        SceneController.Instance.enemyWaveManager.OnCangeWaveCount += SetEnemyHealth;
     }
 
     private void Update()
@@ -44,6 +53,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemy.isDeath)
             {
+                if(!enemy.isMove) return;
                 enemy.Move();
                 enemy.Attack();
             }
@@ -58,6 +68,7 @@ public class EnemyManager : MonoBehaviour
     } 
     public void AddEnemy(EnemyBase enemy)
     {
+        
         _enemies.Add(enemy);
         enemyCount++;
         OnAddEnemy?.Invoke(enemyCount);
@@ -94,4 +105,12 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    private void SetEnemyHealth(int waveCount)
+    {
+        _mutantHealth.health += 1;
+        _vampiretHealth.health += 1;
+        _warrokHealth.health += 1;
+    }
+
+   
 }

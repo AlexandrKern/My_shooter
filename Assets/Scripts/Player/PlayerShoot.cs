@@ -101,8 +101,14 @@ public class PlayerShoot : MonoBehaviour
         {
             SetMagazineByTypeBullet();
             GameManager.Instace.weponManager.NextWepon();
+            SetRechargeTime();
             _currentWeapon = GameManager.Instace.weponManager.GetWeapon();
             PlayerController.Instace.ChangeWeapon();
+            if (GetAvailableUnlockedCompatibleBulletTypesCount() == 0)
+            {
+                OnEndedBullet?.Invoke("Нет доступных пуль для нового оружия");
+                return;
+            }
             EnsureCompatibleBullet();
             SetCountBulletInMagazine();
             OnNextWeapon?.Invoke(_currentWeapon.iconWeapon);

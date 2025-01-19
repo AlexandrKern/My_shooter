@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathTimer: 4
-  health: 1
+  health: 20
 --- !u!136 &2831512985106536155
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!195 &7989979160810225727
 NavMeshAgent:
@@ -1398,6 +1398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 35fa716ebe15e1e469b92f9b265efbb0, type: 2}
   isDeath: 0
+  isMove: 1
   _bullet: {fileID: 11400000, guid: 8515f7d9ad650d94fbda52354f3dd632, type: 2}
   _firePoint: {fileID: 8623066706422416373}
 --- !u!114 &2346994512878356096

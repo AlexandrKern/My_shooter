@@ -22,6 +22,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected bool canAttack;
     [HideInInspector] public bool isDeath;
+    [HideInInspector] public bool isMove = true;
 
     public Action<bool> OnAttack;
     public Action<bool> OnMove;
@@ -62,6 +63,9 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual void Move()
     {
+        //Debug.Log("стоит" + _agent.isStopped);
+        //Debug.Log("вращается" + _agent.updateRotation);
+       
         if (!PlayerDetected())
         {
             _agent.isStopped = false;

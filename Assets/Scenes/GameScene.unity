@@ -4962,8 +4962,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e641005c32aa1429a5caec37c4da0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemies: []
   enemyCount: 0
+  _mutantHealth: {fileID: 4171941956674435230, guid: fd14d56f4282e964b88a33be005816d2, type: 3}
+  _vampiretHealth: {fileID: 1877523425443349883, guid: 9322caada98a69c42a37fce6e4dedb3d, type: 3}
+  _warrokHealth: {fileID: 2014757249532499874, guid: 4edffde27271c9d409e0c25da41b4ca6, type: 3}
 --- !u!1 &1419492770
 GameObject:
   m_ObjectHideFlags: 0
@@ -5321,13 +5323,13 @@ MonoBehaviour:
   - {fileID: 1594518239}
   _enemySpawnSettings:
   - enemyPrefab: {fileID: 496074893113249151, guid: fd14d56f4282e964b88a33be005816d2, type: 3}
-    spawnInterval: 2
+    spawnInterval: 4
     currentTimer: 0
   - enemyPrefab: {fileID: 965002004392171685, guid: 9322caada98a69c42a37fce6e4dedb3d, type: 3}
-    spawnInterval: 3
+    spawnInterval: 5
     currentTimer: 0
   - enemyPrefab: {fileID: 5832678371146101712, guid: 4edffde27271c9d409e0c25da41b4ca6, type: 3}
-    spawnInterval: 4
+    spawnInterval: 7
     currentTimer: 0
 --- !u!4 &1509820333
 Transform:
@@ -6826,16 +6828,16 @@ MonoBehaviour:
   - {fileID: 193354905}
   _itemSpawnSettings:
   - itemPrefab: {fileID: 867354085748940096, guid: d987e4d8de7e7194da4c37253c735f6f, type: 3}
-    spawnInterval: 1
+    spawnInterval: 30
     currentTimer: 0
   - itemPrefab: {fileID: 1810514936714998254, guid: b47cf1166969ae04b93ccc6da5b966cf, type: 3}
-    spawnInterval: 2
+    spawnInterval: 40
     currentTimer: 0
   - itemPrefab: {fileID: 1123707423560604488, guid: 13609668caedbad42b8f731fa79671fd, type: 3}
-    spawnInterval: 3
+    spawnInterval: 50
     currentTimer: 0
   - itemPrefab: {fileID: 882386778308998678, guid: 2f2abdf070579574698023778410124a, type: 3}
-    spawnInterval: 4
+    spawnInterval: 60
     currentTimer: 0
 --- !u!1 &1964069450
 GameObject:
@@ -7321,9 +7323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b952ff87eda11ef459ab2a0e5b0dd1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyCount: 3
+  _enemyCount: 5
   _enemySpawner: {fileID: 1509820332}
-  _interWaveTimer: 10
+  _interWaveTimer: 5
+  _waveCount: 1
 --- !u!4 &2067223143
 Transform:
   m_ObjectHideFlags: 0

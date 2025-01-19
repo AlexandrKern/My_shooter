@@ -10,11 +10,6 @@ public class AmmoPickup : MonoBehaviour
 
     private void Start()
     {
-        //if (!bullet.isUnlock)
-        //{
-        //    Destroy(gameObject);
-        //    return;
-        //}
         GameManager.Instace.animationObjectsManager.AnimateObject(transform);
     }
 
