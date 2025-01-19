@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vampire
   m_EditorClassIdentifier: 
   enemyName: Vampire
-  moveSpeed: 1
-  attackSpeed: 3
-  attackRange: 5
-  damage: 10
+  moveSpeed: 2
+  attackSpeed: 2
+  attackRange: 7
+  damage: 2

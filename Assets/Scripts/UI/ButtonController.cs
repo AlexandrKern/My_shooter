@@ -142,6 +142,9 @@ public class ButtonController : MonoBehaviour
             case ButtonType.RotationBullet:
                 SetEnabledItemButton(bullet.isUnlock,bullet.priceBullet);
                 break;
+            case ButtonType.ExplosionBullet:
+                SetEnabledItemButton(bullet.isUnlock, bullet.priceBullet);
+                break;
             case ButtonType.UpgradeBullets:
                 InitializeUpgradeBulletButton();
                 break;

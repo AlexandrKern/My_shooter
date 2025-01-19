@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
-  currrentCountBullet: 3
+  currrentCountBullet: 10
   priceWeapon: 100
   isUnlock: 1
   weaponName: Pistol
@@ -21,22 +21,22 @@ MonoBehaviour:
   weaponPrefub: {fileID: 6074793781764415449, guid: 3875396f2a8ee594bb0adb7aeeb4fb4b, type: 3}
   iconWeapon: {fileID: 21300000, guid: ed3e7a027ae1f5d4787823e7b6255b48, type: 3}
   tyoeOfShooting: 1
-  typeOfSuitableBullets: 000000000100000002000000
-  howMuchUpgradeRechargeTime: 0.1
+  typeOfSuitableBullets: 00000000
+  howMuchUpgradeRechargeTime: 0.2
   countOfUpgradesRechargeTime: 10
   priceRechargeTime: 1
-  rechargeTime: 1.1
+  rechargeTime: 2.1
   minRchargeTime: 0.1
   howMuchUpgradeFireRate: 0.1
   countOfUpgradesFireRate: 10
   priceFireRate: 1
-  fireRate: 1.1
-  minFireRate: 0.1
-  howMuchUpgradeMagazine: 1
+  fireRate: 1.2
+  minFireRate: 0.2
+  howMuchUpgradeMagazine: 5
   countOfUpgradesMagazine: 10
   priceMagazine: 1
-  magazine: 3
-  maxCountBulletInMagazine: 21
-  countRotationBullet: 3
-  countExplosionBullet: 3
-  countOrdinaryBullet: 3
+  magazine: 10
+  maxCountBulletInMagazine: 60
+  countRotationBullet: 10
+  countExplosionBullet: 10
+  countOrdinaryBullet: 10

@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: OrdinaryBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 77f83157e21cde54b9640a360085c21b, type: 3}
-  countBullet: 0
+  countBullet: 37
   priceBullet: 100
   isUnlock: 1
   bulletName: OrdinaryBullet
   bulletPrefub: {fileID: 7886252694243911542, guid: 9bc1489c60e4b4f4d8abbd921e336b5b, type: 3}
   typeOfBullet: 0
   SupportedUpgrades: 0000000001000000
-  countOfUpgradesSpeed: 6
-  speed: 5
-  howMuchUpgradeSpeed: 1
-  maxSpeed: 11
-  priceSpeed: 16
-  countOfUpgradesDamage: 9
-  damage: 2
-  howMuchUpgradeDamage: 1
-  maxDamage: 11
-  priceDamage: 2
+  countOfUpgradesSpeed: 10
+  speed: 3
+  howMuchUpgradeSpeed: 0.5
+  maxSpeed: 8
+  priceSpeed: 100
+  countOfUpgradesDamage: 10
+  damage: 1
+  howMuchUpgradeDamage: 5
+  maxDamage: 51
+  priceDamage: 200

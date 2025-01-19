@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _typeOfBullet: 2
-  _ammoAmount: 10
+  _ammoAmount: 15
   bullet: {fileID: 11400000, guid: 4955be4fe3f67ab4eaf88436b5b6f4ac, type: 2}
 --- !u!1 &3742872202214292362
 GameObject:

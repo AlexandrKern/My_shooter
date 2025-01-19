@@ -79,7 +79,7 @@ public class BulletController : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.1f); 
 
             foreach (Rigidbody rb in affectedRigidbodies)
             {
@@ -91,19 +91,30 @@ public class BulletController : MonoBehaviour
 
     private IEnumerator HandleRotationBullet(GameObject target, float rotationSpeed, float rotationDuration)
     {
-        
-        if (IsDamageable(target))
+        Rigidbody rb = target.GetComponent<Rigidbody>();
+        EnemyBase enemy = target.GetComponent<EnemyBase>();
+
+
+        if (rb != null && IsDamageable(target))
         {
+           
+            enemy.isMove = false;
+            rb.isKinematic = false;
             Debug.Log("Объект крутиться");
             float elapsedTime = 0f;
-
+            MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
+            if (renderer != null) renderer.enabled = false;
             while (elapsedTime < rotationDuration)
             {
+                Debug.Log(elapsedTime);
                 target.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
             Destroy(gameObject);
+            rb.isKinematic = true;
+            enemy.isMove = true;
+
         }
         Destroy(gameObject,2);
 

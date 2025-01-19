@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: RotationBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 20a948ab110ce804abab99149c04bfa7, type: 3}
-  countBullet: 70
-  priceBullet: 100
+  countBullet: 10
+  priceBullet: 100000
   isUnlock: 0
   bulletName: RotationBullet
   bulletPrefub: {fileID: 8052779213802753135, guid: 858223cba683aa64e979d9715fdd6701, type: 3}
   typeOfBullet: 2
   SupportedUpgrades: 00000000010000000500000006000000
-  countOfUpgradesSpeed: 9
+  countOfUpgradesSpeed: 10
   speed: 2
-  howMuchUpgradeSpeed: 1
-  maxSpeed: 11
-  priceSpeed: 2
-  countOfUpgradesDamage: 9
-  damage: 2
+  howMuchUpgradeSpeed: 0.2
+  maxSpeed: 4
+  priceSpeed: 100
+  countOfUpgradesDamage: 10
+  damage: 1
   howMuchUpgradeDamage: 1
   maxDamage: 11
-  priceDamage: 2
-  countOfUpgradesRotationSpeed: 9
-  priceRotationSpeed: 2
-  howMuchRotationSpeed: 1
-  rotationSpeed: 2
-  maxRotationSpeed: 11
-  countOfUpgradesDuration: 9
-  priceDuration: 2
-  howMuchRotationDuration: 1
-  rotationDuration: 2
-  maxRotationDuration: 11
+  priceDamage: 30
+  countOfUpgradesRotationSpeed: 10
+  priceRotationSpeed: 100
+  howMuchRotationSpeed: 100
+  rotationSpeed: 300
+  maxRotationSpeed: 1300
+  countOfUpgradesDuration: 10
+  priceDuration: 400
+  howMuchRotationDuration: 0.5
+  rotationDuration: 1
+  maxRotationDuration: 6

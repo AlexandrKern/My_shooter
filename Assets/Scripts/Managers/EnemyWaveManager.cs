@@ -11,7 +11,7 @@ public class EnemyWaveManager : MonoBehaviour
     private float _waveTimer;
     private int _previousDisplayedTime;
     private bool playTimer = false;
-    private int _waveCount = 1;
+    [HideInInspector] public int _waveCount = 1;
 
     public event Action<int> OnCangeWaveCount;
     public event Action<int> OnCangeTimerValue;
@@ -19,7 +19,7 @@ public class EnemyWaveManager : MonoBehaviour
     private void Start()
     {
         _waveTimer = _interWaveTimer;
-        EnemyManager.Instace.OnAddEnemy += StopWave;
+        EnemyManager.Instace.OnAddEnemy += StopWave; 
     }
   
 
@@ -81,5 +81,4 @@ public class EnemyWaveManager : MonoBehaviour
         _waveCount++;
         OnCangeWaveCount?.Invoke(_waveCount);
     }
-
 }

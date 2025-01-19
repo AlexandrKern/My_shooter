@@ -13,38 +13,38 @@ MonoBehaviour:
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b25b0001c87a37741b91d954c1de6b42, type: 3}
-  countBullet: 1
+  countBullet: 5
   priceBullet: 100
-  isUnlock: 1
+  isUnlock: 0
   bulletName: ExplosionBullet
   bulletPrefub: {fileID: 8121584145642229360, guid: 6e280fb5a9f0c804ba82802c17c20100, type: 3}
   typeOfBullet: 1
   SupportedUpgrades: 0000000001000000030000000400000002000000
   countOfUpgradesSpeed: 10
-  speed: 1
+  speed: 10
   howMuchUpgradeSpeed: 1
-  maxSpeed: 11
-  priceSpeed: 1
+  maxSpeed: 20
+  priceSpeed: 100
   countOfUpgradesDamage: 10
-  damage: 1
-  howMuchUpgradeDamage: 1
-  maxDamage: 11
-  priceDamage: 1
+  damage: 10
+  howMuchUpgradeDamage: 10
+  maxDamage: 110
+  priceDamage: 200
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
   countOfUpgradesRadius: 10
-  priceRadius: 1
+  priceRadius: 300
   howMuchExplosionRadius: 1
-  explosionRadius: 10000
-  maxExplosionRadius: 10000
+  explosionRadius: 1
+  maxExplosionRadius: 11
   countOfUpgradesForce: 10
-  priceForce: 1
-  howMuchExplosionForce: 1
-  explosionForce: 10000
-  maxExplosionForce: 10000
-  countOfUpgradesTimer: 10
-  priceTimer: 1
-  howMuchExplosionTimer: 0.1
-  explosionTimer: 1.1
+  priceForce: 300
+  howMuchExplosionForce: 1000
+  explosionForce: 1000
+  maxExplosionForce: 11000
+  countOfUpgradesTimer: 100
+  priceTimer: 200
+  howMuchExplosionTimer: 0.4
+  explosionTimer: 4.1
   minExplosionTimer: 0.1

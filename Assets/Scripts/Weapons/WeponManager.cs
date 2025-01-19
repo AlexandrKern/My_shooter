@@ -49,6 +49,18 @@ public class WeponManager : MonoBehaviour
     {
         if (CheckMoney(buttonController.weapon.priceWeapon))
         {
+            if(buttonController.weapon.typeOfWepon == TypeOfWepon.GrenadeLauncher)
+            {
+                BulletBase [] bulletBase =  GameManager.Instace.bulletManager.GetAllBullets();
+
+                foreach (BulletBase bullet in bulletBase)
+                {
+                    if(bullet.typeOfBullet == TypeOfBullet.Explosion)
+                    {
+                        bullet.isUnlock = true;
+                    }
+                }
+            }
             SetWeapon(buttonController.weapon);
             _currentWeapon.isUnlock = true;
             OnWeaponUnlock?.Invoke(buttonController, true,_currentWeapon.priceWeapon);

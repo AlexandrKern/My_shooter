@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _typeOfBullet: 0
-  _ammoAmount: 10
+  _ammoAmount: 50
   bullet: {fileID: 11400000, guid: 9aa7ede8ada550d46b65280c96caa9fd, type: 2}
 --- !u!65 &1460411910648886870
 BoxCollider:
