@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Vampire
   moveSpeed: 2
-  attackSpeed: 2
+  attackSpeed: 1.5
   attackRange: 7
   damage: 2
+  health: 10

@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 023406ee12fdf6547b8e56ebe52f05a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.68
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 023406ee12fdf6547b8e56ebe52f05a6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -975,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 023406ee12fdf6547b8e56ebe52f05a6, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1082271958561512970, guid: 023406ee12fdf6547b8e56ebe52f05a6, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1889,7 +1893,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _jumpForce: 5
-  _rotationSpeed: 5
+  _rotationOffsetAngle: 52
+  rotationSpeed: 5
 --- !u!114 &5886417852325699469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1923,7 +1928,7 @@ MonoBehaviour:
   isShoot: 0
   playerShoot: {fileID: 5886417852325699469}
   weaponPosition: {fileID: 1482690917316268325}
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 980666792866317146}
 --- !u!114 &3664911748484622607
 MonoBehaviour:
   m_ObjectHideFlags: 0

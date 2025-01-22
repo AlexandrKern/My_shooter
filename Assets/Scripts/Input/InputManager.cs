@@ -1,21 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
     public IInputMove _currentInputMove;
     public IInputShooter _currentInputShoot;
+    [HideInInspector] public bool isDesctop;
+    #region UI Handheld
+    public Joystick inputMove;
+    public Joystick inputRotate;
+    public Button jumpButton;
+    public Button nextBulletButton;
+    public Button nextWeponButton;
+    public Button rechargeButton;
+    public Button shootButton;
+    #endregion
+
+
     private void Awake()
     {
         InitializeInput();
     }
     private void InitializeInput()
     {
-        if (true)
+
+        switch (SystemInfo.deviceType)
         {
-            _currentInputMove = new InputKeyBorad();
-            _currentInputShoot = new InputKeyBorad();
+            case DeviceType.Desktop:
+                _currentInputMove = new InputKeyBorad();
+                _currentInputShoot = new InputKeyBorad();
+                isDesctop = true;
+                break;
+            case DeviceType.Handheld:
+                _currentInputMove = new InputHandheld(inputMove, inputRotate,jumpButton,nextBulletButton,nextWeponButton,rechargeButton,shootButton);
+                _currentInputShoot = new InputHandheld(inputMove, inputRotate, jumpButton, nextBulletButton, nextWeponButton, rechargeButton, shootButton);
+                isDesctop = false;
+                break;
         }
+        //_currentInputMove = new InputHandheld(inputMove, inputRotate, jumpButton, nextBulletButton, nextWeponButton, rechargeButton, shootButton);
+        //_currentInputShoot = new InputHandheld(inputMove, inputRotate, jumpButton, nextBulletButton, nextWeponButton, rechargeButton, shootButton);
     }
 }

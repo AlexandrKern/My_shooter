@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class PlayerMove : MonoBehaviour
     private Camera _mainCamera;
 
     private PlayerController _playerController;
+    [SerializeField] private float rotationSpeed = 5f;
+
+    private bool isDesctop;
+
 
     private void OnEnable()
     {
@@ -35,6 +40,7 @@ public class PlayerMove : MonoBehaviour
         _playerController = PlayerController.Instace;
         _rb = GetComponent<Rigidbody>();
         _input = GameManager.Instace.inputManager._currentInputMove;
+        isDesctop = GameManager.Instace.inputManager.isDesctop;
         _mainCamera = Camera.main;
     }
 
@@ -44,8 +50,13 @@ public class PlayerMove : MonoBehaviour
         {
             Vector3 direction = _input.GetDirection();
             Move(direction);
-            RotateToMouse(_input.GetMousePosition());
+            Rotate(_input.GetMousePosition());
             Jump(_input.IsJumpPressed());
+
+            if (_input is InputHandheld handheld)
+            {
+                handheld.ResetFlags();
+            }
         }
     }
 
@@ -64,12 +75,25 @@ public class PlayerMove : MonoBehaviour
         OnMove?.Invoke(direction);
     }
 
-    public void RotateToMouse(Vector3 mausePosition)
+    public void Rotate(Vector3 rotateDirection)
     {
-        if(Time.timeScale ==  0) return;
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero); 
-        Ray ray = _mainCamera.ScreenPointToRay(mausePosition);
+        if (Time.timeScale == 0) return;
 
+        if (isDesctop)
+        {
+           RotateUsingMouse(rotateDirection);
+        }
+        else
+        {
+           RotateUsingTouch(rotateDirection);
+        }
+       
+    }
+
+    private void RotateUsingMouse(Vector3 mousePosition)
+    {
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = _mainCamera.ScreenPointToRay(mousePosition);
         if (groundPlane.Raycast(ray, out float distance))
         {
             Vector3 lookPoint = ray.GetPoint(distance);
@@ -78,19 +102,31 @@ public class PlayerMove : MonoBehaviour
 
             if (lookDirection != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                Quaternion targetRotationToMause = Quaternion.LookRotation(lookDirection);
 
-              
+
                 if (_rotationOffsetAngle > 0f)
                 {
                     float offsetAngle = _rotationOffsetAngle;
-                    Quaternion offsetRotation = Quaternion.Euler(0, offsetAngle, 0); 
-                    targetRotation = targetRotation * offsetRotation;
+                    Quaternion offsetRotation = Quaternion.Euler(0, offsetAngle, 0);
+                    targetRotationToMause = targetRotationToMause * offsetRotation;
                 }
 
-                transform.rotation = targetRotation;
+                transform.rotation = targetRotationToMause;
             }
         }
+    }
+    private void RotateUsingTouch(Vector3 touchPosition)
+    {
+        //управление телефоном
+        if (touchPosition == Vector3.zero) return;
+
+        Quaternion faceOffsetRotation = Quaternion.Euler(0, _rotationOffsetAngle, 0);
+        Vector3 adjustedDirection = faceOffsetRotation * touchPosition;
+
+        Quaternion targetRotation = Quaternion.LookRotation(adjustedDirection);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
     public void Jump(bool isButtonJumpPressed)
