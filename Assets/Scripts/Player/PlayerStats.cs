@@ -3,7 +3,8 @@ using System;
 [Serializable]
 public class PlayerStats
 {
-    public int money = 1000000;
+    public int money;
+    public int maxWave;
 
     public int vampireDeathCount;
     public int mutantDeathCount;

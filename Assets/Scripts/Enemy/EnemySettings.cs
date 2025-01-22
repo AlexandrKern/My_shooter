@@ -12,4 +12,5 @@ public class EnemySettings : ScriptableObject
     public float attackSpeed;
     public float attackRange;
     public int damage;
+    public int health;
 }

@@ -200,10 +200,11 @@ public class AudioManager : MonoBehaviour
     public VolumeSettings LoadAllVolumes()
     {
         string filePath = Path.Combine(Application.persistentDataPath, VOLUME_SETTINGS_FILE);
+        VolumeSettings settings;
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
-            VolumeSettings settings = JsonUtility.FromJson<VolumeSettings>(json);
+            settings = JsonUtility.FromJson<VolumeSettings>(json);
 
             _musicVolume = settings.musicVolume;
             _sfxVolume = settings.sfxVolume;
@@ -223,6 +224,13 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            settings = new VolumeSettings{
+                sfxVolume = 1,
+                masterVolume = 1,
+                isMuted = false,
+                musicVolume = 1,
+            };
+
             _musicVolume = 1f;
             _sfxVolume = 1f;
             _masterVolume = 1f;
@@ -231,9 +239,8 @@ public class AudioManager : MonoBehaviour
 
             _currentMusicVolume = _musicVolume;
             ApplyMasterVolume();
+            return settings;
         }
-
-        return null;
     }
 }
 

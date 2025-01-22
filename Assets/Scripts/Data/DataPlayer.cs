@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -81,5 +79,18 @@ public static class DataPlayer
             default:
                 return 0;
         }
+    }
+
+    public static void SetWaveMaxCount(int waveCount)
+    {
+        if(playerStats.maxWave < waveCount-1)
+        {
+            playerStats.maxWave = waveCount-1;
+        }
+    }
+
+    public static int GetWaveMaxCount()
+    {
+        return playerStats.maxWave;
     }
 }

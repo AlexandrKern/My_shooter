@@ -50,6 +50,10 @@ public class PlayerShoot : MonoBehaviour
             NextBullet(_input.IsNextBullet());
             Recharge(_input.IsRecharge());
             UpdateRechargeTime();
+            if (_input is InputHandheld handheld)
+            {
+                handheld.ResetFlags();
+            }
         }
        
     }

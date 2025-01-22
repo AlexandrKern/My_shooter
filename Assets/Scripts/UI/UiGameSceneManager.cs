@@ -12,6 +12,7 @@ public class UiGameSceneManager : UiBase
     [SerializeField] private GameObject _pauseScreen;
     [SerializeField] private GameObject _audioScreen;
     [SerializeField] private GameObject _moneyScreen;
+    [SerializeField] private GameObject _inputHandheldPanel;
 
     [SerializeField] private Image _notificationScreen;
     [SerializeField] private Image _weaponImage;
@@ -67,6 +68,12 @@ public class UiGameSceneManager : UiBase
         _currentScreen = _gameScreen;
         ChangeWaveCountText(1);
         SetMoneyCount();
+        HandheldPanelActivate(!GameManager.Instace.inputManager.isDesctop);
+    }
+
+    private void HandheldPanelActivate(bool isActiv)
+    {
+        _inputHandheldPanel.SetActive(isActiv);
     }
 
     public override void ButtonPress(ButtonController buttonController)

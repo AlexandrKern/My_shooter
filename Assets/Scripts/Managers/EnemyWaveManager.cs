@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyWaveManager : MonoBehaviour
 {
+
+    [SerializeField] private int _enemyWaveGrowth;
     [SerializeField] private int _enemyCount;
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private float _interWaveTimer;
@@ -77,7 +79,8 @@ public class EnemyWaveManager : MonoBehaviour
     private void SetWaveSetting()
     {
         EnemyManager.Instace.enemyCount = 0;
-        _enemyCount += 3;
+        _enemyCount += _enemyWaveGrowth;
+        DataPlayer.SetWaveMaxCount(_waveCount);
         _waveCount++;
         OnCangeWaveCount?.Invoke(_waveCount);
     }

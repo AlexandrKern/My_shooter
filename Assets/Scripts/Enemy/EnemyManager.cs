@@ -22,17 +22,18 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
 
-    
-
     private List<EnemyBase> _enemies = new List<EnemyBase>();
     [HideInInspector] public int enemyCount;
     private int warroktDeathCount;
     private int mutantDeathCount;
     private int vampireDeathCount;
 
-    [SerializeField] private EnemyHealth _mutantHealth;
-    [SerializeField] private EnemyHealth _vampiretHealth;
-    [SerializeField] private EnemyHealth _warrokHealth;
+    [SerializeField] private EnemyBase _mutant;
+    [SerializeField] private EnemyBase _vampire;
+    [SerializeField] private EnemyBase _warrok;
+
+    [SerializeField] private int _healthGrowth;
+    [SerializeField] private int _damageGrowth;
 
 
     public event Action<int> OnAddEnemy;
@@ -40,10 +41,13 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
+        SetEnemyDamage(DataPlayer.GetWaveMaxCount());
+        SetEnemyHealth(DataPlayer.GetWaveMaxCount());
         warroktDeathCount = 0;
         mutantDeathCount = 0;
         vampireDeathCount = 0;
         SceneController.Instance.enemyWaveManager.OnCangeWaveCount += SetEnemyHealth;
+        SceneController.Instance.enemyWaveManager.OnCangeWaveCount += SetEnemyDamage;
     }
 
     private void Update()
@@ -107,10 +111,31 @@ public class EnemyManager : MonoBehaviour
 
     private void SetEnemyHealth(int waveCount)
     {
-        _mutantHealth.health += 1;
-        _vampiretHealth.health += 1;
-        _warrokHealth.health += 1;
+        UpdateEnemySettings(waveCount, settings => settings.health += _healthGrowth);
     }
 
-   
+    private void SetEnemyDamage(int waveCount)
+    {
+        UpdateEnemySettings(waveCount,settings=>settings.damage +=_damageGrowth);
+    }
+
+    private void UpdateEnemySettings(int waveCount,Action<EnemySettings> update)
+    {
+        if (waveCount % 5 == 0 && waveCount <= 20)
+        {
+            update(_warrok.settings);
+            update(_vampire.settings);
+            update(_mutant.settings);
+            if (waveCount == 20)
+            {
+                SaveEnemySettings();
+            }
+        }
+    }
+    private void SaveEnemySettings()
+    {
+        DataScriptableObject.Save(_mutant.settings, _mutant.settings.enemyName);
+        DataScriptableObject.Save(_vampire.settings, _vampire.settings.enemyName);
+        DataScriptableObject.Save(_warrok.settings, _warrok.settings.enemyName);
+    }
 }

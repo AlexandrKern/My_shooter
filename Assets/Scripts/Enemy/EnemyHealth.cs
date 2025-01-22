@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IEnemyDamageable
 {
     public float deathTimer;
-    public float health;
+    [HideInInspector] public float health;
     public Action<bool> OnDie;
     private EnemyBase _enemyBase;
 
@@ -14,6 +14,7 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
     private void Start()
     {
         _enemyBase = GetComponent<EnemyBase>();
+        health = _enemyBase.settings.health;
     }
     public void TakeDamage(int damage)
     {

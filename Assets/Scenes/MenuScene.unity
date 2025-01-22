@@ -157,6 +157,9 @@ MonoBehaviour:
   _pistol: {fileID: 11400000, guid: 7ade042d537299240b71e059693da6d5, type: 2}
   _mashineGun: {fileID: 11400000, guid: 6a365d59cf412c4428f67beb42e25f09, type: 2}
   _grenadeLauncher: {fileID: 11400000, guid: 5313f14a1aa635b4480c1823b0e85ebd, type: 2}
+  _mutant: {fileID: 11400000, guid: 527a160943ba635419a57bb67a0ba4d4, type: 2}
+  _vampire: {fileID: 11400000, guid: 35fa716ebe15e1e469b92f9b265efbb0, type: 2}
+  _warrok: {fileID: 11400000, guid: 700338374d471384cb6922643582a8e9, type: 2}
 --- !u!4 &1698837
 Transform:
   m_ObjectHideFlags: 0
@@ -7714,50 +7717,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454836739}
   m_CullTransparentMesh: 1
---- !u!1 &458116690
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 458116691}
-  - component: {fileID: 458116692}
-  m_Layer: 0
-  m_Name: InputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &458116691
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458116690}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1473698021}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &458116692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458116690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60ff1538f697cd644ad0c0a022f7a496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &460310795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9356,7 +9315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d418d4b89488f3a4aa75804324779e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 458116692}
+  inputManager: {fileID: 0}
   weponManager: {fileID: 1010129644}
   bulletManager: {fileID: 1993153771}
   animationImageManager: {fileID: 1767564388}
@@ -25200,7 +25159,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 458116691}
   - {fileID: 1010129643}
   - {fileID: 1993153770}
   - {fileID: 1767564387}
