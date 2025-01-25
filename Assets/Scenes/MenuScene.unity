@@ -12816,6 +12816,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 072f6ec272c73c64391bef467d5aa961, type: 3}
   - name: MoneyPickUp
     clip: {fileID: 8300000, guid: 345b7a5e22707c64990965f8738fd3d8, type: 3}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 36a3bb8ec55f88b409fbba42ab98bc87, type: 3}
   _musicSource: {fileID: 1376123907}
   _sfxSource: {fileID: 392029086}
 --- !u!1 &847933651

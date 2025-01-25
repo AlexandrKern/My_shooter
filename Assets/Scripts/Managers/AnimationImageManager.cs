@@ -100,7 +100,6 @@ public class AnimationImageManager : MonoBehaviour
 
     public void AnimationNotification(Image image,Text text)
     {
-        Debug.Log("вызвалась анимашка");
         image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
         text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
 

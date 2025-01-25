@@ -7,6 +7,7 @@ public class BulletController : MonoBehaviour
     private BulletBase _bulletBase;
     private bool _isExplosionTriggered = false;
     private IEnemyDamageable _damageable;
+    [SerializeField] private ParticleSystem _explosionEffect; 
 
     private void Awake()
     {
@@ -78,8 +79,15 @@ public class BulletController : MonoBehaviour
                     enemyRigidbody.AddExplosionForce(explosionBullet.explosionForce, transform.position, explosionBullet.explosionRadius);
                 }
             }
-
-            yield return new WaitForSeconds(0.1f); 
+            _explosionEffect.Play();
+            AudioManager.Instance.PlaySFX("Explosion");
+            CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
+            if (cameraShake != null)
+            {
+                StartCoroutine(cameraShake.Shake());
+                Debug.Log("Трясется");
+            }
+            yield return new WaitForSeconds(0.2f); 
 
             foreach (Rigidbody rb in affectedRigidbodies)
             {
