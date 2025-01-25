@@ -32,21 +32,6 @@ public class UiGameSceneManager : UiBase
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
 
-   
-
-    private void OnEnable()
-    {
-        DataPlayer.OnMoneyChanged += ChangeMonyScreen;
-        GameManager.Instace.bulletManager.OnChangeCountBullet += ChangeBulletCountText;
-        PlayerController.Instace.playerShoot.OnEndedBullet += ShowNatitficationScreen;
-        PlayerController.Instace.playerShoot.OnNextWeapon += ChangeWeaponAnim;
-        PlayerController.Instace.playerShoot.OnChangeBulletCount += ChangeBulletCountText;
-        PlayerController.Instace.playerShoot.OnChangeBulletCountInmagazine += ChangeBulletCountInMagazineText;
-        PlayerController.Instace.playerShoot.OnNextBullet += ChangeBulletImage;
-        PlayerHealth.OnHealthChanged += ChangeHealthBar;
-        PlayerHealth.OnDie += OnDeathScreen;
-        
-    }
     private void OnDisable()
     {
         DataPlayer.OnMoneyChanged -= ChangeMonyScreen;
@@ -63,12 +48,25 @@ public class UiGameSceneManager : UiBase
     }
     private void Start()
     {
+        AudioManager.Instance.PlayMusic("GameSound");
+        DataPlayer.OnMoneyChanged += ChangeMonyScreen;
+        GameManager.Instace.bulletManager.OnChangeCountBullet += ChangeBulletCountText;
+        PlayerController.Instace.playerShoot.OnEndedBullet += ShowNatitficationScreen;
+        PlayerController.Instace.playerShoot.OnNextWeapon += ChangeWeaponAnim;
+        PlayerController.Instace.playerShoot.OnChangeBulletCount += ChangeBulletCountText;
+        PlayerController.Instace.playerShoot.OnChangeBulletCountInmagazine += ChangeBulletCountInMagazineText;
+        PlayerController.Instace.playerShoot.OnNextBullet += ChangeBulletImage;
+        PlayerHealth.OnHealthChanged += ChangeHealthBar;
+        PlayerHealth.OnDie += OnDeathScreen;
         SceneController.Instance.enemyWaveManager.OnCangeWaveCount += ChangeWaveCountText;
         SceneController.Instance.enemyWaveManager.OnCangeTimerValue += ChangeWaveTimerText;
         _currentScreen = _gameScreen;
         ChangeWaveCountText(1);
         SetMoneyCount();
         HandheldPanelActivate(!GameManager.Instace.inputManager.isDesctop);
+
+        ChangeBulletCountText(GameManager.Instace.bulletManager.GetBullet().countBullet);
+        ChangeBulletCountInMagazineText(GameManager.Instace.weponManager.GetWeapon().magazine);
     }
 
     private void HandheldPanelActivate(bool isActiv)
@@ -242,6 +240,7 @@ public class UiGameSceneManager : UiBase
     {
         if (IsDeath)
         {
+            AudioManager.Instance.PlayMusic("GameOverSound");
             ChangeScreen(_gameOverScreen);
             SetTextResultGame();
         }

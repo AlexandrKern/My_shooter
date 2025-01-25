@@ -54,7 +54,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     public abstract void Attack();
 
-    protected virtual IEnumerator AttackCooldown()
+    protected virtual IEnumerator AttackCooldown(string soundName)
     {
         yield return new WaitForSeconds(settings.attackSpeed);
         OnAttack?.Invoke(true);
@@ -63,8 +63,6 @@ public abstract class EnemyBase : MonoBehaviour
 
     public virtual void Move()
     {
-        //Debug.Log("стоит" + _agent.isStopped);
-        //Debug.Log("вращается" + _agent.updateRotation);
        
         if (!PlayerDetected())
         {

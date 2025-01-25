@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,6 +73,20 @@ public class PlayerShoot : MonoBehaviour
         }
         if (IsShoot && !_isRecharge && Time.time >= _lastShootTime + _currentWeapon.fireRate)
         {
+            switch (_currentWeapon.typeOfWepon)
+            {
+                case TypeOfWepon.Pistol:
+                    AudioManager.Instance.PlaySFX("Pistol");
+                    break;
+                case TypeOfWepon.MashineGun:
+                    AudioManager.Instance.PlaySFX("MashineGun");
+                    break;
+                case TypeOfWepon.GrenadeLauncher:
+                    AudioManager.Instance.PlaySFX("GrenadeLauncher");
+                    break;
+                default:
+                    break;
+            }
             bulletBase = GameManager.Instace.bulletManager.GetBullet();
             foreach (TypeOfBullet type in _currentWeapon.typeOfSuitableBullets)
             {
@@ -103,6 +118,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if (isNextWeapon)
         {
+            AudioManager.Instance.PlaySFX("NextItem");
             SetMagazineByTypeBullet();
             GameManager.Instace.weponManager.NextWepon();
             SetRechargeTime();
@@ -143,6 +159,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if (isNextBullet)
         {
+            AudioManager.Instance.PlaySFX("NextItem");
             SetMagazineByTypeBullet();
             GameManager.Instace.bulletManager.NextBullet();
             bulletBase = GameManager.Instace.bulletManager.GetBullet();
@@ -294,6 +311,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if (isRecharge && _countBulletInMagazine != GameManager.Instace.weponManager.GetWeapon().magazine&&bulletBase.countBullet!=0)
         {
+            AudioManager.Instance.PlaySFX("Recharge");
             _isRecharge = isRecharge;
         }
     }

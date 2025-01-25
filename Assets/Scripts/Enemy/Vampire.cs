@@ -14,13 +14,14 @@ public class Vampire : EnemyBase
         {
             OnAttack?.Invoke(false);
             canAttack = false;
-            StartCoroutine(AttackCooldown());
+            StartCoroutine(AttackCooldown(null));
         }
         FaceTarget();
     }
 
     public void Shoot()
     {
+        AudioManager.Instance.PlaySFX("VampireAttack");
         GameObject bullet = Instantiate(_bullet._bulletPrefub, _firePoint.position, Quaternion.identity);
         Vector3 direction = (_playerTransform.position - _firePoint.position).normalized;
         Rigidbody rb = bullet.GetComponent<Rigidbody>();

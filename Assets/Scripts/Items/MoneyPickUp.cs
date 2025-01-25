@@ -15,6 +15,7 @@ public class MoneyPickUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX("MoneyPickUp");
             DataPlayer.AddMoney(_moneyCount);
             Destroy(gameObject);
         }

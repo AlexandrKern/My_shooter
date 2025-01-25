@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour, IPlayerDamagiable
     public int Health => _currentHealth;
     public static  Action<int> OnHealthChanged;
     public static Action<bool> OnDie;
+
+    private bool isDeath = false;
     private void Start()
     {
         _currentHealth = health;
@@ -20,7 +22,13 @@ public class PlayerHealth : MonoBehaviour, IPlayerDamagiable
         OnHealthChanged?.Invoke(_currentHealth);
         if(_currentHealth <= 0)
         {
+            if(!isDeath)
+            {
+                AudioManager.Instance.PlaySFX("CharacterDeath");
+                isDeath = true;
+            }
             _currentHealth = 0;
+            
             OnDie?.Invoke(true);
         }
     }

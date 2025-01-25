@@ -134,6 +134,7 @@ public class PlayerMove : MonoBehaviour
         OnJump?.Invoke(_playerController.CheckIsGrounded() && isButtonJumpPressed);
         if (_playerController.CheckIsGrounded() && isButtonJumpPressed)
         {
+            AudioManager.Instance.PlaySFX("Jump");
             _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
     }

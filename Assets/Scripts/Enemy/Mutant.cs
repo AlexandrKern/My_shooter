@@ -11,7 +11,7 @@ public class Mutant : EnemyBase
         {
             OnAttack?.Invoke(false);
             canAttack = false;
-            StartCoroutine(AttackCooldown());
+            StartCoroutine(AttackCooldown("MutantAttack"));
         }
         FaceTarget();
     }
