@@ -17,13 +17,27 @@ public class AnimationButtonManager : MonoBehaviour
     private Vector3 originalScale;
     #endregion
 
-    #region Button Puslsation
-    [Foldout("Button Puslsation")]
+    #region Button Pulsation
+    [Foldout("Button Pulsation")]
     [SerializeField]
     private float duration = 0.5f;
-    [Foldout("Button Puslsation")]
+    [Foldout("Button Pulsation")]
     [SerializeField]
     private float scaleMultiplier = 1.2f;
+    #endregion
+
+    #region Button Shake
+    [Foldout("Button Shake")]
+    [SerializeField]
+    private float shakeDuration = 0.5f;
+    [Foldout("Button Shake")]
+    [SerializeField]
+    private float shakeStrength = 10f;
+    [Foldout("Button Shake")]
+    [SerializeField]
+    private int shakeVibrato = 10;
+
+    private Tween shakeTween;
     #endregion
 
     public void ButtonPulsation(Button button)
@@ -41,6 +55,29 @@ public class AnimationButtonManager : MonoBehaviour
         {
             button.transform.DOScale(originalScale, durationScale);
         });
+    }
+
+    public void StartButtonShake(Button button)
+    {
+        StopButtonShake();
+
+        shakeTween = button.transform.DOShakePosition(
+            shakeDuration,
+            shakeStrength,
+            shakeVibrato,
+            randomness: 90,
+            snapping: false,
+            fadeOut: false
+        ).SetLoops(-1);
+    }
+
+    public void StopButtonShake()
+    {
+        if (shakeTween != null && shakeTween.IsActive())
+        {
+            shakeTween.Kill();
+            shakeTween = null;
+        }
     }
 
 }

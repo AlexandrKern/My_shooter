@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public bool isDesctop;
     #region UI Handheld
     public Joystick inputMove;
-    public Joystick inputRotate;
     public Button jumpButton;
     public Button nextBulletButton;
     public Button nextWeponButton;
@@ -35,12 +34,10 @@ public class InputManager : MonoBehaviour
                 isDesctop = true;
                 break;
             case DeviceType.Handheld:
-                _currentInputMove = new InputHandheld(inputMove, inputRotate,jumpButton,nextBulletButton,nextWeponButton,rechargeButton,shootButton);
-                _currentInputShoot = new InputHandheld(inputMove, inputRotate, jumpButton, nextBulletButton, nextWeponButton, rechargeButton, shootButton);
+                _currentInputMove = new InputHandheld(inputMove, jumpButton, nextBulletButton, nextWeponButton, rechargeButton);
+                _currentInputShoot = new InputHandheld(inputMove, jumpButton, nextBulletButton, nextWeponButton, rechargeButton);
                 isDesctop = false;
                 break;
         }
-        //_currentInputMove = new InputHandheld(inputMove, inputRotate, jumpButton, nextBulletButton, nextWeponButton, rechargeButton, shootButton);
-        //_currentInputShoot = new InputHandheld(inputMove, inputRotate, jumpButton, nextBulletButton, nextWeponButton, rechargeButton, shootButton);
     }
 }

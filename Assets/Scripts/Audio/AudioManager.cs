@@ -54,7 +54,6 @@ public class AudioManager : MonoBehaviour
         _musicDictionary = _musicSounds.ToDictionary(s => s.name);
         _sfxDictionary = _sfxSounds.ToDictionary(s => s.name);
         LoadAllVolumes();
-        PlayMusic("Background");
     }
 
     private void OnApplicationQuit()

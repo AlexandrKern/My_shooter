@@ -17,6 +17,7 @@ public class AmmoPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySFX("AmmoPickup");
             GameManager.Instace.bulletManager.AddBullets(_ammoAmount, _typeOfBullet);
             Destroy(gameObject);
         }

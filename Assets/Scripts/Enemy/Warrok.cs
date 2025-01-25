@@ -11,7 +11,7 @@ public class Warrok : EnemyBase
         {
             OnAttack?.Invoke(false);
             canAttack = false;
-            StartCoroutine(AttackCooldown());
+            StartCoroutine(AttackCooldown("WarrokAttack"));
         }
         FaceTarget();
     }

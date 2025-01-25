@@ -48,6 +48,7 @@ public class UiMenuManager : UiBase
     }
     private void Start()
     {
+        AudioManager.Instance.PlayMusic("MenuSound");
         _currentScreen = _menuScreen;
         SetMoneyCount();
     }

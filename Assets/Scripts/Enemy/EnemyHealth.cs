@@ -10,6 +10,8 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
     public Action<bool> OnDie;
     private EnemyBase _enemyBase;
 
+    private bool isDeath = false;
+
 
     private void Start()
     {
@@ -19,13 +21,19 @@ public class EnemyHealth : MonoBehaviour, IEnemyDamageable
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) Die();
+        if (health <= 0&&!isDeath) 
+        {
+            Die();
+            isDeath = true;
+        }
+        
     }
 
     private void Die()
     {
         DataPlayer.AddEnemyDeathCount(_enemyBase);
         EnemyManager.Instace.AddEnemyDeathCurrentCount(_enemyBase);
+        AudioManager.Instance.PlaySFX("EnemyDeath");
         OnDie.Invoke(true);
         Destroy(gameObject,deathTimer);
     }

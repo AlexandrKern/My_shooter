@@ -16,7 +16,8 @@ public class HealthPickup : MonoBehaviour
         PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
 
         if (playerHealth != null) 
-        { 
+        {
+            AudioManager.Instance.PlaySFX("HealthPickup");
             playerHealth.AddHealth(_healthAmount);
             InstatiateEffect(playerHealth.transform);
             Destroy(gameObject);

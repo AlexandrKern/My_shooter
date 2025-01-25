@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExplosionBullet", menuName = "Bullets/ExplosionBullet")]
 public class ExplosionBullet : BulletBase
 {
+    [NonSerialized]
     [BoxGroup("Bullet properties")]
     public LayerMask damageableLayers;
 

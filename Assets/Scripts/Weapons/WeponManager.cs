@@ -24,6 +24,11 @@ public class WeponManager : MonoBehaviour
     {
         foreach (Weapon weapon in weapons)
         {
+            if(GameManager.Instace.inputManager != null)
+            {
+                if (!GameManager.Instace.inputManager.isDesctop)
+                    weapon.tyoeOfShooting = TyoeOfShooting.Queue;
+            }
             if (weapon.isUnlock)
             {
                 unlockWeaponList.Add(weapon);

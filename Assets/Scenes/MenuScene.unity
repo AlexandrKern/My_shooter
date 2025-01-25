@@ -3999,6 +3999,9 @@ MonoBehaviour:
   durationScale: 0.1
   duration: 1
   scaleMultiplier: 1.1
+  shakeDuration: 0.5
+  shakeStrength: 10
+  shakeVibrato: 10
 --- !u!1 &249346713
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,7 +6169,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -12776,11 +12779,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _musicSounds:
-  - name: Background
-    clip: {fileID: 8300000, guid: 24056e2f44942604396c92080833f2e6, type: 3}
+  - name: MenuSound
+    clip: {fileID: 8300000, guid: d4cfc70b712c19440857b44f6aa7d1b9, type: 3}
+  - name: GameSound
+    clip: {fileID: 8300000, guid: 99923a1e6d86e184999b88f5b98d2721, type: 3}
+  - name: GameOverSound
+    clip: {fileID: 8300000, guid: 7ece69f3245da874eb8c4a78191ab54c, type: 3}
   _sfxSounds:
   - name: Click
     clip: {fileID: 8300000, guid: 5e6d69aaf6a8b5d4f8ebbeaa39878897, type: 3}
+  - name: Pistol
+    clip: {fileID: 8300000, guid: 049463df52d20af48866a7383773c339, type: 3}
+  - name: Recharge
+    clip: {fileID: 8300000, guid: 806be72f46c3d0f468809d9e24b51774, type: 3}
+  - name: MashineGun
+    clip: {fileID: 8300000, guid: b38114dc89a98ee42be2a534e4a29323, type: 3}
+  - name: GrenadeLauncher
+    clip: {fileID: 8300000, guid: 4836ed317427e4b4789465e413b0d2f1, type: 3}
+  - name: NextItem
+    clip: {fileID: 8300000, guid: 17b8078f043513443a8a96ef8c333e7f, type: 3}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 56dac4f71240dac4eb0e63d740e0ed1c, type: 3}
+  - name: CharacterDeath
+    clip: {fileID: 8300000, guid: 9dd352d7f4345a6449c06ef01ad0b018, type: 3}
+  - name: EnemyDeath
+    clip: {fileID: 8300000, guid: 8cf9d7003c96f314bbbc653d9cea6c61, type: 3}
+  - name: WarrokAttack
+    clip: {fileID: 8300000, guid: 58b125009f42d8740a539a81f0bdd031, type: 3}
+  - name: VampireAttack
+    clip: {fileID: 8300000, guid: d993be7edb5527b44a1191b993150b1e, type: 3}
+  - name: MutantAttack
+    clip: {fileID: 8300000, guid: 11acb4c24bfcb604bbf273d3a8b5eaf4, type: 3}
+  - name: AmmoPickup
+    clip: {fileID: 8300000, guid: 0e50a9614f00ee34fac692926131aaaf, type: 3}
+  - name: HealthPickup
+    clip: {fileID: 8300000, guid: 072f6ec272c73c64391bef467d5aa961, type: 3}
+  - name: MoneyPickUp
+    clip: {fileID: 8300000, guid: 345b7a5e22707c64990965f8738fd3d8, type: 3}
   _musicSource: {fileID: 1376123907}
   _sfxSource: {fileID: 392029086}
 --- !u!1 &847933651
@@ -23070,10 +23105,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

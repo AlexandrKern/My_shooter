@@ -3,10 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonController : MonoBehaviour
+public class ButtonController : MonoBehaviour, IPointerUpHandler, IPointerDownHandler,IDragHandler
 {
+    private IInputShooter _input;
+
     private Button button;
     private Image image;
 
@@ -25,6 +28,8 @@ public class ButtonController : MonoBehaviour
     [ShowIf("buttonType", ButtonType.UpgradeWeapons)]
     public TypeUpgradeWeapon typeWeaponUpgrade;
 
+
+
     private void OnEnable()
     {
         InitializeButtonText();
@@ -33,6 +38,13 @@ public class ButtonController : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.Instace.inputManager != null)
+        {
+            if (!GameManager.Instace.inputManager.isDesctop)
+            {
+                _input = GameManager.Instace.inputManager._currentInputShoot;
+            }
+        }
         button = GetComponent<Button>();
         image = GetComponent<Image>();
         InitializeButtonText();
@@ -67,6 +79,37 @@ public class ButtonController : MonoBehaviour
                 SetEnabledUpgradeButton(money);
             }
         };
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (buttonType != ButtonType.Shoot) return;
+        if (_input is InputHandheld handheld)
+        {
+            GameManager.Instace.animationButtonManager.StopButtonShake();
+            handheld.OnShootButtonUp();
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if ( buttonType!=ButtonType.Shoot) return;
+        if (_input is InputHandheld handheld)
+        {
+            GameManager.Instace.animationButtonManager.StartButtonShake(button);
+            handheld.OnShootButtonDown();
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (buttonType == ButtonType.Shoot)
+        {
+            if (_input is InputHandheld handheld)
+            {
+                handheld.OnShootButtonDown();
+            }
+        }
     }
 
     private void SetButtonAnimation()
@@ -116,9 +159,30 @@ public class ButtonController : MonoBehaviour
     }
     public void ButtonClicked() 
     { 
+
         SceneController.Instance.uiBase.ButtonPress(this);
         GameManager.Instace.animationButtonManager.ButtonChangeScale(button);
-        //AudioManager.Instance.PlaySFX("Click");
+        ButtonSound();
+    }
+
+    private void ButtonSound()
+    {
+        switch (buttonType)
+        {
+            case ButtonType.NextBullet:
+                break;
+            case ButtonType.NextWeapon:
+                break;
+            case ButtonType.Reacharge:
+                break;
+            case ButtonType.Jump:
+                break;
+            case ButtonType.Shoot:
+                break;
+            default:
+                AudioManager.Instance.PlaySFX("Click");
+                break;
+        }
     }
 
     #region Initialize button text
@@ -365,6 +429,8 @@ public class ButtonController : MonoBehaviour
         }
     }
 
+    
+
     #endregion
 }
 public enum ButtonType
@@ -390,7 +456,12 @@ public enum ButtonType
     Continue,
     Back,
     Return,
-    End
+    End,
+    NextBullet,
+    NextWeapon,
+    Reacharge,
+    Jump,
+    Shoot
 }
 
 public enum TypeUpgradeWeapon
