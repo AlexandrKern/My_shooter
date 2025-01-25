@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b25b0001c87a37741b91d954c1de6b42, type: 3}
-  countBullet: 5
+  countBullet: 0
   priceBullet: 100
-  isUnlock: 0
+  isUnlock: 1
   bulletName: ExplosionBullet
   bulletPrefub: {fileID: 8121584145642229360, guid: 6e280fb5a9f0c804ba82802c17c20100, type: 3}
   typeOfBullet: 1
@@ -30,9 +30,6 @@ MonoBehaviour:
   howMuchUpgradeDamage: 10
   maxDamage: 110
   priceDamage: 200
-  damageableLayers:
-    serializedVersion: 2
-    m_Bits: 64
   countOfUpgradesRadius: 10
   priceRadius: 300
   howMuchExplosionRadius: 1
