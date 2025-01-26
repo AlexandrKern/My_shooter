@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _spawnPoints;
+
+    public event Action<Transform> OnItemSpawned;
 
     [System.Serializable]
     private class ItemSpawnData
@@ -49,7 +52,9 @@ public class ItemSpawner : MonoBehaviour
         if (spawnPoint != null)
         {
             Vector3 spawnPosition = spawnPoint.position + Vector3.up * 0.5f; 
-            Instantiate(itemData.itemPrefab, spawnPosition, Quaternion.identity);
+            GameObject item = Instantiate(itemData.itemPrefab, spawnPosition, Quaternion.identity);
+            OnItemSpawned?.Invoke(item.transform);
+
         }
     }
 
