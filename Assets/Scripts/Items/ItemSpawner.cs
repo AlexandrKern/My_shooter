@@ -60,27 +60,18 @@ public class ItemSpawner : MonoBehaviour
 
     private Transform GetAvailableSpawnPoint()
     {
+        int layerMask = LayerMask.GetMask("Item");
+
         foreach (var spawnPoint in _spawnPoints)
         {
-            Collider[] colliders = Physics.OverlapSphere(spawnPoint.position, 0.5f); 
-            bool isOccupied = false;
-
-            foreach (var collider in colliders)
-            {
-                if (collider.CompareTag("Item")) 
-                {
-                    isOccupied = true;
-                    break;
-                }
-            }
-
-            if (!isOccupied)
+            Collider[] colliders = Physics.OverlapSphere(spawnPoint.position, 0.5f, layerMask);
+            if (colliders.Length == 0)
             {
                 return spawnPoint;
             }
         }
 
-        return null; 
+        return null;
     }
 }
 

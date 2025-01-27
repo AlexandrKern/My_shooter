@@ -20,12 +20,14 @@ public class UiMenuManager : UiBase
     [SerializeField] private GameObject _audioScreen;
     [SerializeField] private GameObject _сonfirmImaage;
     [SerializeField] private GameObject _сonfirmPanel;
+    [SerializeField] private GameObject _statsPanel;
 
     [SerializeField] private Text _playerMonyText;
     [SerializeField] private Text _notificationText;
     [SerializeField] private Text _warningText;
+    [SerializeField] private Text _enemyDeathCountText;
 
-    [SerializeField] private Image _notificationScreen;
+   [SerializeField] private Image _notificationScreen;
     
 
 
@@ -111,6 +113,10 @@ public class UiMenuManager : UiBase
                 break;
             case ButtonType.UpgradeWeapons:
                 GameManager.Instace.weponManager.UpgradeWepon(buttonController);
+                break;
+            case ButtonType.Stats:
+                ChangeScreen(_statsPanel);
+                SetTextStatsGame();
                 break;
             default:
                 break;
@@ -223,6 +229,16 @@ public class UiMenuManager : UiBase
         }
 
         _playerMonyText.text = targetMoney.ToString();
+    }
+
+    private void SetTextStatsGame()
+    {
+        if (_enemyDeathCountText == null) return;
+        _enemyDeathCountText.gameObject.SetActive(true);
+        _enemyDeathCountText.text = $"Уничтожено\n" +
+            $"мутантов: {DataPlayer.GetEnemyDeathCount("mutant")}\n" +
+            $"вампиров: {DataPlayer.GetEnemyDeathCount("vampire")}\n" +
+            $"орков: {DataPlayer.GetEnemyDeathCount("warrok")}";
     }
 
 }

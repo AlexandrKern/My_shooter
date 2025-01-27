@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5927318286483029549}
   - component: {fileID: 434304298403244070}
   - component: {fileID: 1460411910648886870}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OrdinaryPickUp
-  m_TagString: Item
+  m_TagString: OrdinaryBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 8514045080192214320}
   - component: {fileID: 2363014779144953984}
   - component: {fileID: 3798708285006378956}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpikeBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8533677688201028274}
   - component: {fileID: 5596422700070997288}
   - component: {fileID: 8208177897619001714}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

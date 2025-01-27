@@ -37,6 +37,3 @@ MonoBehaviour:
   priceMagazine: 1
   magazine: 10
   maxCountBulletInMagazine: 60
-  countRotationBullet: 10
-  countExplosionBullet: 10
-  countOrdinaryBullet: 8

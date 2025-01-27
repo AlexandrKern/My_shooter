@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9005075224261076556}
   - component: {fileID: 6530772390315296362}
   - component: {fileID: 1065820115831929068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SplitMetalBall
-  m_TagString: Item
+  m_TagString: RotationBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 6019926484898578982}
   - component: {fileID: 235177980766459945}
   - component: {fileID: 2958299423277974291}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'Particle System '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4912,7 +4912,7 @@ GameObject:
   - component: {fileID: 5246768308436657620}
   - component: {fileID: 184478807477414768}
   - component: {fileID: 3945778420204728792}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SplitMetalBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - RotationBullet
+  - OrdinaryBullet
+  - ExplosionBullet
+  - Heal
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - Enemy
   - Player
   - Wall
-  - 
+  - Item
   - 
   - 
   - 
