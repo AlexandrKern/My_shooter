@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrdinaryBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 77f83157e21cde54b9640a360085c21b, type: 3}
-  countBullet: 50
+  countBullet: 80
   priceBullet: 100
   isUnlock: 1
   bulletName: OrdinaryBullet

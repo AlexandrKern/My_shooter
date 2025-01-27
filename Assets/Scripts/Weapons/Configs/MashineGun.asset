@@ -15,7 +15,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   currrentCountBullet: 20
   priceWeapon: 50000
-  isUnlock: 1
+  isUnlock: 0
   weaponName: MashineGun
   typeOfWepon: 1
   weaponPrefub: {fileID: 5026979148904666650, guid: 09fbb86e99a5b244797c961f397976f8, type: 3}
@@ -37,6 +37,3 @@ MonoBehaviour:
   priceMagazine: 500
   magazine: 20
   maxCountBulletInMagazine: 170
-  countRotationBullet: 20
-  countExplosionBullet: 20
-  countOrdinaryBullet: 20

@@ -461,7 +461,8 @@ public enum ButtonType
     NextWeapon,
     Reacharge,
     Jump,
-    Shoot
+    Shoot,
+    Stats
 }
 
 public enum TypeUpgradeWeapon

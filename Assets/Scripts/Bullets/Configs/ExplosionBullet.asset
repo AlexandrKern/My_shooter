@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ExplosionBullet
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b25b0001c87a37741b91d954c1de6b42, type: 3}
-  countBullet: 0
+  countBullet: 5
   priceBullet: 100
-  isUnlock: 1
+  isUnlock: 0
   bulletName: ExplosionBullet
   bulletPrefub: {fileID: 8121584145642229360, guid: 6e280fb5a9f0c804ba82802c17c20100, type: 3}
   typeOfBullet: 1
