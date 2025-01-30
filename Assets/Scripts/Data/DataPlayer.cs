@@ -39,7 +39,6 @@ public static class DataPlayer
         playerStats.money -= money;
         OnMoneyChanged?.Invoke(playerStats.money);
         Save();
-        Debug.Log("Оставшиеся деньги" + playerStats.money);
     }
 
     public static void AddMoney(int money)

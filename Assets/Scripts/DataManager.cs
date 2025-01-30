@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -17,6 +16,7 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
+        //ClearSaveData();
         DataPlayer.Load();
         SetBulletCount();
         _ordinaryBullet = DataScriptableObject.Load(_ordinaryBullet, _ordinaryBullet.bulletName);
@@ -27,7 +27,7 @@ public class DataManager : MonoBehaviour
         _mashineGun = DataScriptableObject.Load(_mashineGun, _mashineGun.weaponName);
         _grenadeLauncher = DataScriptableObject.Load(_grenadeLauncher, _grenadeLauncher.weaponName);
 
-        _mutant = DataScriptableObject.Load(_mutant,_mutant.enemyName);
+        _mutant = DataScriptableObject.Load(_mutant, _mutant.enemyName);
         _vampire = DataScriptableObject.Load(_vampire, _vampire.enemyName);
         _warrok = DataScriptableObject.Load(_warrok, _warrok.enemyName);
     }
@@ -48,5 +48,31 @@ public class DataManager : MonoBehaviour
         _ordinaryBullet.countBullet = 50;
         _expsionBullet.countBullet = 5;
         _rotationBullet.countBullet = 10;
+    }
+
+    void ClearSaveData()
+    {
+        string path = Application.persistentDataPath;
+
+        if (Directory.Exists(path))
+        {
+            DirectoryInfo directory = new DirectoryInfo(path);
+
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                file.Delete();
+            }
+
+            foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+            {
+                subDirectory.Delete(true); // true - рекурсивное удаление всех вложенных файлов и папок
+            }
+
+            Debug.Log("Все сохраненные файлы удалены.");
+        }
+        else
+        {
+            Debug.LogWarning("Папка сохранений не найдена.");
+        }
     }
 }

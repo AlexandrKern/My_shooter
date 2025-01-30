@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -118,15 +115,12 @@ public class PlayerMove : MonoBehaviour
     }
     private void RotateUsingTouch(Vector3 touchPosition)
     {
-        //управление телефоном
         if (touchPosition == Vector3.zero) return;
 
-        Quaternion faceOffsetRotation = Quaternion.Euler(0, _rotationOffsetAngle, 0);
-        Vector3 adjustedDirection = faceOffsetRotation * touchPosition;
+        float rotationSpeed = 13f;
+        float rotationAmount = touchPosition.x * rotationSpeed * Time.deltaTime;
 
-        Quaternion targetRotation = Quaternion.LookRotation(adjustedDirection);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        transform.Rotate(0, rotationAmount, 0);
     }
 
     public void Jump(bool isButtonJumpPressed)

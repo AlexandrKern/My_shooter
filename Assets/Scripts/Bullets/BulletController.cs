@@ -85,7 +85,6 @@ public class BulletController : MonoBehaviour
             if (cameraShake != null)
             {
                 StartCoroutine(cameraShake.Shake());
-                Debug.Log("Трясется");
             }
             yield return new WaitForSeconds(0.2f); 
 
@@ -108,13 +107,11 @@ public class BulletController : MonoBehaviour
            
             enemy.isMove = false;
             rb.isKinematic = false;
-            Debug.Log("Объект крутиться");
             float elapsedTime = 0f;
             MeshRenderer renderer = gameObject.GetComponent<MeshRenderer>();
             if (renderer != null) renderer.enabled = false;
             while (elapsedTime < rotationDuration)
             {
-                Debug.Log(elapsedTime);
                 target.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
                 elapsedTime += Time.deltaTime;
                 yield return null;

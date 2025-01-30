@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,26 +38,23 @@ public class InputHandheld : IInputMove, IInputShooter
         float horizontal = _inputMove.Horizontal;
         float vertical = _inputMove.Vertical;
 
-        return new Vector3(horizontal, 0, vertical);
+        return new Vector3(horizontal, 0, vertical).normalized;
     }
 
     public Vector3 GetMousePosition()
     {
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.position.x > Screen.width * 0.3f)
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                if (touch.phase == TouchPhase.Moved)
-                {
-                    Vector2 deltaPosition = touch.deltaPosition;
+                Touch touch = Input.GetTouch(i);
 
-                    return new Vector3(deltaPosition.x, 0, deltaPosition.y).normalized;
+                if (touch.position.x > Screen.width * 0.4f && touch.phase == TouchPhase.Moved)
+                {
+                    return new Vector3(touch.deltaPosition.x, 0, 0);
                 }
             }
         }
-
         return Vector3.zero;
     }
 
@@ -92,7 +87,6 @@ public class InputHandheld : IInputMove, IInputShooter
     {
        return false;
     }
-    // Методы для обработки нажатий на кнопки
     private void OnJumpButtonPressed()
     {
         _isJumpPressed = true;

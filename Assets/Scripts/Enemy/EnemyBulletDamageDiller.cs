@@ -19,6 +19,10 @@ public class EnemyBulletDamageDiller : MonoBehaviour
             damageable.TakeDamage(enemy.settings.damage);
             Destroy(gameObject);
         }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
         
     }
 }

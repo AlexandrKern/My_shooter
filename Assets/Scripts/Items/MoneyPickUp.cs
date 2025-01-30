@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoneyPickUp : MonoBehaviour
 {
-    [SerializeField] private int _moneyCount;
+    [SerializeField] private int _minMoneyCount = 1;
+    [SerializeField] private int _maxMoneyCount = 10; 
+    private int _moneyCount;
 
     private void Start()
     {
+        _moneyCount = Random.Range(_minMoneyCount, _maxMoneyCount + 1);
         GameManager.Instace.animationObjectsManager.AnimateObject(transform);
     }
 

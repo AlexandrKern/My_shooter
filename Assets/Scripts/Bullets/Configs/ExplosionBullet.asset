@@ -40,7 +40,7 @@ MonoBehaviour:
   howMuchExplosionForce: 1000
   explosionForce: 1000
   maxExplosionForce: 11000
-  countOfUpgradesTimer: 100
+  countOfUpgradesTimer: 10
   priceTimer: 200
   howMuchExplosionTimer: 0.4
   explosionTimer: 4.1

@@ -1,8 +1,6 @@
 using DG.Tweening;
 using NaughtyAttributes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,10 +43,10 @@ public class AnimationImageManager : MonoBehaviour
     #region Image Weapon
     [Foldout("Image Weapon")]
     [SerializeField] 
-    private float pulseScale = 1.2f;   // Максимальный размер во время пульсации
+    private float pulseScale = 1.2f;   
     [Foldout("Image Weapon")]
     [SerializeField] 
-    private float duration = 0.5f;     // Длительность анимации
+    private float duration = 0.5f;     
     private bool isAnimating = false;
 
 
@@ -155,7 +153,6 @@ public class AnimationImageManager : MonoBehaviour
 
     private void UpdateHealthBarColor(float health, Image healthImage)
     {
-
         Color currentColor = Color.Lerp(lowHealthColor, fullHealthColor, health);
         healthImage.color = currentColor;
     }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -84,7 +83,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void FaceTarget()
     {
         Vector3 direction = _playerTransform.position - _enemyTransform.position;
-        direction.y = 0; // Игнорируем вертикальную ось
+        direction.y = 0; 
 
         if (direction != Vector3.zero)
         {
