@@ -118,6 +118,9 @@ public class UiMenuManager : UiBase
                 ChangeScreen(_statsPanel);
                 SetTextStatsGame();
                 break;
+            case ButtonType.Quit:
+                Application.Quit();
+                break;
             default:
                 break;
         }

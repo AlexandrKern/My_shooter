@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    [SerializeField] private int _healthAmount;
+    [SerializeField] private int _minHealthAmount = 1; 
+    [SerializeField] private int _maxHealthAmount = 10; 
+    private int _healthAmount;
+
     [SerializeField] private GameObject _effectPrefub;
 
     private void Start()
     {
+        _healthAmount = Random.Range(_minHealthAmount, _maxHealthAmount + 1);
         GameManager.Instace.animationObjectsManager.AnimateObject(transform);
     }
     private void OnTriggerEnter(Collider other)

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mutant
   m_EditorClassIdentifier: 
   enemyName: Mutant
-  moveSpeed: 3
+  moveSpeed: 4
   attackSpeed: 1
   attackRange: 2
-  damage: 1
-  health: 5
+  damage: 6
+  health: 10

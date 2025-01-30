@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,6 +30,8 @@ public class UiGameSceneManager : UiBase
 
     private GameObject _currentScreen;
     private Coroutine _updateMoneyCoroutine;
+
+    private bool isDeath = false;
 
     private void OnDisable()
     {
@@ -240,7 +241,11 @@ public class UiGameSceneManager : UiBase
     {
         if (IsDeath)
         {
-            AudioManager.Instance.PlayMusic("GameOverSound");
+            if (!this.isDeath)
+            {
+                AudioManager.Instance.PlayMusic("GameOverSound");
+                isDeath = true;
+            }
             ChangeScreen(_gameOverScreen);
             SetTextResultGame();
         }

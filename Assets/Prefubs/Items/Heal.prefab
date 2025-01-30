@@ -120,7 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92827416c559b24e9771b25cff86ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthAmount: 10
+  _minHealthAmount: 5
+  _maxHealthAmount: 15
   _effectPrefub: {fileID: 7283683061220003710, guid: 203021df83095a1418dca56f36186d11, type: 3}
 --- !u!1 &6151931004414823558
 GameObject:

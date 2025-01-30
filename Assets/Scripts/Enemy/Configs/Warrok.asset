@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Warrok
   m_EditorClassIdentifier: 
   enemyName: Warrok
-  moveSpeed: 4
+  moveSpeed: 4.5
   attackSpeed: 1
   attackRange: 3
-  damage: 3
-  health: 15
+  damage: 8
+  health: 20

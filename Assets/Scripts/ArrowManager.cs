@@ -1,26 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; // Подключаем DOTween
+using DG.Tweening;
 
 public class ArrowManager : MonoBehaviour
 {
     [System.Serializable]
     public class ArrowPrefabMapping
     {
-        public string ItemTag; // Тег предмета
-        public GameObject ArrowPrefab; // Префаб стрелки для этого предмета
+        public string ItemTag;
+        public GameObject ArrowPrefab;
     }
 
-    public List<ArrowPrefabMapping> arrowPrefabMappings; // Список тегов и соответствующих префабов
-    public Canvas canvas; // Canvas, в котором будут отображаться стрелки
-    public ItemSpawner itemSpawner; // Ссылка на скрипт, который спавнит предметы
+    public List<ArrowPrefabMapping> arrowPrefabMappings;
+    public Canvas canvas;
+    public ItemSpawner itemSpawner;
 
     private Dictionary<string, GameObject> arrowPrefabsByTag = new Dictionary<string, GameObject>();
     private List<ItemArrowPair> itemArrowPairs = new List<ItemArrowPair>();
 
     void Start()
     {
-        // Заполняем словарь префабов по тегам
         foreach (var mapping in arrowPrefabMappings)
         {
             if (!arrowPrefabsByTag.ContainsKey(mapping.ItemTag))
@@ -53,24 +52,20 @@ public class ArrowManager : MonoBehaviour
 
     private void HandleItemSpawned(Transform itemTransform)
     {
-
-        string itemTag = itemTransform.tag; // Получаем тег предмета
+        string itemTag = itemTransform.tag;
 
         if (arrowPrefabsByTag.TryGetValue(itemTag, out GameObject arrowPrefab))
         {
-            // Создаем стрелку для нового объекта
             GameObject newArrow = Instantiate(arrowPrefab, canvas.transform);
             RectTransform arrowRect = newArrow.GetComponent<RectTransform>();
 
-            // Настраиваем анимацию пульсации с помощью DOTween
             arrowRect.DOScale(1.2f, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(-1, LoopType.Yoyo);
 
-            // Создаём пару и сразу позиционируем стрелку
             ItemArrowPair newPair = new ItemArrowPair { Item = itemTransform, Arrow = arrowRect };
             itemArrowPairs.Add(newPair);
-            UpdateArrow(newPair); // Сразу позиционируем стрелку
+            UpdateArrow(newPair);
         }
         else
         {
@@ -82,36 +77,43 @@ public class ArrowManager : MonoBehaviour
     {
         Transform item = pair.Item;
         RectTransform arrow = pair.Arrow;
+        Camera cam = Camera.main;
+        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(item.position);
+        Vector3 screenPos = cam.WorldToScreenPoint(item.position);
 
-        // Если объект на экране, скрываем стрелку
-        if (screenPos.z > 0 && screenPos.x >= 0 && screenPos.x <= Screen.width && screenPos.y >= 0 && screenPos.y <= Screen.height)
+        if (screenPos.z < 0)
         {
-            arrow.gameObject.SetActive(false);
-            return;
+            // Если объект за камерой, инвертируем экранные координаты
+            screenPos.x = Screen.width - screenPos.x;
+            screenPos.y = Screen.height - screenPos.y;
+        }
+
+        bool isOffScreen = screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height;
+
+        if (isOffScreen)
+        {
+            arrow.gameObject.SetActive(true);
+
+            Vector3 direction = (screenPos - screenCenter).normalized;
+            float borderOffsetX = 50f; 
+            float borderOffsetY = 50f; 
+
+            float maxX = Screen.width - borderOffsetX;
+            float maxY = Screen.height - borderOffsetY;
+
+            screenPos.x = Mathf.Clamp(screenPos.x, borderOffsetX, maxX);
+            screenPos.y = Mathf.Clamp(screenPos.y, borderOffsetY, maxY);
+
+            arrow.position = screenPos;
+
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            arrow.rotation = Quaternion.Euler(0, 0, angle);
         }
         else
         {
-            arrow.gameObject.SetActive(true);
+            arrow.gameObject.SetActive(false);
         }
-
-        // Ограничиваем положение стрелки краями экрана
-        screenPos.x = Mathf.Clamp(screenPos.x, 50, Screen.width - 50);
-        screenPos.y = Mathf.Clamp(screenPos.y, 50, Screen.height - 50);
-
-        // Перемещаем стрелку в нужное место
-        arrow.position = screenPos;
-
-        // Рассчитываем направление к предмету
-        Vector3 direction = item.position - Camera.main.transform.position;
-        direction.z = 0;
-
-        // Вычисляем угол поворота
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Устанавливаем поворот стрелки
-        arrow.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
     private class ItemArrowPair
@@ -120,6 +122,7 @@ public class ArrowManager : MonoBehaviour
         public RectTransform Arrow;
     }
 }
+
 
 
 

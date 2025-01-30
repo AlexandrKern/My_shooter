@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -169,8 +168,8 @@ public class AudioManager : MonoBehaviour
         while (currentTime < _fadeDuration)
         {
             currentTime += Time.deltaTime;
-            _musicSource.volume = Mathf.Lerp(0f, _currentMusicVolume, currentTime / _fadeDuration) * _masterVolume; // ѕлавно увеличивае громкость
-            yield return null; // ∆дет до следующего кадра
+            _musicSource.volume = Mathf.Lerp(0f, _currentMusicVolume, currentTime / _fadeDuration) * _masterVolume; 
+            yield return null; 
         }
 
         _musicSource.volume = _currentMusicVolume * _masterVolume;

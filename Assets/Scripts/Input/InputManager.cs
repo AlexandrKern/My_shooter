@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +35,8 @@ public class InputManager : MonoBehaviour
                 _currentInputShoot = new InputHandheld(inputMove, jumpButton, nextBulletButton, nextWeponButton, rechargeButton);
                 isDesctop = false;
                 break;
+
+
         }
     }
 }

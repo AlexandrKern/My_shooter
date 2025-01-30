@@ -9,6 +9,7 @@ TagManager:
   - OrdinaryBullet
   - ExplosionBullet
   - Heal
+  - Wall
   layers:
   - Default
   - TransparentFX
